@@ -26,6 +26,7 @@ our $Type = ordered_hash(
     'StandaloneTerminalCapability' => 'Standalone Terminal',
     'RoomProviderCapability' => 'Room Provider',
     'RecordingCapability' => 'Recording',
+    'CapacityCapability' => 'Capacity',
 );
 
 #
@@ -88,6 +89,13 @@ sub on_init()
                     'title' => 'Alias Type',
                     'enum' => $Shongo::ClientCli::API::Alias::Type
                  }
+            });
+        }
+        case 'CapacityCapability' {
+            $self->add_attribute('capacity', {
+                'title' => 'Capacity',
+                'required' => 1,
+                'type' => 'int'
             });
         }
         case 'ValueProviderCapability' {

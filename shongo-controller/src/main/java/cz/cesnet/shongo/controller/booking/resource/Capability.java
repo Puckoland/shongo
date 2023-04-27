@@ -5,7 +5,6 @@ import cz.cesnet.shongo.TodoImplementException;
 import cz.cesnet.shongo.controller.booking.alias.AliasProviderCapability;
 import cz.cesnet.shongo.controller.booking.recording.RecordingCapability;
 import cz.cesnet.shongo.controller.booking.room.RoomProviderCapability;
-import cz.cesnet.shongo.controller.booking.specification.Specification;
 import cz.cesnet.shongo.controller.booking.value.ValueProviderCapability;
 import org.joda.time.DateTime;
 
@@ -98,6 +97,9 @@ public abstract class Capability extends SimplePersistentObject
         if (api instanceof cz.cesnet.shongo.controller.api.RoomProviderCapability) {
             capability = new RoomProviderCapability();
         }
+        else if (api instanceof cz.cesnet.shongo.controller.api.CapacityCapability) {
+            capability = new CapacityCapability();
+        }
         else if (api instanceof cz.cesnet.shongo.controller.api.StandaloneTerminalCapability) {
             capability = new StandaloneTerminalCapability();
         }
@@ -158,6 +160,8 @@ public abstract class Capability extends SimplePersistentObject
     static {
         CLASS_BY_API.put(cz.cesnet.shongo.controller.api.RoomProviderCapability.class,
                 RoomProviderCapability.class);
+        CLASS_BY_API.put(cz.cesnet.shongo.controller.api.CapacityCapability.class,
+                CapacityCapability.class);
         CLASS_BY_API.put(cz.cesnet.shongo.controller.api.TerminalCapability.class,
                 TerminalCapability.class);
         CLASS_BY_API.put(cz.cesnet.shongo.controller.api.StandaloneTerminalCapability.class,
