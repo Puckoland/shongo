@@ -2,8 +2,8 @@ package cz.cesnet.shongo.controller.booking.room.settting;
 
 import cz.cesnet.shongo.api.AbstractComplexType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
 /**
  * Represents a {@link RoomSetting} for a {@link cz.cesnet.shongo.controller.booking.room.RoomEndpoint} which

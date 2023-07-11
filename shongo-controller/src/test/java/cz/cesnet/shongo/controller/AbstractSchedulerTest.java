@@ -11,7 +11,7 @@ import org.joda.time.Interval;
 import org.junit.After;
 import org.junit.Before;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 /**
  * Tests for {@link cz.cesnet.shongo.controller.booking.compartment.CompartmentReservationTask}.

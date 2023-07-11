@@ -35,8 +35,8 @@ import cz.cesnet.shongo.controller.util.iCalendar;
 import cz.cesnet.shongo.report.Report;
 import org.joda.time.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import java.util.*;
 
 /**
@@ -54,7 +54,7 @@ public class ReservationServiceImpl extends AbstractServiceImpl
     private Cache cache;
 
     /**
-     * @see javax.persistence.EntityManagerFactory
+     * @see jakarta.persistence.EntityManagerFactory
      */
     private EntityManagerFactory entityManagerFactory;
 

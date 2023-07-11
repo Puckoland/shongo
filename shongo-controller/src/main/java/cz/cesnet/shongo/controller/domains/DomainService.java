@@ -29,12 +29,12 @@ import org.joda.time.Interval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -48,7 +48,7 @@ public class DomainService extends AbstractServiceImpl implements Component.Enti
     private static Logger logger = LoggerFactory.getLogger(DomainService.class);
 
     /**
-     * @see javax.persistence.EntityManagerFactory
+     * @see jakarta.persistence.EntityManagerFactory
      */
     private EntityManagerFactory entityManagerFactory;
 
@@ -903,8 +903,8 @@ public class DomainService extends AbstractServiceImpl implements Component.Enti
 
             CriteriaQuery<ForeignPerson> query = criteriaBuilder.createQuery(ForeignPerson.class);
             Root<ForeignPerson> domainRoot = query.from(ForeignPerson.class);
-            javax.persistence.criteria.Predicate paramDomain = criteriaBuilder.equal(domainRoot.get("domain"), domainId);
-            javax.persistence.criteria.Predicate paramUser = criteriaBuilder.equal(domainRoot.get("userId"), userId);
+            jakarta.persistence.criteria.Predicate paramDomain = criteriaBuilder.equal(domainRoot.get("domain"), domainId);
+            jakarta.persistence.criteria.Predicate paramUser = criteriaBuilder.equal(domainRoot.get("userId"), userId);
             query.select(domainRoot);
             query.where(paramDomain, paramUser);
 

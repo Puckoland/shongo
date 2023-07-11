@@ -2,8 +2,8 @@ package cz.cesnet.shongo.controller.booking.streaming;
 
 import cz.cesnet.shongo.controller.booking.resource.DeviceCapability;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
 
 /**
  * Capability tells that the {@link cz.cesnet.shongo.controller.booking.resource.DeviceResource} can stream a call.

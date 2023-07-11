@@ -37,8 +37,8 @@ import cz.cesnet.shongo.controller.domains.DomainsConnector;
 import cz.cesnet.shongo.controller.domains.InterDomainAgent;
 import cz.cesnet.shongo.jade.SendLocalCommand;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import java.util.*;
 
 /**
@@ -56,7 +56,7 @@ public class ResourceControlServiceImpl extends AbstractServiceImpl
     private ControllerAgent controllerAgent;
 
     /**
-     * @see javax.persistence.EntityManagerFactory
+     * @see jakarta.persistence.EntityManagerFactory
      */
     private EntityManagerFactory entityManagerFactory;
 

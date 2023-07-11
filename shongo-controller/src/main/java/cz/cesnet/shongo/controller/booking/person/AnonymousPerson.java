@@ -5,7 +5,7 @@ import cz.cesnet.shongo.api.AbstractComplexType;
 import cz.cesnet.shongo.controller.api.Controller;
 import cz.cesnet.shongo.controller.authorization.Authorization;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Person that can be contacted.

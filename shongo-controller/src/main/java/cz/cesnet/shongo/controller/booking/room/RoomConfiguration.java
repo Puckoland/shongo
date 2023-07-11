@@ -5,7 +5,7 @@ import cz.cesnet.shongo.Technology;
 import cz.cesnet.shongo.api.AbstractComplexType;
 import cz.cesnet.shongo.controller.booking.room.settting.RoomSetting;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 
 /**

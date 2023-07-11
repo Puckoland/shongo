@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.xml.sax.SAXException;
 
-import javax.servlet.ServletConfig;
+import jakarta.servlet.ServletConfig;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

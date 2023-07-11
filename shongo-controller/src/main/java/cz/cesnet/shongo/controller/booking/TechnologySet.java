@@ -4,7 +4,7 @@ import cz.cesnet.shongo.SimplePersistentObject;
 import cz.cesnet.shongo.Technology;
 import cz.cesnet.shongo.api.AbstractComplexType;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;

@@ -5,7 +5,7 @@ import cz.cesnet.shongo.hibernate.PersistentDateTime;
 import cz.cesnet.shongo.report.AbstractReport;
 import org.joda.time.DateTime;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * @author Martin Srom <martin.srom@cesnet.cz>

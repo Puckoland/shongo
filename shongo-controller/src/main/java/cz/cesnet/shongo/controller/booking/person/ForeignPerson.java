@@ -8,7 +8,7 @@ import cz.cesnet.shongo.controller.booking.domain.Domain;
 import cz.cesnet.shongo.controller.cache.DomainCache;
 import cz.cesnet.shongo.controller.domains.InterDomainAgent;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Person that can be contacted and has principal names.

@@ -10,9 +10,9 @@ import cz.cesnet.shongo.controller.scheduler.*;
 import cz.cesnet.shongo.util.ObjectHelper;
 import org.joda.time.Interval;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.OneToOne;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.OneToOne;
 
 /**
  * Represents a specific existing resource in the compartment.

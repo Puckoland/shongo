@@ -12,7 +12,7 @@ import cz.cesnet.shongo.controller.scheduler.*;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-import javax.persistence.Tuple;
+import jakarta.persistence.Tuple;
 import java.util.*;
 
 /**

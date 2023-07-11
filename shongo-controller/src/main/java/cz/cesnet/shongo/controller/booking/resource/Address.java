@@ -3,8 +3,8 @@ package cz.cesnet.shongo.controller.booking.resource;
 import cz.cesnet.shongo.PersistentObject;
 import cz.cesnet.shongo.api.AbstractComplexType;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 /**
  * Represents a physical address of a device (IP address or URL).

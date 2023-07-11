@@ -1,7 +1,7 @@
 package cz.cesnet.shongo;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 /**
  * Represents a transaction in {@link EntityManager}.

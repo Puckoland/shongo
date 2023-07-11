@@ -29,7 +29,7 @@ import org.joda.time.Period;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

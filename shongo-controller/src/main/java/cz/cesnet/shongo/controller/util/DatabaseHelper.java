@@ -7,9 +7,9 @@ import org.hsqldb.util.DatabaseManagerSwing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.SQLException;

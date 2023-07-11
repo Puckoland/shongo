@@ -4,9 +4,9 @@ import cz.cesnet.shongo.SimplePersistentObject;
 import cz.cesnet.shongo.TodoImplementException;
 import cz.cesnet.shongo.util.ObjectHelper;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 /**
  * Represents a setting for a {@link cz.cesnet.shongo.controller.booking.room.RoomEndpoint}.

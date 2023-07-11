@@ -24,10 +24,10 @@ import cz.cesnet.shongo.controller.booking.value.provider.ValueProvider;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import java.util.*;
 
 /**
@@ -397,8 +397,8 @@ public class ReservationManager extends AbstractManager
         Root<ResourceReservation> domainRoot = query.from(ResourceReservation.class);
         query.select(criteriaBuilder.count(domainRoot));
 
-        javax.persistence.criteria.Predicate resourceParam = criteriaBuilder.equal(domainRoot.get("resource").get("id"), resourceId);
-        javax.persistence.criteria.Predicate domainParam = criteriaBuilder.like(domainRoot.<String>get("userId"), UserInformation.formatForeignUnknownUserId("%", domainId));
+        Predicate resourceParam = criteriaBuilder.equal(domainRoot.get("resource").get("id"), resourceId);
+        Predicate domainParam = criteriaBuilder.like(domainRoot.<String>get("userId"), UserInformation.formatForeignUnknownUserId("%", domainId));
         query.where(resourceParam, domainParam);
 
         TypedQuery<Long> typedQuery = entityManager.createQuery(query);

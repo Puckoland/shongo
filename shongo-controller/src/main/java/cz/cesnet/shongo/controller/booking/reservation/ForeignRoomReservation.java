@@ -3,10 +3,10 @@ package cz.cesnet.shongo.controller.booking.reservation;
 import cz.cesnet.shongo.controller.booking.reservation.AbstractForeignReservation;
 import cz.cesnet.shongo.controller.booking.room.ForeignRoomEndpoint;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
 

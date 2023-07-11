@@ -16,8 +16,8 @@ import jade.core.AID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import java.util.*;
 
 /**
@@ -32,7 +32,7 @@ public class CommonServiceImpl extends AbstractServiceImpl
     private static Logger logger = LoggerFactory.getLogger(CommonServiceImpl.class);
 
     /**
-     * @see javax.persistence.EntityManagerFactory
+     * @see jakarta.persistence.EntityManagerFactory
      */
     private EntityManagerFactory entityManagerFactory;
 

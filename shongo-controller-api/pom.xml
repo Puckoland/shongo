@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <jetty.version>9.4.25.v20191220</jetty.version>
+        <jetty.version>11.0.15</jetty.version>
     </properties>
 
     <parent>
@@ -21,6 +21,11 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+        </dependency>
         <dependency>
             <groupId>cz.cesnet.shongo</groupId>
             <artifactId>shongo-common-api</artifactId>

@@ -7,7 +7,7 @@ import cz.cesnet.shongo.controller.booking.resource.DeviceCapability;
 import cz.cesnet.shongo.controller.booking.resource.DeviceResource;
 import cz.cesnet.shongo.controller.booking.recording.RecordingCapability;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;

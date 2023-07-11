@@ -5,10 +5,10 @@ import cz.cesnet.shongo.hibernate.PersistentDateTime;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 
 /**
  * Represents a {@link PreprocessorState#PREPROCESSED} state of a {@link AbstractReservationRequest}

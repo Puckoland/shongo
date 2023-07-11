@@ -6,7 +6,7 @@ import cz.cesnet.shongo.controller.booking.room.RoomEndpoint;
 import cz.cesnet.shongo.controller.util.DatabaseHelper;
 import org.joda.time.DateTime;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.Set;
 

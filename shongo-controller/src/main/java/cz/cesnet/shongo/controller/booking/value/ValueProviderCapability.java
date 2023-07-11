@@ -3,7 +3,7 @@ package cz.cesnet.shongo.controller.booking.value;
 import cz.cesnet.shongo.controller.booking.value.provider.ValueProvider;
 import cz.cesnet.shongo.controller.booking.resource.Capability;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Capability tells that the resource can allocate unique values base on the patterns.

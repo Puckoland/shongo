@@ -16,9 +16,9 @@ import org.hibernate.tool.schema.TargetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -34,7 +34,7 @@ import java.util.*;
  * <p/>
  * In future use PostgreSQL which support it:
  * <property name="hibernate.connection.url" value="jdbc:postgresql:shongo"/>
- * <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+ * <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
  * <property name="hibernate.connection.username" value="shongo"/>
  * <property name="hibernate.connection.password" value="shongo"/>
  * <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
@@ -247,7 +247,7 @@ public class DatabaseMigration
                 // Try to create normal entity manager factory
                 try {
                     entityManagerFactory.close();
-                    entityManagerFactory = javax.persistence.Persistence
+                    entityManagerFactory = jakarta.persistence.Persistence
                             .createEntityManagerFactory(persistenceUnitName);
                     return entityManagerFactory;
                 }
@@ -337,7 +337,7 @@ public class DatabaseMigration
         Metadata metadata = new MetadataSources(
                 new StandardServiceRegistryBuilder()
                         .applySetting("hibernate.dialect", dialect)
-                        .applySetting("javax.persistence.schema-generation-connection", connection)
+                        .applySetting("jakarta.persistence.schema-generation-connection", connection)
                         .build()).buildMetadata();
         new SchemaExport()
                 .setFormat(true)
@@ -370,7 +370,7 @@ public class DatabaseMigration
         fileContent.append("\n");
         fileContent.append("import cz.cesnet.shongo.controller.util.DatabaseMigration;\n");
         fileContent.append("\n");
-        fileContent.append("import javax.persistence.EntityManager;\n");
+        fileContent.append("import jakarta.persistence.EntityManager;\n");
         fileContent.append("\n");
         fileContent.append("public class Migration");
         fileContent.append(version);

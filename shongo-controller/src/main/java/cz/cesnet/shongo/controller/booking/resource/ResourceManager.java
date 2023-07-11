@@ -21,11 +21,11 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Tuple;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Tuple;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import java.util.List;
 
 /**
@@ -473,8 +473,8 @@ public class ResourceManager extends AbstractManager
 
         CriteriaQuery<ForeignResources> query = criteriaBuilder.createQuery(ForeignResources.class);
         Root<ForeignResources> tagRoot = query.from(ForeignResources.class);
-        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(tagRoot.get("domain").as(String.class), domain.getId());
-        javax.persistence.criteria.Predicate param2 = criteriaBuilder.equal(tagRoot.get("type").as(String.class), type);
+        Predicate param1 = criteriaBuilder.equal(tagRoot.get("domain").as(String.class), domain.getId());
+        Predicate param2 = criteriaBuilder.equal(tagRoot.get("type").as(String.class), type);
         query.select(tagRoot).where(param1, param2);
 
         TypedQuery<ForeignResources> typedQuery = entityManager.createQuery(query);
@@ -499,8 +499,8 @@ public class ResourceManager extends AbstractManager
 
             CriteriaQuery<ForeignResources> query = criteriaBuilder.createQuery(ForeignResources.class);
             Root<ForeignResources> tagRoot = query.from(ForeignResources.class);
-            javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(tagRoot.get("domain"), getDomainByName(domainName).getId());
-            javax.persistence.criteria.Predicate param2 = criteriaBuilder.equal(tagRoot.get("foreignResourceId"), resourceId);
+            Predicate param1 = criteriaBuilder.equal(tagRoot.get("domain"), getDomainByName(domainName).getId());
+            Predicate param2 = criteriaBuilder.equal(tagRoot.get("foreignResourceId"), resourceId);
             query.select(tagRoot).where(param1, param2);
 
             TypedQuery<ForeignResources> typedQuery = entityManager.createQuery(query);
@@ -532,7 +532,7 @@ public class ResourceManager extends AbstractManager
 
         CriteriaQuery<ForeignResources> query = criteriaBuilder.createQuery(ForeignResources.class);
         Root<ForeignResources> tagRoot = query.from(ForeignResources.class);
-        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(tagRoot.get("domain"), domain.getId());
+        Predicate param1 = criteriaBuilder.equal(tagRoot.get("domain"), domain.getId());
         query.select(tagRoot).where(param1);
 
         TypedQuery<ForeignResources> typedQuery = entityManager.createQuery(query);
@@ -586,7 +586,7 @@ public class ResourceManager extends AbstractManager
 
         CriteriaQuery<Tag> query = criteriaBuilder.createQuery(Tag.class);
         Root<Tag> tagRoot = query.from(Tag.class);
-        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(tagRoot.get("name").as(String.class), name);
+        Predicate param1 = criteriaBuilder.equal(tagRoot.get("name").as(String.class), name);
         query.select(tagRoot).where(param1);
 
         TypedQuery<Tag> typedQuery = entityManager.createQuery(query);
@@ -607,8 +607,8 @@ public class ResourceManager extends AbstractManager
 
             CriteriaQuery<ResourceTag> query = criteriaBuilder.createQuery(ResourceTag.class);
             Root<ResourceTag> resourceTagRoot = query.from(ResourceTag.class);
-            javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("resource"), resourceId);
-            javax.persistence.criteria.Predicate param2 = criteriaBuilder.equal(resourceTagRoot.get("tag"), tagId);
+            Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("resource"), resourceId);
+            Predicate param2 = criteriaBuilder.equal(resourceTagRoot.get("tag"), tagId);
             query.select(resourceTagRoot);
             query.where(param1,param2);
 
@@ -634,8 +634,8 @@ public class ResourceManager extends AbstractManager
 
             CriteriaQuery<ResourceTag> query = criteriaBuilder.createQuery(ResourceTag.class);
             Root<ResourceTag> resourceTagRoot = query.from(ResourceTag.class);
-            javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("foreignResources"), foreignResourceId);
-            javax.persistence.criteria.Predicate param2 = criteriaBuilder.equal(resourceTagRoot.get("tag"), tagId);
+            Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("foreignResources"), foreignResourceId);
+            Predicate param2 = criteriaBuilder.equal(resourceTagRoot.get("tag"), tagId);
             query.select(resourceTagRoot);
             query.where(param1,param2);
 
@@ -659,7 +659,7 @@ public class ResourceManager extends AbstractManager
 
         CriteriaQuery<ResourceTag> query = criteriaBuilder.createQuery(ResourceTag.class);
         Root<ResourceTag> resourceTagRoot = query.from(ResourceTag.class);
-        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("resource"), resourceId);
+        Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("resource"), resourceId);
         query.select(resourceTagRoot).where(param1);
 
         TypedQuery<ResourceTag> typedQuery = entityManager.createQuery(query);
@@ -678,7 +678,7 @@ public class ResourceManager extends AbstractManager
 
         CriteriaQuery<ResourceTag> query = criteriaBuilder.createQuery(ResourceTag.class);
         Root<ResourceTag> resourceTagRoot = query.from(ResourceTag.class);
-        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("foreignResources"), foreignResources.getId());
+        Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("foreignResources"), foreignResources.getId());
         query.select(resourceTagRoot).where(param1);
 
         TypedQuery<ResourceTag> typedQuery = entityManager.createQuery(query);
@@ -697,7 +697,7 @@ public class ResourceManager extends AbstractManager
 
         CriteriaQuery<ResourceTag> query = criteriaBuilder.createQuery(ResourceTag.class);
         Root<ResourceTag> resourceTagRoot = query.from(ResourceTag.class);
-        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("tag"), tagId);
+        Predicate param1 = criteriaBuilder.equal(resourceTagRoot.get("tag"), tagId);
         query.select(resourceTagRoot).where(param1);
 
         TypedQuery<ResourceTag> typedQuery = entityManager.createQuery(query);
@@ -729,7 +729,7 @@ public class ResourceManager extends AbstractManager
 
             CriteriaQuery<Domain> query = criteriaBuilder.createQuery(Domain.class);
             Root<Domain> domainRoot = query.from(Domain.class);
-            javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(domainRoot.get("name"), domainName);
+            Predicate param1 = criteriaBuilder.equal(domainRoot.get("name"), domainName);
             query.select(domainRoot);
             query.where(param1);
 
@@ -754,8 +754,8 @@ public class ResourceManager extends AbstractManager
 
             CriteriaQuery<DomainResource> query = criteriaBuilder.createQuery(DomainResource.class);
             Root<DomainResource> domainResourceRoot = query.from(DomainResource.class);
-            javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(domainResourceRoot.get("domain"), domainId);
-            javax.persistence.criteria.Predicate param2 = criteriaBuilder.equal(domainResourceRoot.get("resource"), resourceId);
+            Predicate param1 = criteriaBuilder.equal(domainResourceRoot.get("domain"), domainId);
+            Predicate param2 = criteriaBuilder.equal(domainResourceRoot.get("resource"), resourceId);
             query.select(domainResourceRoot);
             query.where(param1,param2);
 
@@ -776,7 +776,7 @@ public class ResourceManager extends AbstractManager
             CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
             Root<DomainResource> domainResourceRoot = query.from(DomainResource.class);
             query.multiselect(domainResourceRoot.get("resource").get("id"));
-            javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(domainResourceRoot.get("domain"), domainId);
+            Predicate param1 = criteriaBuilder.equal(domainResourceRoot.get("domain"), domainId);
             query.where(param1);
 
             TypedQuery<Long> typedQuery = entityManager.createQuery(query);
@@ -809,7 +809,7 @@ public class ResourceManager extends AbstractManager
         Root<Domain> domainRoot = query.from(Domain.class);
         query.select(domainRoot);
         if (allocatable != null) {
-            javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(domainRoot.get("allocatable"), allocatable);
+            Predicate param1 = criteriaBuilder.equal(domainRoot.get("allocatable"), allocatable);
             query.where(param1);
         }
 

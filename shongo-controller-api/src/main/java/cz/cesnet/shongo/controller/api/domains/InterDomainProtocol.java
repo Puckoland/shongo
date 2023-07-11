@@ -9,7 +9,7 @@ import cz.cesnet.shongo.controller.api.domains.request.ForeignRoomParticipantRol
 import cz.cesnet.shongo.controller.api.domains.response.*;
 import org.joda.time.Interval;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

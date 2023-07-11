@@ -1,6 +1,6 @@
 package cz.cesnet.shongo;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 

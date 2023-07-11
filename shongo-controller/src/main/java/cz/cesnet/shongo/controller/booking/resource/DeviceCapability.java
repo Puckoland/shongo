@@ -1,7 +1,7 @@
 package cz.cesnet.shongo.controller.booking.resource;
 
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
 
 /**
  * Represents a capability that

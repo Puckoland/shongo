@@ -49,8 +49,9 @@ import cz.cesnet.shongo.report.Report;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.RollbackException;
 import java.util.*;
 
 /**
@@ -63,7 +64,7 @@ public class ExecutableServiceImpl extends AbstractServiceImpl
                    Component.AuthorizationAware, Component.ControllerAgentAware
 {
     /**
-     * @see javax.persistence.EntityManagerFactory
+     * @see EntityManagerFactory
      */
     private EntityManagerFactory entityManagerFactory;
 
@@ -600,7 +601,7 @@ public class ExecutableServiceImpl extends AbstractServiceImpl
             entityManager.getTransaction().commit();
             authorizationManager.commitTransaction(securityToken);
         }
-        catch (javax.persistence.RollbackException exception) {
+        catch (RollbackException exception) {
             ControllerReportSetHelper.throwObjectNotDeletableReferencedFault(
                     cz.cesnet.shongo.controller.booking.executable.Executable.class, objectId.getPersistenceId());
         }

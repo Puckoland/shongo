@@ -4,7 +4,7 @@ import cz.cesnet.shongo.TodoImplementException;
 import cz.cesnet.shongo.controller.api.Specification;
 import cz.cesnet.shongo.controller.booking.specification.ExecutableServiceSpecification;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 /**
  * {@link cz.cesnet.shongo.controller.booking.specification.ExecutableServiceSpecification} for streaming.

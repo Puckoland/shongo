@@ -3,7 +3,7 @@ package cz.cesnet.shongo.controller.acl;
 import cz.cesnet.shongo.SimplePersistentObject;
 import cz.cesnet.shongo.TodoImplementException;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents an identity of object which can be used in {@link AclEntry}.

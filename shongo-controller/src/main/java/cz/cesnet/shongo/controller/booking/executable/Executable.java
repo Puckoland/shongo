@@ -18,7 +18,7 @@ import cz.cesnet.shongo.report.Report;
 import cz.cesnet.shongo.report.ReportException;
 import org.joda.time.DateTime;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 
 /**
@@ -282,7 +282,7 @@ public abstract class Executable extends ExecutionTarget
         }
     }
 
-    @javax.persistence.PreRemove
+    @PreRemove
     public void preRemove()
     {
         if (migrateFromExecutable != null) {

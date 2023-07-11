@@ -3,7 +3,7 @@ package cz.cesnet.shongo.controller;
 import cz.cesnet.shongo.controller.authorization.Authorization;
 import cz.cesnet.shongo.controller.notification.NotificationManager;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 
 /**
  * Represents a component of a domain controller.
@@ -71,7 +71,7 @@ public abstract class Component
     public static interface EntityManagerFactoryAware
     {
         /**
-         * @param entityManagerFactory sets the {@link javax.persistence.EntityManagerFactory} to the component.
+         * @param entityManagerFactory sets the {@link jakarta.persistence.EntityManagerFactory} to the component.
          */
         public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory);
     }

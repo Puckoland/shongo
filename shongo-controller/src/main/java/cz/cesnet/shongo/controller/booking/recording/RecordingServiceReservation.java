@@ -4,7 +4,7 @@ import cz.cesnet.shongo.controller.booking.reservation.ExecutableServiceReservat
 import cz.cesnet.shongo.controller.booking.resource.DeviceResource;
 import cz.cesnet.shongo.controller.booking.resource.Resource;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a {@link ExecutableServiceReservation} for recording.

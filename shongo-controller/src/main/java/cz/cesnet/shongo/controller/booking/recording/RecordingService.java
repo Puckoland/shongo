@@ -22,7 +22,7 @@ import cz.cesnet.shongo.controller.executor.ExecutionReportSet;
 import cz.cesnet.shongo.controller.executor.Executor;
 import cz.cesnet.shongo.jade.SendLocalCommand;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import static cz.cesnet.shongo.controller.executor.ExecutionReportSet.RecordingUnavailableReport;
 

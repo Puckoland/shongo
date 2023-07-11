@@ -7,7 +7,7 @@ import cz.cesnet.shongo.controller.notification.NotificationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 /**
  * Represent an abstract executor of {@link AbstractNotification}s.

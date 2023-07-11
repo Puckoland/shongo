@@ -9,7 +9,7 @@ import cz.cesnet.shongo.controller.booking.reservation.TargetedReservation;
 import cz.cesnet.shongo.controller.booking.resource.DeviceResource;
 import cz.cesnet.shongo.controller.booking.resource.Resource;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a {@link cz.cesnet.shongo.controller.booking.reservation.Reservation} for a {@link Endpoint}.

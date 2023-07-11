@@ -8,7 +8,7 @@ import cz.cesnet.shongo.hibernate.PersistentPeriod;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a specification of absolute or relative date/time.

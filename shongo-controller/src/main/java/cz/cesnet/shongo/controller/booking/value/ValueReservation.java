@@ -7,7 +7,7 @@ import cz.cesnet.shongo.controller.booking.reservation.TargetedReservation;
 import cz.cesnet.shongo.controller.booking.value.provider.ValueProvider;
 import cz.cesnet.shongo.controller.booking.resource.Resource;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 /**

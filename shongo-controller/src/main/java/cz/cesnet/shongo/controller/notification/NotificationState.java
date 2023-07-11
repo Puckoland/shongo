@@ -2,7 +2,7 @@ package cz.cesnet.shongo.controller.notification;
 
 import cz.cesnet.shongo.SimplePersistentObject;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a state of notification by a persistent {@link #sequence} number.

@@ -15,7 +15,7 @@ import cz.cesnet.shongo.controller.scheduler.SchedulerException;
 import cz.cesnet.shongo.util.ObjectHelper;
 import org.joda.time.Interval;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 
 /**

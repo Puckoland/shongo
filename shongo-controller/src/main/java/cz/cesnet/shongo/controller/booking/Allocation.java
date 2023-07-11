@@ -8,7 +8,7 @@ import cz.cesnet.shongo.controller.booking.request.ReservationRequestSet;
 import cz.cesnet.shongo.controller.booking.reservation.Reservation;
 import org.joda.time.Interval;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 
 /**

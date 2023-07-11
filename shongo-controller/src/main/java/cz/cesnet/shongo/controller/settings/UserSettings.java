@@ -6,7 +6,7 @@ import cz.cesnet.shongo.hibernate.PersistentDateTimeZone;
 import cz.cesnet.shongo.hibernate.PersistentLocale;
 import org.joda.time.DateTimeZone;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;

@@ -10,7 +10,7 @@ import org.joda.time.Interval;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 /**
  * Tests for changing state of a {@link cz.cesnet.shongo.controller.booking.request.ReservationRequestSet}.

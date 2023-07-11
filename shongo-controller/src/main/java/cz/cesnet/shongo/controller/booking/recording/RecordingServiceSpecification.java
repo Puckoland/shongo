@@ -6,7 +6,7 @@ import cz.cesnet.shongo.controller.scheduler.SchedulerContext;
 import cz.cesnet.shongo.controller.scheduler.SchedulerException;
 import org.joda.time.Interval;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 /**
  * {@link cz.cesnet.shongo.controller.booking.specification.ExecutableServiceSpecification} for recording.

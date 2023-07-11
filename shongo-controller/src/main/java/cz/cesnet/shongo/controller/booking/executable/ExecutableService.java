@@ -6,7 +6,7 @@ import cz.cesnet.shongo.controller.executor.ExecutionReport;
 import cz.cesnet.shongo.controller.executor.Executor;
 import cz.cesnet.shongo.report.ReportException;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.LinkedList;
 
