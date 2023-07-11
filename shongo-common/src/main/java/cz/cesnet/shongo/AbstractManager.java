@@ -1,7 +1,7 @@
 package cz.cesnet.shongo;
 
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 /**
  * Abstract DAO (Data Access Object) for persistent objects.

@@ -1,6 +1,7 @@
 package cz.cesnet.shongo.controller.scheduler;
 
 import cz.cesnet.shongo.report.*;
+import jakarta.persistence.*;
 
 /**
  * Auto-generated implementation of {@link AbstractReportSet}.
@@ -12,15 +13,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * User does not have permissions for the resource {@link #resource}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("UserNotAllowedReport")
+    @Entity
+    @DiscriminatorValue("UserNotAllowedReport")
     public static class UserNotAllowedReport extends ResourceReport
     {
         public UserNotAllowedReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -32,21 +33,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setResource(resource);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -55,7 +56,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -104,36 +105,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * No resource was found.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceNotFoundReport")
+    @Entity
+    @DiscriminatorValue("ResourceNotFoundReport")
     public static class ResourceNotFoundReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public ResourceNotFoundReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "resource-not-found";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -141,7 +142,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -188,8 +189,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Resource {@link #resource}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceReport")
+    @Entity
+    @DiscriminatorValue("ResourceReport")
     public static class ResourceReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.resource.Resource resource;
@@ -198,7 +199,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -210,9 +211,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setResource(resource);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "resource_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "resource_id")
         public cz.cesnet.shongo.controller.booking.resource.Resource getResource()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(resource);
@@ -223,21 +224,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.resource = resource;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -246,7 +247,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -257,15 +258,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The resource {@link #resource} is disabled for allocation.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceNotAllocatableReport")
+    @Entity
+    @DiscriminatorValue("ResourceNotAllocatableReport")
     public static class ResourceNotAllocatableReport extends ResourceReport
     {
         public ResourceNotAllocatableReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -277,21 +278,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setResource(resource);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -300,7 +301,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -349,8 +350,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The resource {@link #resource} is already allocated in the time slot {@link #interval}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceAlreadyAllocatedReport")
+    @Entity
+    @DiscriminatorValue("ResourceAlreadyAllocatedReport")
     public static class ResourceAlreadyAllocatedReport extends ResourceReport
     {
         protected org.joda.time.Interval interval;
@@ -359,7 +360,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -384,21 +385,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.interval = interval;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -408,7 +409,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -464,8 +465,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * There is no available capacity due to maintenance in the time slot {@link #interval}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceUnderMaintenanceReport")
+    @Entity
+    @DiscriminatorValue("ResourceUnderMaintenanceReport")
     public static class ResourceUnderMaintenanceReport extends ResourceReport
     {
         protected org.joda.time.Interval interval;
@@ -474,7 +475,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -499,21 +500,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.interval = interval;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -523,7 +524,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -579,8 +580,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The resource {@link #resource} is not available for the requested time slot. The maximum date/time for which the resource can be allocated is {@link #maxDateTime}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceNotAvailableReport")
+    @Entity
+    @DiscriminatorValue("ResourceNotAvailableReport")
     public static class ResourceNotAvailableReport extends ResourceReport
     {
         protected org.joda.time.DateTime maxDateTime;
@@ -589,7 +590,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -602,7 +603,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setMaxDateTime(maxDateTime);
         }
 
-        @javax.persistence.Column
+        @Column
         @org.hibernate.annotations.Type(type = cz.cesnet.shongo.hibernate.PersistentDateTime.NAME)
         public org.joda.time.DateTime getMaxDateTime()
         {
@@ -614,21 +615,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.maxDateTime = maxDateTime;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -638,7 +639,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -694,8 +695,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The resource {@link #resource} has available only {@link #availableLicenseCount} from {@link #maxLicenseCount} licenses.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceRoomCapacityExceededReport")
+    @Entity
+    @DiscriminatorValue("ResourceRoomCapacityExceededReport")
     public static class ResourceRoomCapacityExceededReport extends ResourceReport
     {
         protected Integer availableLicenseCount;
@@ -706,7 +707,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -720,7 +721,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setMaxLicenseCount(maxLicenseCount);
         }
 
-        @javax.persistence.Column
+        @Column
         public Integer getAvailableLicenseCount()
         {
             return availableLicenseCount;
@@ -731,7 +732,7 @@ public class SchedulerReportSet extends AbstractReportSet
             this.availableLicenseCount = availableLicenseCount;
         }
 
-        @javax.persistence.Column
+        @Column
         public Integer getMaxLicenseCount()
         {
             return maxLicenseCount;
@@ -742,21 +743,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.maxLicenseCount = maxLicenseCount;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -767,7 +768,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -830,15 +831,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The resource {@link #resource} doesn't have any available licenses for recording.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceRecordingCapacityExceededReport")
+    @Entity
+    @DiscriminatorValue("ResourceRecordingCapacityExceededReport")
     public static class ResourceRecordingCapacityExceededReport extends ResourceReport
     {
         public ResourceRecordingCapacityExceededReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -850,21 +851,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setResource(resource);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -873,7 +874,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -922,15 +923,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The resource {@link #resource} is not endpoint.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceNotEndpointReport")
+    @Entity
+    @DiscriminatorValue("ResourceNotEndpointReport")
     public static class ResourceNotEndpointReport extends ResourceReport
     {
         public ResourceNotEndpointReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -942,21 +943,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setResource(resource);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -965,7 +966,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1014,15 +1015,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The resource {@link #resource} is requested multiple times.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceMultipleRequestedReport")
+    @Entity
+    @DiscriminatorValue("ResourceMultipleRequestedReport")
     public static class ResourceMultipleRequestedReport extends ResourceReport
     {
         public ResourceMultipleRequestedReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -1034,21 +1035,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setResource(resource);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -1057,7 +1058,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1106,8 +1107,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * No available endpoint was found for the following specification: Technologies: {@link #technologies}
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("EndpointNotFoundReport")
+    @Entity
+    @DiscriminatorValue("EndpointNotFoundReport")
     public static class EndpointNotFoundReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected java.util.Set<cz.cesnet.shongo.Technology> technologies;
@@ -1116,7 +1117,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -1128,10 +1129,10 @@ public class SchedulerReportSet extends AbstractReportSet
             setTechnologies(technologies);
         }
 
-        @javax.persistence.CollectionTable(name = "scheduler_report_technologies", joinColumns = @javax.persistence.JoinColumn(name = "scheduler_report_id"))
-        @javax.persistence.ElementCollection
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)
-        @javax.persistence.Enumerated(javax.persistence.EnumType.STRING)
+        @CollectionTable(name = "scheduler_report_technologies", joinColumns = @JoinColumn(name = "scheduler_report_id"))
+        @ElementCollection
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)
+        @Enumerated(EnumType.STRING)
         public java.util.Set<cz.cesnet.shongo.Technology> getTechnologies()
         {
             return technologies;
@@ -1142,21 +1143,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.technologies = technologies;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -1165,7 +1166,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1219,8 +1220,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Reusing existing {@link #executable}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ExecutableReusingReport")
+    @Entity
+    @DiscriminatorValue("ExecutableReusingReport")
     public static class ExecutableReusingReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.executable.Executable executable;
@@ -1229,7 +1230,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -1241,9 +1242,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setExecutable(executable);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "executable_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "executable_id")
         public cz.cesnet.shongo.controller.booking.executable.Executable getExecutable()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(executable);
@@ -1254,21 +1255,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.executable = executable;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -1277,7 +1278,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1288,36 +1289,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Room executable doesn't exist.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("RoomExecutableNotExistsReport")
+    @Entity
+    @DiscriminatorValue("RoomExecutableNotExistsReport")
     public static class RoomExecutableNotExistsReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public RoomExecutableNotExistsReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "room-executable-not-exists";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -1325,7 +1326,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1372,8 +1373,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Requested time slot doesn't correspond to {@link #interval} from reused executable {@link #executable}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ExecutableInvalidSlotReport")
+    @Entity
+    @DiscriminatorValue("ExecutableInvalidSlotReport")
     public static class ExecutableInvalidSlotReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.executable.Executable executable;
@@ -1384,7 +1385,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -1397,9 +1398,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setInterval(interval);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "executable_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "executable_id")
         public cz.cesnet.shongo.controller.booking.executable.Executable getExecutable()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(executable);
@@ -1422,21 +1423,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.interval = interval;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -1446,7 +1447,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1507,8 +1508,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Reused executable {@link #executable} is not available because it's already used in reservation request {@link #usageReservationRequest} for {@link #usageInterval}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ExecutableAlreadyUsedReport")
+    @Entity
+    @DiscriminatorValue("ExecutableAlreadyUsedReport")
     public static class ExecutableAlreadyUsedReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.executable.Executable executable;
@@ -1521,7 +1522,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -1535,9 +1536,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setUsageInterval(usageInterval);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "executable_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "executable_id")
         public cz.cesnet.shongo.controller.booking.executable.Executable getExecutable()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(executable);
@@ -1548,9 +1549,9 @@ public class SchedulerReportSet extends AbstractReportSet
             this.executable = executable;
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "usage_reservation_request_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "usage_reservation_request_id")
         public cz.cesnet.shongo.controller.booking.request.AbstractReservationRequest getUsageReservationRequest()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(usageReservationRequest);
@@ -1573,21 +1574,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.usageInterval = usageInterval;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -1598,7 +1599,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1666,36 +1667,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Not enough endpoints are requested for the compartment.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("CompartmentNotEnoughEndpointReport")
+    @Entity
+    @DiscriminatorValue("CompartmentNotEnoughEndpointReport")
     public static class CompartmentNotEnoughEndpointReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public CompartmentNotEnoughEndpointReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "compartment-not-enough-endpoint";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -1703,7 +1704,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1750,36 +1751,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Cannot assign alias to allocated external endpoint.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("CompartmentAssignAliasToExternalEndpointReport")
+    @Entity
+    @DiscriminatorValue("CompartmentAssignAliasToExternalEndpointReport")
     public static class CompartmentAssignAliasToExternalEndpointReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public CompartmentAssignAliasToExternalEndpointReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "compartment-assign-alias-to-external-endpoint";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -1787,7 +1788,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1831,8 +1832,8 @@ public class SchedulerReportSet extends AbstractReportSet
         }
     }
 
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ConnectionReport")
+    @Entity
+    @DiscriminatorValue("ConnectionReport")
     public static abstract class ConnectionReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.executable.Endpoint endpointFrom;
@@ -1843,7 +1844,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -1856,9 +1857,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setEndpointTo(endpointTo);
         }
 
-        @javax.persistence.OneToOne(cascade = javax.persistence.CascadeType.PERSIST, fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "endpoint_from_id")
+        @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "endpoint_from_id")
         public cz.cesnet.shongo.controller.booking.executable.Endpoint getEndpointFrom()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(endpointFrom);
@@ -1869,9 +1870,9 @@ public class SchedulerReportSet extends AbstractReportSet
             this.endpointFrom = endpointFrom;
         }
 
-        @javax.persistence.OneToOne(cascade = javax.persistence.CascadeType.PERSIST, fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "endpoint_to_id")
+        @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "endpoint_to_id")
         public cz.cesnet.shongo.controller.booking.executable.Endpoint getEndpointTo()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(endpointTo);
@@ -1882,7 +1883,7 @@ public class SchedulerReportSet extends AbstractReportSet
             this.endpointTo = endpointTo;
         }
 
-        @javax.persistence.PreRemove
+        @PreRemove
         public void preRemove()
         {
             if (endpointFrom.getState() == cz.cesnet.shongo.controller.booking.executable.Executable.State.NOT_ALLOCATED) {
@@ -1897,8 +1898,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Creating connection between {@link #endpointFrom} and {@link #endpointTo} in technology {@link #technology}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ConnectionBetweenReport")
+    @Entity
+    @DiscriminatorValue("ConnectionBetweenReport")
     public static class ConnectionBetweenReport extends ConnectionReport
     {
         protected cz.cesnet.shongo.Technology technology;
@@ -1907,7 +1908,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -1921,8 +1922,8 @@ public class SchedulerReportSet extends AbstractReportSet
             setTechnology(technology);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)
-        @javax.persistence.Enumerated(javax.persistence.EnumType.STRING)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)
+        @Enumerated(EnumType.STRING)
         public cz.cesnet.shongo.Technology getTechnology()
         {
             return technology;
@@ -1933,21 +1934,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.technology = technology;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -1958,7 +1959,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -1969,15 +1970,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Creating connection from {@link #endpointFrom} to {@link #endpointTo}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ConnectionFromToReport")
+    @Entity
+    @DiscriminatorValue("ConnectionFromToReport")
     public static class ConnectionFromToReport extends ConnectionReport
     {
         public ConnectionFromToReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -1990,21 +1991,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setEndpointTo(endpointTo);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2014,7 +2015,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -2025,15 +2026,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Cannot create connection from {@link #endpointFrom} to {@link #endpointTo}, because the target represents multiple endpoints (not supported yet).
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ConnectionToMultipleReport")
+    @Entity
+    @DiscriminatorValue("ConnectionToMultipleReport")
     public static class ConnectionToMultipleReport extends ConnectionReport
     {
         public ConnectionToMultipleReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2046,21 +2047,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setEndpointTo(endpointTo);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2070,7 +2071,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -2121,8 +2122,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Requested time slot doesn't correspond to {@link #interval} from reused reservation request {@link #reservationRequest}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ReservationRequestInvalidSlotReport")
+    @Entity
+    @DiscriminatorValue("ReservationRequestInvalidSlotReport")
     public static class ReservationRequestInvalidSlotReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.request.AbstractReservationRequest reservationRequest;
@@ -2133,7 +2134,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2146,9 +2147,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setInterval(interval);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "reservation_request_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "reservation_request_id")
         public cz.cesnet.shongo.controller.booking.request.AbstractReservationRequest getReservationRequest()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(reservationRequest);
@@ -2171,21 +2172,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.interval = interval;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2195,7 +2196,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -2256,8 +2257,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The reservation request has been denied by resource owner {@link #deniedBy}. Reason: {@link #reason}
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ReservationRequestDeniedReport")
+    @Entity
+    @DiscriminatorValue("ReservationRequestDeniedReport")
     public static class ReservationRequestDeniedReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected String deniedBy;
@@ -2268,7 +2269,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2281,7 +2282,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setReason(reason);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getDeniedBy()
         {
             return deniedBy;
@@ -2292,7 +2293,7 @@ public class SchedulerReportSet extends AbstractReportSet
             this.deniedBy = deniedBy;
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getReason()
         {
             return reason;
@@ -2303,21 +2304,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.reason = reason;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2327,7 +2328,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -2338,8 +2339,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The reservation request has been denied. Reason: The resource {@link #resource} is already allocated in interval {@link #interval}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ReservationRequestDeniedAlreadyAllocatedReport")
+    @Entity
+    @DiscriminatorValue("ReservationRequestDeniedAlreadyAllocatedReport")
     public static class ReservationRequestDeniedAlreadyAllocatedReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.resource.Resource resource;
@@ -2350,7 +2351,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2363,9 +2364,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setInterval(interval);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "resource_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "resource_id")
         public cz.cesnet.shongo.controller.booking.resource.Resource getResource()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(resource);
@@ -2388,21 +2389,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.interval = interval;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2412,7 +2413,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -2423,8 +2424,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Reused reservation request {@link #reservationRequest} is mandatory but wasn't used.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ReservationWithoutMandatoryUsageReport")
+    @Entity
+    @DiscriminatorValue("ReservationWithoutMandatoryUsageReport")
     public static class ReservationWithoutMandatoryUsageReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.request.AbstractReservationRequest reservationRequest;
@@ -2433,7 +2434,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2445,9 +2446,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setReservationRequest(reservationRequest);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "reservation_request_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "reservation_request_id")
         public cz.cesnet.shongo.controller.booking.request.AbstractReservationRequest getReservationRequest()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(reservationRequest);
@@ -2458,21 +2459,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.reservationRequest = reservationRequest;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2481,7 +2482,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -2532,8 +2533,8 @@ public class SchedulerReportSet extends AbstractReportSet
         }
     }
 
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ReservationReport")
+    @Entity
+    @DiscriminatorValue("ReservationReport")
     public static abstract class ReservationReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.reservation.Reservation reservation;
@@ -2542,7 +2543,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2554,9 +2555,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setReservation(reservation);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "reservation_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "reservation_id")
         public cz.cesnet.shongo.controller.booking.reservation.Reservation getReservation()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(reservation);
@@ -2571,8 +2572,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Reused reservation request {@link #reservationRequest} is not available because it's reservation {@link #reservation} is already used in reservation request {@link #usageReservationRequest} for {@link #usageInterval}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ReservationAlreadyUsedReport")
+    @Entity
+    @DiscriminatorValue("ReservationAlreadyUsedReport")
     public static class ReservationAlreadyUsedReport extends ReservationReport
     {
         protected cz.cesnet.shongo.controller.booking.request.AbstractReservationRequest reservationRequest;
@@ -2585,7 +2586,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2600,9 +2601,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setUsageInterval(usageInterval);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "reservation_request_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "reservation_request_id")
         public cz.cesnet.shongo.controller.booking.request.AbstractReservationRequest getReservationRequest()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(reservationRequest);
@@ -2613,9 +2614,9 @@ public class SchedulerReportSet extends AbstractReportSet
             this.reservationRequest = reservationRequest;
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "usage_reservation_request_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "usage_reservation_request_id")
         public cz.cesnet.shongo.controller.booking.request.AbstractReservationRequest getUsageReservationRequest()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(usageReservationRequest);
@@ -2638,21 +2639,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.usageInterval = usageInterval;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2664,7 +2665,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -2734,15 +2735,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Reusing {@link #reservation}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ReservationReusingReport")
+    @Entity
+    @DiscriminatorValue("ReservationReusingReport")
     public static class ReservationReusingReport extends ReservationReport
     {
         public ReservationReusingReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2754,21 +2755,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setReservation(reservation);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2777,7 +2778,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -2788,8 +2789,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Value {@link #value} is already allocated in interval {@link #interval}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ValueAlreadyAllocatedReport")
+    @Entity
+    @DiscriminatorValue("ValueAlreadyAllocatedReport")
     public static class ValueAlreadyAllocatedReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected String value;
@@ -2800,7 +2801,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2813,7 +2814,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setInterval(interval);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getValue()
         {
             return value;
@@ -2836,21 +2837,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.interval = interval;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2860,7 +2861,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -2921,8 +2922,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Value {@link #value} is invalid.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ValueInvalidReport")
+    @Entity
+    @DiscriminatorValue("ValueInvalidReport")
     public static class ValueInvalidReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected String value;
@@ -2931,7 +2932,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -2943,7 +2944,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setValue(value);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getValue()
         {
             return value;
@@ -2954,21 +2955,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.value = value;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -2977,7 +2978,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3031,8 +3032,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * No value is available.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ValueNotAvailableReport")
+    @Entity
+    @DiscriminatorValue("ValueNotAvailableReport")
     public static class ValueNotAvailableReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected org.joda.time.Interval interval;
@@ -3041,7 +3042,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -3065,21 +3066,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.interval = interval;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3088,7 +3089,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3142,8 +3143,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Requested service slot {@link #serviceSlot} is outside the executable slot {@link #executableSlot}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ExecutableServiceInvalidSlotReport")
+    @Entity
+    @DiscriminatorValue("ExecutableServiceInvalidSlotReport")
     public static class ExecutableServiceInvalidSlotReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected org.joda.time.Interval executableSlot;
@@ -3154,7 +3155,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -3191,21 +3192,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.serviceSlot = serviceSlot;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3215,7 +3216,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3276,8 +3277,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Recording service cannot be allocated for the room endpoint {@link #roomEndpointId} because it is always recordable.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("RoomEndpointAlwaysRecordableReport")
+    @Entity
+    @DiscriminatorValue("RoomEndpointAlwaysRecordableReport")
     public static class RoomEndpointAlwaysRecordableReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected String roomEndpointId;
@@ -3286,7 +3287,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -3298,7 +3299,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setRoomEndpointId(roomEndpointId);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getRoomEndpointId()
         {
             return roomEndpointId;
@@ -3309,21 +3310,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.roomEndpointId = roomEndpointId;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3332,7 +3333,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3386,15 +3387,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Allocating the resource {@link #resource}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("AllocatingResourceReport")
+    @Entity
+    @DiscriminatorValue("AllocatingResourceReport")
     public static class AllocatingResourceReport extends ResourceReport
     {
         public AllocatingResourceReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -3406,21 +3407,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setResource(resource);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3429,7 +3430,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3443,8 +3444,8 @@ public class SchedulerReportSet extends AbstractReportSet
      *   Alias Type: {@link #aliasTypes} 
      *        Value: {@link #value}
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("AllocatingAliasReport")
+    @Entity
+    @DiscriminatorValue("AllocatingAliasReport")
     public static class AllocatingAliasReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected java.util.Set<cz.cesnet.shongo.Technology> technologies;
@@ -3457,7 +3458,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -3471,10 +3472,10 @@ public class SchedulerReportSet extends AbstractReportSet
             setValue(value);
         }
 
-        @javax.persistence.CollectionTable(name = "scheduler_report_technologies", joinColumns = @javax.persistence.JoinColumn(name = "scheduler_report_id"))
-        @javax.persistence.ElementCollection
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)
-        @javax.persistence.Enumerated(javax.persistence.EnumType.STRING)
+        @CollectionTable(name = "scheduler_report_technologies", joinColumns = @JoinColumn(name = "scheduler_report_id"))
+        @ElementCollection
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)
+        @Enumerated(EnumType.STRING)
         public java.util.Set<cz.cesnet.shongo.Technology> getTechnologies()
         {
             return technologies;
@@ -3485,10 +3486,10 @@ public class SchedulerReportSet extends AbstractReportSet
             this.technologies = technologies;
         }
 
-        @javax.persistence.CollectionTable(name = "scheduler_report_alias_types", joinColumns = @javax.persistence.JoinColumn(name = "scheduler_report_id"))
-        @javax.persistence.ElementCollection
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)
-        @javax.persistence.Enumerated(javax.persistence.EnumType.STRING)
+        @CollectionTable(name = "scheduler_report_alias_types", joinColumns = @JoinColumn(name = "scheduler_report_id"))
+        @ElementCollection
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)
+        @Enumerated(EnumType.STRING)
         public java.util.Set<cz.cesnet.shongo.AliasType> getAliasTypes()
         {
             return aliasTypes;
@@ -3499,7 +3500,7 @@ public class SchedulerReportSet extends AbstractReportSet
             this.aliasTypes = aliasTypes;
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getValue()
         {
             return value;
@@ -3510,21 +3511,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.value = value;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3535,7 +3536,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3546,15 +3547,15 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Allocating value in the resource {@link #resource}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("AllocatingValueReport")
+    @Entity
+    @DiscriminatorValue("AllocatingValueReport")
     public static class AllocatingValueReport extends ResourceReport
     {
         public AllocatingValueReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -3566,21 +3567,21 @@ public class SchedulerReportSet extends AbstractReportSet
             setResource(resource);
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3589,7 +3590,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3603,8 +3604,8 @@ public class SchedulerReportSet extends AbstractReportSet
      *   Participants: {@link #participantCount} 
      *       Resource: {@link #resource}
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("AllocatingRoomReport")
+    @Entity
+    @DiscriminatorValue("AllocatingRoomReport")
     public static class AllocatingRoomReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected java.util.List<cz.cesnet.shongo.controller.booking.TechnologySet> technologySet;
@@ -3617,7 +3618,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -3631,8 +3632,8 @@ public class SchedulerReportSet extends AbstractReportSet
             setResource(resource);
         }
 
-        @javax.persistence.JoinTable(name = "scheduler_report_technology_sets", joinColumns = @javax.persistence.JoinColumn(name = "scheduler_report_id"))
-        @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL, orphanRemoval = true)
+        @JoinTable(name = "scheduler_report_technology_sets", joinColumns = @JoinColumn(name = "scheduler_report_id"))
+        @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
         public java.util.List<cz.cesnet.shongo.controller.booking.TechnologySet> getTechnologySet()
         {
             return technologySet;
@@ -3643,7 +3644,7 @@ public class SchedulerReportSet extends AbstractReportSet
             this.technologySet = technologySet;
         }
 
-        @javax.persistence.Column
+        @Column
         public Integer getParticipantCount()
         {
             return participantCount;
@@ -3654,9 +3655,9 @@ public class SchedulerReportSet extends AbstractReportSet
             this.participantCount = participantCount;
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "resource_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "resource_id")
         public cz.cesnet.shongo.controller.booking.resource.Resource getResource()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(resource);
@@ -3667,21 +3668,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.resource = resource;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3692,7 +3693,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3704,8 +3705,8 @@ public class SchedulerReportSet extends AbstractReportSet
      * Allocating recording service for the following specification: 
      *     Enabled: {@link #enabled}
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("AllocatingRecordingServiceReport")
+    @Entity
+    @DiscriminatorValue("AllocatingRecordingServiceReport")
     public static class AllocatingRecordingServiceReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected Boolean enabled;
@@ -3714,7 +3715,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -3726,7 +3727,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setEnabled(enabled);
         }
 
-        @javax.persistence.Column
+        @Column
         public Boolean getEnabled()
         {
             return enabled;
@@ -3737,21 +3738,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.enabled = enabled;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3760,7 +3761,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3771,36 +3772,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Allocating compartment.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("AllocatingCompartmentReport")
+    @Entity
+    @DiscriminatorValue("AllocatingCompartmentReport")
     public static class AllocatingCompartmentReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public AllocatingCompartmentReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "allocating-compartment";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3808,7 +3809,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3819,36 +3820,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Allocating executable.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("AllocatingExecutableReport")
+    @Entity
+    @DiscriminatorValue("AllocatingExecutableReport")
     public static class AllocatingExecutableReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public AllocatingExecutableReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "allocating-executable";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3856,7 +3857,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3867,36 +3868,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Checking specification availability report.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("SpecificationCheckingAvailabilityReport")
+    @Entity
+    @DiscriminatorValue("SpecificationCheckingAvailabilityReport")
     public static class SpecificationCheckingAvailabilityReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public SpecificationCheckingAvailabilityReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "specification-checking-availability";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3904,7 +3905,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3915,36 +3916,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Finding available resource.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("FindingAvailableResourceReport")
+    @Entity
+    @DiscriminatorValue("FindingAvailableResourceReport")
     public static class FindingAvailableResourceReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public FindingAvailableResourceReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "finding-available-resource";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -3952,7 +3953,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -3963,36 +3964,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Sorting resources.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("SortingResourcesReport")
+    @Entity
+    @DiscriminatorValue("SortingResourcesReport")
     public static class SortingResourcesReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public SortingResourcesReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "sorting-resources";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -4000,7 +4001,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -4011,8 +4012,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The following reservations are colliding, trying to reallocate them: {@link #reservations}
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("CollidingReservationsReport")
+    @Entity
+    @DiscriminatorValue("CollidingReservationsReport")
     public static class CollidingReservationsReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected java.util.Map<String, String> reservations;
@@ -4021,7 +4022,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -4033,8 +4034,8 @@ public class SchedulerReportSet extends AbstractReportSet
             setReservations(reservations);
         }
 
-        @javax.persistence.CollectionTable(name = "scheduler_report_reservations", joinColumns = @javax.persistence.JoinColumn(name = "scheduler_report_id"))
-        @javax.persistence.ElementCollection
+        @CollectionTable(name = "scheduler_report_reservations", joinColumns = @JoinColumn(name = "scheduler_report_id"))
+        @ElementCollection
         public java.util.Map<String, String> getReservations()
         {
             return reservations;
@@ -4045,21 +4046,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.reservations = reservations;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -4068,7 +4069,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -4079,8 +4080,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The following reservation requests will be reallocated: {@link #reservationRequests}
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ReallocatingReservationRequestsReport")
+    @Entity
+    @DiscriminatorValue("ReallocatingReservationRequestsReport")
     public static class ReallocatingReservationRequestsReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected java.util.List<String> reservationRequests;
@@ -4089,7 +4090,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -4101,9 +4102,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setReservationRequests(reservationRequests);
         }
 
-        @javax.persistence.CollectionTable(name = "scheduler_report_reservation_requests", joinColumns = @javax.persistence.JoinColumn(name = "scheduler_report_id"))
-        @javax.persistence.ElementCollection
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @CollectionTable(name = "scheduler_report_reservation_requests", joinColumns = @JoinColumn(name = "scheduler_report_id"))
+        @ElementCollection
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public java.util.List<String> getReservationRequests()
         {
             return reservationRequests;
@@ -4114,21 +4115,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.reservationRequests = reservationRequests;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -4137,7 +4138,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -4148,8 +4149,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Reallocating reservation request {@link #reservationRequest}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ReallocatingReservationRequestReport")
+    @Entity
+    @DiscriminatorValue("ReallocatingReservationRequestReport")
     public static class ReallocatingReservationRequestReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected String reservationRequest;
@@ -4158,7 +4159,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -4170,7 +4171,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setReservationRequest(reservationRequest);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getReservationRequest()
         {
             return reservationRequest;
@@ -4181,21 +4182,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.reservationRequest = reservationRequest;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.INFORMATION;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -4204,7 +4205,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -4215,8 +4216,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Specification {@link #specification} is not ready.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("SpecificationNotReadyReport")
+    @Entity
+    @DiscriminatorValue("SpecificationNotReadyReport")
     public static class SpecificationNotReadyReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.specification.Specification specification;
@@ -4225,7 +4226,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -4237,9 +4238,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setSpecification(specification);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "specification_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "specification_id")
         public cz.cesnet.shongo.controller.booking.specification.Specification getSpecification()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(specification);
@@ -4250,21 +4251,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.specification = specification;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -4273,7 +4274,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -4327,8 +4328,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The specification {@link #specification} is not supposed to be allocated.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("SpecificationNotAllocatableReport")
+    @Entity
+    @DiscriminatorValue("SpecificationNotAllocatableReport")
     public static class SpecificationNotAllocatableReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected cz.cesnet.shongo.controller.booking.specification.Specification specification;
@@ -4337,7 +4338,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -4349,9 +4350,9 @@ public class SchedulerReportSet extends AbstractReportSet
             setSpecification(specification);
         }
 
-        @javax.persistence.OneToOne(fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "specification_id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "specification_id")
         public cz.cesnet.shongo.controller.booking.specification.Specification getSpecification()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(specification);
@@ -4362,21 +4363,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.specification = specification;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -4385,7 +4386,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -4439,8 +4440,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * Duration {@link #duration} is longer than maximum {@link #maxDuration}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("MaximumDurationExceededReport")
+    @Entity
+    @DiscriminatorValue("MaximumDurationExceededReport")
     public static class MaximumDurationExceededReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         protected org.joda.time.Period duration;
@@ -4451,7 +4452,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -4464,7 +4465,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setMaxDuration(maxDuration);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.hibernate.PersistentPeriod.LENGTH)
+        @Column(length = cz.cesnet.shongo.hibernate.PersistentPeriod.LENGTH)
         @org.hibernate.annotations.Type(type = cz.cesnet.shongo.hibernate.PersistentPeriod.NAME)
         public org.joda.time.Period getDuration()
         {
@@ -4476,7 +4477,7 @@ public class SchedulerReportSet extends AbstractReportSet
             this.duration = duration;
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.hibernate.PersistentPeriod.LENGTH)
+        @Column(length = cz.cesnet.shongo.hibernate.PersistentPeriod.LENGTH)
         @org.hibernate.annotations.Type(type = cz.cesnet.shongo.hibernate.PersistentPeriod.NAME)
         public org.joda.time.Period getMaxDuration()
         {
@@ -4488,21 +4489,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.maxDuration = maxDuration;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -4512,7 +4513,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -4573,36 +4574,36 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * User is not resource owner.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("UserNotOwnerReport")
+    @Entity
+    @DiscriminatorValue("UserNotOwnerReport")
     public static class UserNotOwnerReport extends cz.cesnet.shongo.controller.scheduler.SchedulerReport
     {
         public UserNotOwnerReport()
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
             return "user-not-owner";
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -4610,7 +4611,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -4658,8 +4659,8 @@ public class SchedulerReportSet extends AbstractReportSet
     /**
      * The resource {@link #resource} has limit of {@link maxLicencesPerRoom}.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("ResourceSingleRoomLimitExceededReport")
+    @Entity
+    @DiscriminatorValue("ResourceSingleRoomLimitExceededReport")
     public static class ResourceSingleRoomLimitExceededReport extends ResourceReport
     {
         protected Integer maxLicencesPerRoom;
@@ -4668,7 +4669,7 @@ public class SchedulerReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -4681,7 +4682,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setMaxLicencesPerRoom(maxLicencesPerRoom);
         }
 
-        @javax.persistence.Column
+        @Column
         public Integer getMaxLicencesPerRoom()
         {
             return maxLicencesPerRoom;
@@ -4692,21 +4693,21 @@ public class SchedulerReportSet extends AbstractReportSet
             this.maxLicencesPerRoom = maxLicencesPerRoom;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_USER | VISIBLE_TO_DOMAIN_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -4716,7 +4717,7 @@ public class SchedulerReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {

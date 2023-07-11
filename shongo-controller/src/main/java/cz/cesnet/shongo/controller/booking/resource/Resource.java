@@ -19,7 +19,7 @@ import cz.cesnet.shongo.controller.settings.UserSettingsManager;
 import cz.cesnet.shongo.report.ReportableComplex;
 import org.joda.time.DateTime;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 
 /**

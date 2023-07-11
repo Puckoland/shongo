@@ -9,7 +9,7 @@ import cz.cesnet.shongo.controller.booking.room.RoomEndpoint;
 import cz.cesnet.shongo.controller.notification.AbstractNotification;
 import org.joda.time.Interval;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;

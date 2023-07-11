@@ -12,7 +12,7 @@ import cz.cesnet.shongo.controller.booking.value.provider.PatternValueProvider;
 import cz.cesnet.shongo.controller.booking.value.provider.ValueProvider;
 import org.joda.time.DateTime;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

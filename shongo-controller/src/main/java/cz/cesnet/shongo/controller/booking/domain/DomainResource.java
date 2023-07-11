@@ -7,7 +7,7 @@ import cz.cesnet.shongo.controller.api.ResourceSummary;
 import cz.cesnet.shongo.controller.booking.ObjectIdentifier;
 import cz.cesnet.shongo.controller.booking.resource.Resource;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents Resource mapped to domain with its parameters.

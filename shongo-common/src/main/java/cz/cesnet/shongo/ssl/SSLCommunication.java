@@ -2,7 +2,7 @@ package cz.cesnet.shongo.ssl;
 
 import org.apache.ws.commons.util.Base64;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

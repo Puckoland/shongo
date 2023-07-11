@@ -53,8 +53,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.persistence.EntityManager;
+import jakarta.servlet.http.HttpServletRequest;
 import java.beans.PropertyEditorSupport;
 import java.security.cert.X509Certificate;
 import java.util.*;
@@ -790,7 +790,7 @@ public class InterDomainController implements InterDomainProtocol
      */
     protected Domain getDomainByCert(HttpServletRequest request)
     {
-        X509Certificate[] certs = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate");
+        X509Certificate[] certs = (X509Certificate[]) request.getAttribute("jakarta.servlet.request.X509Certificate");
         return (certs == null ? null : getAuthentication().getDomain(certs[0]));
     }
 

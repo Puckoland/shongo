@@ -34,6 +34,17 @@
             <artifactId>commons-jexl</artifactId>
             <version>2.1.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>4.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -41,7 +52,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>1.5</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>xjc</id>
@@ -51,8 +62,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <schemaDirectory>${project.basedir}/</schemaDirectory>
-                    <schemaFiles>reports.xsd</schemaFiles>
+                    <sources>
+                        <source>${project.basedir}/reports.xsd</source>
+                    </sources>
                     <packageName>cz.cesnet.shongo.generator.xml</packageName>
                 </configuration>
             </plugin>

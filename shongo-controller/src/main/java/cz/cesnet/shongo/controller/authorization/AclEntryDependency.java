@@ -4,7 +4,7 @@ import cz.cesnet.shongo.SimplePersistentObject;
 import cz.cesnet.shongo.api.AbstractComplexType;
 import cz.cesnet.shongo.controller.acl.AclEntry;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a parent-child dependency between two {@link cz.cesnet.shongo.controller.acl.AclEntry}s.

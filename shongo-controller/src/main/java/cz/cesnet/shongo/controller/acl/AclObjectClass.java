@@ -3,9 +3,9 @@ package cz.cesnet.shongo.controller.acl;
 import cz.cesnet.shongo.SimplePersistentObject;
 import cz.cesnet.shongo.api.AbstractComplexType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
 
 /**
  * Represents a class of objects which can have a {@link AclObjectIdentity}.

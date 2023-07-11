@@ -8,7 +8,7 @@ import cz.cesnet.shongo.controller.booking.resource.Resource;
 import cz.cesnet.shongo.controller.booking.resource.ResourceManager;
 import cz.cesnet.shongo.util.ObjectHelper;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Specification of a service for some the {@link #executable}.

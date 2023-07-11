@@ -16,7 +16,7 @@ import cz.cesnet.shongo.controller.booking.room.RoomSpecification;
 import cz.cesnet.shongo.controller.booking.value.ValueSpecification;
 import cz.cesnet.shongo.report.ReportableSimple;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 
 /**

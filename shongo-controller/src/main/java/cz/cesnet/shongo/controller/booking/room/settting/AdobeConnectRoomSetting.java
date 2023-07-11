@@ -3,7 +3,7 @@ package cz.cesnet.shongo.controller.booking.room.settting;
 import cz.cesnet.shongo.api.AbstractComplexType;
 import cz.cesnet.shongo.api.AdobeConnectPermissions;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a {@link RoomSetting} for a {@link cz.cesnet.shongo.controller.booking.room.RoomEndpoint} which

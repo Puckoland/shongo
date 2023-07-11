@@ -4,7 +4,7 @@ import org.apache.commons.lang.NotImplementedException;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.util.*;
 
 /**

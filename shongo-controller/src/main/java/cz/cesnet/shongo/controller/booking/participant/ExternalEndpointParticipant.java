@@ -9,7 +9,7 @@ import cz.cesnet.shongo.controller.booking.executable.ExternalEndpoint;
 import cz.cesnet.shongo.controller.booking.alias.Alias;
 import cz.cesnet.shongo.util.ObjectHelper;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

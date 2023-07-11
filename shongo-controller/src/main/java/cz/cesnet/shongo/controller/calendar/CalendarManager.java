@@ -7,7 +7,7 @@ import cz.cesnet.shongo.controller.calendar.connector.CalendarConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;

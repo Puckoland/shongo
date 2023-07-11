@@ -35,7 +35,7 @@ import org.joda.time.Hours;
 import org.joda.time.Interval;
 import org.joda.time.Period;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;

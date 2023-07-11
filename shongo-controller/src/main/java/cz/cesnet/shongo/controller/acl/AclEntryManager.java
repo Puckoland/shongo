@@ -6,9 +6,9 @@ import cz.cesnet.shongo.controller.AclIdentityType;
 import cz.cesnet.shongo.controller.ControllerReportSetHelper;
 import cz.cesnet.shongo.controller.authorization.Authorization;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;

@@ -2,7 +2,7 @@ package cz.cesnet.shongo.controller.booking.reservation;
 
 import cz.cesnet.shongo.controller.booking.request.ReservationRequest;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a reuse of an existing {@link Reservation} to a new {@link Reservation} for

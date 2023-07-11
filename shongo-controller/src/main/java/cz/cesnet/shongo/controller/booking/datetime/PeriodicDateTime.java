@@ -10,9 +10,9 @@ import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 import org.joda.time.*;
 
-import javax.persistence.*;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.Entity;
 import java.util.*;
 
 /**

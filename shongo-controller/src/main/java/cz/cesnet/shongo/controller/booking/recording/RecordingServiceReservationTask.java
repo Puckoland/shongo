@@ -24,7 +24,7 @@ import cz.cesnet.shongo.util.RangeSet;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.*;
 
 /**

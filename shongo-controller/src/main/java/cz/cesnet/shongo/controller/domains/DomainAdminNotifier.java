@@ -6,7 +6,7 @@ import cz.cesnet.shongo.controller.EmailSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 /**
  * Domain admin notifier for inter domain communication

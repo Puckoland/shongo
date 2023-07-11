@@ -2,9 +2,9 @@ package cz.cesnet.shongo.controller.booking.resource;
 
 import cz.cesnet.shongo.SimplePersistentObject;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 /**
  * Represents a mode of a device.

@@ -27,7 +27,7 @@ import cz.cesnet.shongo.util.StringHelper;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTimeZone;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 
 /**
@@ -39,7 +39,7 @@ public class AuthorizationServiceImpl extends AbstractServiceImpl
         implements AuthorizationService, Component.EntityManagerFactoryAware, Component.AuthorizationAware
 {
     /**
-     * @see javax.persistence.EntityManagerFactory
+     * @see EntityManagerFactory
      */
     private EntityManagerFactory entityManagerFactory;
 

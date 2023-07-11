@@ -25,7 +25,7 @@ import jade.core.AID;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 /**
  * Tests for serializing API classes for JADE.

@@ -2,9 +2,9 @@ package cz.cesnet.shongo.controller.booking.recording;
 
 import cz.cesnet.shongo.controller.booking.resource.DeviceCapability;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
 
 /**
  * Capability tells that the {@link cz.cesnet.shongo.controller.booking.resource.DeviceResource} can record a call.

@@ -5,7 +5,7 @@ import cz.cesnet.shongo.api.UserInformation;
 import cz.cesnet.shongo.controller.api.Controller;
 import cz.cesnet.shongo.controller.authorization.Authorization;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * {@link AbstractPerson} that represents a shongo-user who is defined by the shongo-user-id.

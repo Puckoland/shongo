@@ -12,7 +12,7 @@ import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.joda.time.ReadablePartial;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;

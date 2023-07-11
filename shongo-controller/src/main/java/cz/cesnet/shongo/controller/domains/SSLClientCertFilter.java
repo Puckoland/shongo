@@ -3,9 +3,9 @@ package cz.cesnet.shongo.controller.domains;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
@@ -37,7 +37,7 @@ public class SSLClientCertFilter implements Filter
 //            ====================DEBUG=====================
 
         //according https://java.net/downloads/servlet-spec/Final/servlet-3_1-final-change-bar.pdf part 3.9
-        X509Certificate[] certs = (X509Certificate[]) sr.getAttribute("javax.servlet.request.X509Certificate");
+        X509Certificate[] certs = (X509Certificate[]) sr.getAttribute("jakarta.servlet.request.X509Certificate");
         if (certs == null || certs.length == 0) {
             res.sendError(HttpServletResponse.SC_FORBIDDEN, "Client authentication required !");
             return;

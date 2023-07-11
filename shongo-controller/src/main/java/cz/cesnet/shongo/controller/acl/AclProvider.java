@@ -3,9 +3,9 @@ package cz.cesnet.shongo.controller.acl;
 import cz.cesnet.shongo.PersistentObject;
 import cz.cesnet.shongo.controller.AclIdentityType;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
 import java.util.*;
 
 /**

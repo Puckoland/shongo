@@ -5,7 +5,7 @@ import cz.cesnet.shongo.api.AbstractComplexType;
 import cz.cesnet.shongo.controller.ObjectRole;
 import cz.cesnet.shongo.controller.authorization.Authorization;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents an ACL entry for {@link #identity} to be granted by {@link #role} for the {@link #objectIdentity}.

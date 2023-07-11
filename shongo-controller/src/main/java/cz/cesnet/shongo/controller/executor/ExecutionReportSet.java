@@ -1,6 +1,7 @@
 package cz.cesnet.shongo.controller.executor;
 
 import cz.cesnet.shongo.report.*;
+import jakarta.persistence.*;
 
 /**
  * Auto-generated implementation of {@link AbstractReportSet}.
@@ -12,8 +13,8 @@ public class ExecutionReportSet extends AbstractReportSet
     /**
      * Command {@link #command} failed: {@link #jadeReport}
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("CommandFailedReport")
+    @Entity
+    @DiscriminatorValue("CommandFailedReport")
     public static class CommandFailedReport extends cz.cesnet.shongo.controller.executor.ExecutionReport
     {
         protected String command;
@@ -24,7 +25,7 @@ public class ExecutionReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -37,7 +38,7 @@ public class ExecutionReportSet extends AbstractReportSet
             setJadeReport(jadeReport);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getCommand()
         {
             return command;
@@ -48,9 +49,9 @@ public class ExecutionReportSet extends AbstractReportSet
             this.command = command;
         }
 
-        @javax.persistence.OneToOne(cascade = javax.persistence.CascadeType.ALL, orphanRemoval = true, fetch = javax.persistence.FetchType.LAZY)
-        @javax.persistence.Access(javax.persistence.AccessType.FIELD)
-        @javax.persistence.JoinColumn(name = "jade_report_id")
+        @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+        @Access(AccessType.FIELD)
+        @JoinColumn(name = "jade_report_id")
         public cz.cesnet.shongo.JadeReport getJadeReport()
         {
             return cz.cesnet.shongo.PersistentObject.getLazyImplementation(jadeReport);
@@ -61,28 +62,28 @@ public class ExecutionReportSet extends AbstractReportSet
             this.jadeReport = jadeReport;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Resolution getResolution()
         {
             return jadeReport.getResolution();
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN | VISIBLE_TO_RESOURCE_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -92,7 +93,7 @@ public class ExecutionReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -153,8 +154,8 @@ public class ExecutionReportSet extends AbstractReportSet
     /**
      * {@link #reason}
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("RecordingUnavailableReport")
+    @Entity
+    @DiscriminatorValue("RecordingUnavailableReport")
     public static class RecordingUnavailableReport extends cz.cesnet.shongo.controller.executor.ExecutionReport
     {
         protected String reason;
@@ -163,7 +164,7 @@ public class ExecutionReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -175,7 +176,7 @@ public class ExecutionReportSet extends AbstractReportSet
             setReason(reason);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getReason()
         {
             return reason;
@@ -186,21 +187,21 @@ public class ExecutionReportSet extends AbstractReportSet
             this.reason = reason;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Resolution getResolution()
         {
             return Resolution.TRY_AGAIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -209,7 +210,7 @@ public class ExecutionReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
@@ -263,8 +264,8 @@ public class ExecutionReportSet extends AbstractReportSet
     /**
      * Cannot modify room {@link #roomName}, because it has not been started yet.
      */
-    @javax.persistence.Entity
-    @javax.persistence.DiscriminatorValue("RoomNotStartedReport")
+    @Entity
+    @DiscriminatorValue("RoomNotStartedReport")
     public static class RoomNotStartedReport extends cz.cesnet.shongo.controller.executor.ExecutionReport
     {
         protected String roomName;
@@ -273,7 +274,7 @@ public class ExecutionReportSet extends AbstractReportSet
         {
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getUniqueId()
         {
@@ -285,7 +286,7 @@ public class ExecutionReportSet extends AbstractReportSet
             setRoomName(roomName);
         }
 
-        @javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
+        @Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)
         public String getRoomName()
         {
             return roomName;
@@ -296,28 +297,28 @@ public class ExecutionReportSet extends AbstractReportSet
             this.roomName = roomName;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Type getType()
         {
             return Report.Type.ERROR;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public Resolution getResolution()
         {
             return Resolution.TRY_AGAIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public int getVisibleFlags()
         {
             return VISIBLE_TO_DOMAIN_ADMIN | VISIBLE_TO_RESOURCE_ADMIN;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public java.util.Map<String, Object> getParameters()
         {
@@ -326,7 +327,7 @@ public class ExecutionReportSet extends AbstractReportSet
             return parameters;
         }
 
-        @javax.persistence.Transient
+        @Transient
         @Override
         public String getMessage(UserType userType, Language language, org.joda.time.DateTimeZone timeZone)
         {
