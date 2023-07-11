@@ -2,9 +2,9 @@ package cz.cesnet.shongo;
 
 import org.hibernate.proxy.HibernateProxy;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 
 /**
  * Represents an object that can be persisted to a database (must contain unique identifier),
@@ -137,7 +137,7 @@ public abstract class PersistentObject
      * Get implementation for given {@code object} in case that it is a {@link org.hibernate.proxy.HibernateProxy}.
      * <p/>
      * Getters which uses this method for retrieving the values should not be annotated with
-     * {@link javax.persistence.Access} equaled to {@link javax.persistence.AccessType#FIELD},
+     * {@link jakarta.persistence.Access} equaled to {@link jakarta.persistence.AccessType#FIELD},
      * because it may end up in "org.hibernate.AssertionFailure: Unable to perform un-delete for instance ..."
      * exception.
      *

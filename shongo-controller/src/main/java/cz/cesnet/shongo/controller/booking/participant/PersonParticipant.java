@@ -7,7 +7,7 @@ import cz.cesnet.shongo.api.AbstractComplexType;
 import cz.cesnet.shongo.controller.booking.person.AbstractPerson;
 import cz.cesnet.shongo.util.ObjectHelper;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.HashSet;
 
 /**

@@ -3,8 +3,8 @@ package cz.cesnet.shongo.controller.booking.value;
 import cz.cesnet.shongo.api.AbstractComplexType;
 import cz.cesnet.shongo.controller.booking.value.provider.FilteredValueProvider;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
 /**
  * Represents a {@link cz.cesnet.shongo.controller.booking.value.ValueReservation} which was created by requesting specific value

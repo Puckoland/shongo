@@ -9,7 +9,7 @@ import cz.cesnet.shongo.controller.acl.AclObjectClass;
 import cz.cesnet.shongo.controller.api.SecurityToken;
 import cz.cesnet.shongo.controller.authorization.Authorization;
 
-import javax.persistence.Query;
+import jakarta.persistence.Query;
 import java.util.*;
 
 /**

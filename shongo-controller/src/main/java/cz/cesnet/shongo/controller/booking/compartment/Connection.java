@@ -15,7 +15,7 @@ import cz.cesnet.shongo.controller.booking.executable.ExecutableManager;
 import cz.cesnet.shongo.controller.booking.executable.ManagedEndpoint;
 import cz.cesnet.shongo.jade.SendLocalCommand;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

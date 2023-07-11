@@ -6,7 +6,7 @@ import cz.cesnet.shongo.controller.booking.request.ReservationRequest;
 import cz.cesnet.shongo.controller.booking.resource.Resource;
 import cz.cesnet.shongo.controller.scheduler.SchedulerContext;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a {@link cz.cesnet.shongo.controller.booking.reservation.Reservation} for a foreign {@link Resource}.

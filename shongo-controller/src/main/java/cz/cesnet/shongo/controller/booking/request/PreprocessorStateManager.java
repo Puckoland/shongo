@@ -5,8 +5,8 @@ import cz.cesnet.shongo.Temporal;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-import javax.persistence.Embeddable;
-import javax.persistence.EntityManager;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -4,8 +4,8 @@ import cz.cesnet.shongo.controller.booking.executable.Endpoint;
 import cz.cesnet.shongo.controller.booking.executable.EndpointProvider;
 import cz.cesnet.shongo.controller.booking.executable.ResourceEndpoint;
 
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
 
 /**
  * Represents a {@link cz.cesnet.shongo.controller.booking.reservation.Reservation} for a {@link Endpoint}.

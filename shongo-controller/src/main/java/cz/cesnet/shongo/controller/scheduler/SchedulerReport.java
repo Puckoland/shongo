@@ -4,7 +4,7 @@ import cz.cesnet.shongo.controller.api.AllocationStateReport;
 import cz.cesnet.shongo.controller.util.StateReportSerializer;
 import cz.cesnet.shongo.report.AbstractReport;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 
 /**

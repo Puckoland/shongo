@@ -17,7 +17,7 @@ import cz.cesnet.shongo.controller.booking.request.ReservationRequestSet;
 import cz.cesnet.shongo.controller.booking.room.RoomSpecification;
 import org.joda.time.*;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.*;
 
 /**

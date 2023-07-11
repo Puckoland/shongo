@@ -1,6 +1,6 @@
 package cz.cesnet.shongo.controller.booking.resource;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 /**
  * Capability tells that the device can participate even in 2-point calls

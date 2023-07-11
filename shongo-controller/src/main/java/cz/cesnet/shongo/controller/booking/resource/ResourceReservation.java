@@ -4,7 +4,7 @@ import cz.cesnet.shongo.controller.api.Reservation;
 import cz.cesnet.shongo.controller.booking.ObjectIdentifier;
 import cz.cesnet.shongo.controller.booking.reservation.TargetedReservation;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a {@link cz.cesnet.shongo.controller.booking.reservation.Reservation} for a {@link Resource}.

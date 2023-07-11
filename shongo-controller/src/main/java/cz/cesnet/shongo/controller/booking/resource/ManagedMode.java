@@ -2,10 +2,10 @@ package cz.cesnet.shongo.controller.booking.resource;
 
 import cz.cesnet.shongo.api.AbstractComplexType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 
 /**
  * Represents a device mode in which the device

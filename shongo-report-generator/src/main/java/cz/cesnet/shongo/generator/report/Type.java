@@ -124,11 +124,11 @@ public abstract class Type
             {
                 List<String> annotations = super.getPersistenceAnnotations(reportName, columnName);
                 for (String annotation : annotations) {
-                    if (annotation.contains("@javax.persistence.Column")) {
+                    if (annotation.contains("@jakarta.persistence.Column")) {
                         annotations.remove(annotation);
                         annotations.add(0, "@org.hibernate.annotations.Columns(columns={"
-                                + "@javax.persistence.Column(name=\"" + columnName + "_start\"),"
-                                + "@javax.persistence.Column(name=\"" + columnName + "_end\")})");
+                                + "@jakarta.persistence.Column(name=\"" + columnName + "_start\"),"
+                                + "@jakarta.persistence.Column(name=\"" + columnName + "_end\")})");
                         break;
                     }
                 }
@@ -179,11 +179,11 @@ public abstract class Type
         {
             List<String> persistenceAnnotations = super.getPersistenceAnnotations(reportName, columnName);
             if (getClassName().equals("String")) {
-                persistenceAnnotations.add("@javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)");
+                persistenceAnnotations.add("@jakarta.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)");
 
             }
             else {
-                persistenceAnnotations.add("@javax.persistence.Column");
+                persistenceAnnotations.add("@jakarta.persistence.Column");
             }
             return persistenceAnnotations;
         }
@@ -201,8 +201,8 @@ public abstract class Type
         {
             List<String> persistenceAnnotations = super.getPersistenceAnnotations(reportName, columnName);
             persistenceAnnotations.clear();
-            persistenceAnnotations.add("@javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)");
-            persistenceAnnotations.add("@javax.persistence.Enumerated(javax.persistence.EnumType.STRING)");
+            persistenceAnnotations.add("@jakarta.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)");
+            persistenceAnnotations.add("@jakarta.persistence.Enumerated(jakarta.persistence.EnumType.STRING)");
             return persistenceAnnotations;
         }
     }
@@ -240,21 +240,21 @@ public abstract class Type
             String tableName = reportName + "_" + columnName;
             String joinColumn = reportName + "_id";
             if (elementType instanceof EntityType) {
-                persistenceAnnotations.add("@javax.persistence.JoinTable(name = \"" + tableName + "\", "
-                        + "joinColumns = @javax.persistence.JoinColumn(name = \"" + joinColumn + "\"))");
-                persistenceAnnotations.add("@javax.persistence.OneToMany("
-                        + "cascade = javax.persistence.CascadeType.ALL, orphanRemoval = true)");
+                persistenceAnnotations.add("@jakarta.persistence.JoinTable(name = \"" + tableName + "\", "
+                        + "joinColumns = @jakarta.persistence.JoinColumn(name = \"" + joinColumn + "\"))");
+                persistenceAnnotations.add("@jakarta.persistence.OneToMany("
+                        + "cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)");
             }
             else {
-                persistenceAnnotations.add("@javax.persistence.CollectionTable(name = \"" + tableName + "\", "
-                        + "joinColumns = @javax.persistence.JoinColumn(name = \"" + joinColumn + "\"))");
-                persistenceAnnotations.add("@javax.persistence.ElementCollection");
+                persistenceAnnotations.add("@jakarta.persistence.CollectionTable(name = \"" + tableName + "\", "
+                        + "joinColumns = @jakarta.persistence.JoinColumn(name = \"" + joinColumn + "\"))");
+                persistenceAnnotations.add("@jakarta.persistence.ElementCollection");
                 if (elementType instanceof EnumAtomicType) {
-                    persistenceAnnotations.add("@javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)");
-                    persistenceAnnotations.add("@javax.persistence.Enumerated(javax.persistence.EnumType.STRING)");
+                    persistenceAnnotations.add("@jakarta.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.ENUM_COLUMN_LENGTH)");
+                    persistenceAnnotations.add("@jakarta.persistence.Enumerated(jakarta.persistence.EnumType.STRING)");
                 }
                 else if (elementType instanceof AtomicType && elementType.getClassName().equals("String")) {
-                    persistenceAnnotations.add("@javax.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)");
+                    persistenceAnnotations.add("@jakarta.persistence.Column(length = cz.cesnet.shongo.api.AbstractComplexType.DEFAULT_COLUMN_LENGTH)");
                 }
             }
             return persistenceAnnotations;
@@ -302,9 +302,9 @@ public abstract class Type
             String tableName = reportName + "_" + columnName;
             String joinColumn = reportName + "_id";
             List<String> persistenceAnnotations = super.getPersistenceAnnotations(reportName, columnName);
-            persistenceAnnotations.add("@javax.persistence.CollectionTable(name = \"" + tableName + "\", "
-                    + "joinColumns = @javax.persistence.JoinColumn(name = \"" + joinColumn + "\"))");
-            persistenceAnnotations.add("@javax.persistence.ElementCollection");
+            persistenceAnnotations.add("@jakarta.persistence.CollectionTable(name = \"" + tableName + "\", "
+                    + "joinColumns = @jakarta.persistence.JoinColumn(name = \"" + joinColumn + "\"))");
+            persistenceAnnotations.add("@jakarta.persistence.ElementCollection");
             return persistenceAnnotations;
         }
 
@@ -331,7 +331,7 @@ public abstract class Type
             List<String> persistenceAnnotations = super.getPersistenceAnnotations(reportName, columnName);
             if (!persistentType.equals("DateTime")) {
                 persistenceAnnotations.clear();
-                persistenceAnnotations.add("@javax.persistence.Column(length = cz.cesnet.shongo.hibernate.Persistent" + persistentType + ".LENGTH)");
+                persistenceAnnotations.add("@jakarta.persistence.Column(length = cz.cesnet.shongo.hibernate.Persistent" + persistentType + ".LENGTH)");
             }
             persistenceAnnotations.add("@org.hibernate.annotations.Type(type = cz.cesnet.shongo.hibernate.Persistent" + persistentType + ".NAME)");
             return persistenceAnnotations;
@@ -374,10 +374,10 @@ public abstract class Type
             List<String> persistenceAnnotations = super.getPersistenceAnnotations(reportName, columnName);
             String params = null;
             if (hasFlag(CASCADE_ALL)) {
-                params = "cascade = javax.persistence.CascadeType.ALL, orphanRemoval = true";
+                params = "cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true";
             }
             else if (hasFlag(CASCADE_PERSIST)) {
-                params = "cascade = javax.persistence.CascadeType.PERSIST";
+                params = "cascade = jakarta.persistence.CascadeType.PERSIST";
             }
             if (params != null) {
                 params = "(" + params + ", ";
@@ -385,10 +385,10 @@ public abstract class Type
             else {
                 params = "(";
             }
-            params = params + "fetch = javax.persistence.FetchType.LAZY)";
-            persistenceAnnotations.add("@javax.persistence.OneToOne" + params);
-            persistenceAnnotations.add("@javax.persistence.Access(javax.persistence.AccessType.FIELD)");
-            persistenceAnnotations.add("@javax.persistence.JoinColumn(name = \"" + columnName + "_id\")");
+            params = params + "fetch = jakarta.persistence.FetchType.LAZY)";
+            persistenceAnnotations.add("@jakarta.persistence.OneToOne" + params);
+            persistenceAnnotations.add("@jakarta.persistence.Access(jakarta.persistence.AccessType.FIELD)");
+            persistenceAnnotations.add("@jakarta.persistence.JoinColumn(name = \"" + columnName + "_id\")");
             return persistenceAnnotations;
         }
 

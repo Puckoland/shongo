@@ -3,7 +3,7 @@ package cz.cesnet.shongo.controller.notification;
 import cz.cesnet.shongo.PersonInformation;
 import cz.cesnet.shongo.controller.notification.executor.NotificationExecutor;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.LinkedList;
 import java.util.List;
 

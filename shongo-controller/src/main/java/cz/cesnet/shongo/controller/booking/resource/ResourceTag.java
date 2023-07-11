@@ -4,7 +4,7 @@ import cz.cesnet.shongo.SimplePersistentObject;
 import cz.cesnet.shongo.api.AbstractComplexType;
 import cz.cesnet.shongo.controller.booking.domain.Domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * @author: Ondřej Pavelka <pavelka@cesnet.cz>

@@ -8,7 +8,7 @@ import cz.cesnet.shongo.controller.booking.room.ResourceRoomEndpoint;
 import cz.cesnet.shongo.controller.booking.room.RoomEndpoint;
 import cz.cesnet.shongo.controller.booking.room.UsedRoomEndpoint;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Map;
 
 

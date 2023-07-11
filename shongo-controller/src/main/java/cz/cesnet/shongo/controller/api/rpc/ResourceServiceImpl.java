@@ -36,7 +36,7 @@ import org.joda.time.Period;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.*;
 
 /**
@@ -56,7 +56,7 @@ public class ResourceServiceImpl extends AbstractServiceImpl
     private Cache cache;
 
     /**
-     * @see javax.persistence.EntityManagerFactory
+     * @see jakarta.persistence.EntityManagerFactory
      */
     private EntityManagerFactory entityManagerFactory;
 

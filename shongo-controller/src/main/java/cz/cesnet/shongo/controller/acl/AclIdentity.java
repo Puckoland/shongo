@@ -5,7 +5,7 @@ import cz.cesnet.shongo.api.AbstractComplexType;
 import cz.cesnet.shongo.controller.AclIdentityType;
 import cz.cesnet.shongo.controller.api.Controller;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents an identity (e.g., User or Group) for which can be created {@link AclEntry}.

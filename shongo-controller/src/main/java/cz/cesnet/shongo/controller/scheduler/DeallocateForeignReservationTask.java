@@ -15,7 +15,7 @@ import cz.cesnet.shongo.controller.domains.InterDomainAgent;
 import cz.cesnet.shongo.controller.notification.AbstractNotification;
 import org.joda.time.Interval;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.Iterator;
 import java.util.List;
 

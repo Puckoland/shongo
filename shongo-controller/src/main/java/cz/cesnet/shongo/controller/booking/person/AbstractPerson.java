@@ -6,7 +6,7 @@ import cz.cesnet.shongo.TodoImplementException;
 import cz.cesnet.shongo.controller.api.*;
 import cz.cesnet.shongo.util.ObjectHelper;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a person that can have name and who can be contacted by email or phone.

@@ -2,7 +2,7 @@ package cz.cesnet.shongo.controller.booking.reservation;
 
 import cz.cesnet.shongo.controller.booking.executable.ExecutableService;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Represents a {@link Reservation} for a {@link ExecutableService}.
