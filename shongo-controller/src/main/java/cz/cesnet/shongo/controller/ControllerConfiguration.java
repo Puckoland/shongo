@@ -33,6 +33,17 @@ import java.util.stream.Collectors;
  */
 public class ControllerConfiguration extends CombinedConfiguration
 {
+
+    /**
+     * Name of the controller XML configuration file.
+     */
+    public static final String CONFIGURATION_FILE = "configuration-file";
+
+    /**
+     * Determines whether the controller should be started as daemon without the interactive shell.
+     */
+    public static final String DAEMON = "daemon";
+
     /**
      * Time-zone in which the controller works and which is considered as default for date/times without specific zone.
      */
