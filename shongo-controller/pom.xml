@@ -256,7 +256,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>cz.cesnet.shongo.controller.Controller</mainClass>
+                            <mainClass>cz.cesnet.shongo.controller.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
