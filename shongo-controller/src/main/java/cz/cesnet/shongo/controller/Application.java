@@ -8,92 +8,95 @@ import java.util.Comparator;
 public class Application
 {
 
+    private static final Option OPTION_HELP = new Option(null, "help", false, "Print this usage information");
+    private static final Option OPTION_HOST = OptionBuilder.withLongOpt("host")
+            .withArgName("HOST")
+            .hasArg()
+            .withDescription("Set the local interface address on which the controller will run")
+            .create("h");
+    private static final Option OPTION_RPC_PORT = OptionBuilder.withLongOpt("rpc-port")
+            .withArgName("PORT")
+            .hasArg()
+            .withDescription("Set the port on which the XML-RPC server will run")
+            .create("r");
+    private static final Option OPTION_JADE_PORT = OptionBuilder.withLongOpt("jade-port")
+            .withArgName("PORT")
+            .hasArg()
+            .withDescription("Set the port on which the JADE main controller will run")
+            .create("a");
+    private static final Option OPTION_JADE_PLATFORM = OptionBuilder.withLongOpt("jade-platform")
+            .withArgName("PLATFORM")
+            .hasArg()
+            .withDescription("Set the platform-id for the JADE main controller")
+            .create("p");
+    private static final Option OPTION_CONFIG = OptionBuilder.withLongOpt("config")
+            .withArgName("FILENAME")
+            .hasArg()
+            .withDescription("Controller XML configuration file")
+            .create("g");
+    private static final Option OPTION_DAEMON = OptionBuilder.withLongOpt("daemon")
+            .withDescription("Controller will be started as daemon without the interactive shell")
+            .create("d");
+
+    private static final Options OPTIONS = new Options()
+            .addOption(OPTION_HELP)
+            .addOption(OPTION_HOST)
+            .addOption(OPTION_RPC_PORT)
+            .addOption(OPTION_JADE_PORT)
+            .addOption(OPTION_JADE_PLATFORM)
+            .addOption(OPTION_CONFIG)
+            .addOption(OPTION_DAEMON);
+
     public static void main(String[] args) throws Exception {
-        // Create options
-        Option optionHelp = new Option(null, "help", false, "Print this usage information");
-        Option optionHost = OptionBuilder.withLongOpt("host")
-                .withArgName("HOST")
-                .hasArg()
-                .withDescription("Set the local interface address on which the controller will run")
-                .create("h");
-        Option optionRpcPort = OptionBuilder.withLongOpt("rpc-port")
-                .withArgName("PORT")
-                .hasArg()
-                .withDescription("Set the port on which the XML-RPC server will run")
-                .create("r");
-        Option optionJadePort = OptionBuilder.withLongOpt("jade-port")
-                .withArgName("PORT")
-                .hasArg()
-                .withDescription("Set the port on which the JADE main controller will run")
-                .create("a");
-        Option optionJadePlatform = OptionBuilder.withLongOpt("jade-platform")
-                .withArgName("PLATFORM")
-                .hasArg()
-                .withDescription("Set the platform-id for the JADE main controller")
-                .create("p");
-        Option optionConfig = OptionBuilder.withLongOpt("config")
-                .withArgName("FILENAME")
-                .hasArg()
-                .withDescription("Controller XML configuration file")
-                .create("g");
-        Option optionDaemon = OptionBuilder.withLongOpt("daemon")
-                .withDescription("Controller will be started as daemon without the interactive shell")
-                .create("d");
-        Options options = new Options();
-        options.addOption(optionHost);
-        options.addOption(optionRpcPort);
-        options.addOption(optionJadePort);
-        options.addOption(optionJadePlatform);
-        options.addOption(optionHelp);
-        options.addOption(optionConfig);
-        options.addOption(optionDaemon);
+        final CommandLine commandLine = parseCommandLine(args);
+        printHelp(commandLine);
+        processArguments(commandLine);
 
-        // Parse command line
-        final CommandLine commandLine;
-        try {
-            CommandLineParser parser = new PosixParser();
-            commandLine = parser.parse(options, args);
-        }
-        catch (ParseException e) {
-            System.out.println("Error: " + e.getMessage());
-            return;
-        }
+        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "production");
+        Controller.init();
+    }
 
-        // Print help
-        if (commandLine.hasOption(optionHelp.getLongOpt())) {
+    private static CommandLine parseCommandLine(String[] args) throws ParseException
+    {
+        CommandLineParser parser = new PosixParser();
+        return parser.parse(OPTIONS, args);
+    }
+
+    private static void printHelp(CommandLine commandLine)
+    {
+        if (commandLine.hasOption(OPTION_HELP.getLongOpt())) {
             HelpFormatter formatter = getHelpFormatter();
-            formatter.printHelp("controller", options);
+            formatter.printHelp("controller", OPTIONS);
             System.exit(0);
         }
+    }
 
-        // Process parameters
-        if (commandLine.hasOption(optionHost.getOpt())) {
-            String host = commandLine.getOptionValue(optionHost.getOpt());
+    private static void processArguments(CommandLine commandLine)
+    {
+        if (commandLine.hasOption(OPTION_HOST.getOpt())) {
+            String host = commandLine.getOptionValue(OPTION_HOST.getOpt());
             System.setProperty(ControllerConfiguration.RPC_HOST, host);
             System.setProperty(ControllerConfiguration.JADE_HOST, host);
         }
-        if (commandLine.hasOption(optionRpcPort.getOpt())) {
-            System.setProperty(ControllerConfiguration.RPC_PORT, commandLine.getOptionValue(optionRpcPort.getOpt()));
+        if (commandLine.hasOption(OPTION_RPC_PORT.getOpt())) {
+            System.setProperty(ControllerConfiguration.RPC_PORT, commandLine.getOptionValue(OPTION_RPC_PORT.getOpt()));
         }
-        if (commandLine.hasOption(optionJadePort.getOpt())) {
-            System.setProperty(ControllerConfiguration.JADE_PORT, commandLine.getOptionValue(optionJadePort.getOpt()));
+        if (commandLine.hasOption(OPTION_JADE_PORT.getOpt())) {
+            System.setProperty(ControllerConfiguration.JADE_PORT, commandLine.getOptionValue(OPTION_JADE_PORT.getOpt()));
         }
-        if (commandLine.hasOption(optionJadePlatform.getOpt())) {
-            System.setProperty(ControllerConfiguration.JADE_PLATFORM_ID, commandLine.getOptionValue(optionJadePlatform.getOpt()));
+        if (commandLine.hasOption(OPTION_JADE_PLATFORM.getOpt())) {
+            System.setProperty(ControllerConfiguration.JADE_PLATFORM_ID, commandLine.getOptionValue(OPTION_JADE_PLATFORM.getOpt()));
         }
-        if (commandLine.hasOption(optionDaemon.getOpt())) {
+        if (commandLine.hasOption(OPTION_DAEMON.getOpt())) {
             System.setProperty(ControllerConfiguration.DAEMON, "true");
         }
 
         // Get configuration file name
         String configurationFileName = "shongo-controller.cfg.xml";
-        if (commandLine.hasOption(optionConfig.getOpt())) {
-            configurationFileName = commandLine.getOptionValue(optionConfig.getOpt());
+        if (commandLine.hasOption(OPTION_CONFIG.getOpt())) {
+            configurationFileName = commandLine.getOptionValue(OPTION_CONFIG.getOpt());
         }
         System.setProperty(ControllerConfiguration.CONFIGURATION_FILE, configurationFileName);
-
-        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "production");
-        Controller.init();
     }
 
     private static HelpFormatter getHelpFormatter()
