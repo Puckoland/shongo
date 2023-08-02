@@ -165,7 +165,7 @@ public class Controller
     protected Controller(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory)
     {
         this.configuration = configuration;
-        setEntityManagerFactory(entityManagerFactory);
+        this.entityManagerFactory = entityManagerFactory;
 
         // Initialize default locale
         Locale defaultLocale = UserSettings.LOCALE_ENGLISH;
