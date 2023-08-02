@@ -22,6 +22,7 @@ import org.joda.time.Interval;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -288,6 +289,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
             configureSystemProperties();
 
             // Create controller
+            final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfig.class);
             controller = cz.cesnet.shongo.controller.Controller.create(new Controller(null)
             {
                 @Override
