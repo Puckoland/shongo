@@ -6,13 +6,19 @@ import cz.cesnet.shongo.controller.booking.executable.Executable;
 import cz.cesnet.shongo.controller.settings.UserSessionSettings;
 import cz.cesnet.shongo.ssl.SSLCommunication;
 import cz.cesnet.shongo.util.PatternParser;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration.CombinedConfiguration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.SystemConfiguration;
+import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.configuration.tree.NodeCombiner;
 import org.apache.commons.configuration.tree.UnionCombiner;
 import org.joda.time.Duration;
 import org.joda.time.Period;
 import org.postgresql.util.Base64;
+import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.MatchResult;
@@ -23,6 +29,8 @@ import java.util.regex.Pattern;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Slf4j
+@Configuration
 public class ControllerConfiguration extends CombinedConfiguration
 {
 
@@ -245,6 +253,38 @@ public class ControllerConfiguration extends CombinedConfiguration
         NodeCombiner nodeCombiner = new UnionCombiner();
         nodeCombiner.addListNode("email");
         setNodeCombiner(nodeCombiner);
+    }
+
+    @PostConstruct
+    public void addConfigurations()
+    {
+        // System properties has the highest priority
+        addConfiguration(new SystemConfiguration());
+
+        // Passed configuration has lower priority
+        String configurationFileName = getString(CONFIGURATION_FILE);
+        if (configurationFileName != null) {
+            try {
+                XMLConfiguration xmlConfiguration = new XMLConfiguration();
+                xmlConfiguration.setDelimiterParsingDisabled(true);
+                xmlConfiguration.load(configurationFileName);
+                addConfiguration(xmlConfiguration);
+            }
+            catch (ConfigurationException e) {
+                log.warn(e.getMessage());
+            }
+        }
+
+        // Default configuration has the lowest priority
+        try {
+            XMLConfiguration defaultConfiguration = new XMLConfiguration();
+            defaultConfiguration.setDelimiterParsingDisabled(true);
+            defaultConfiguration.load(getClass().getClassLoader().getResource("controller-default.cfg.xml"));
+            addConfiguration(defaultConfiguration);
+        }
+        catch (ConfigurationException e) {
+            throw new RuntimeException("Failed to load default controller configuration!", e);
+        }
     }
 
     /**
