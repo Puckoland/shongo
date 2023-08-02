@@ -31,6 +31,8 @@ import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -45,6 +47,8 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Profile("production")
+@org.springframework.stereotype.Component
 public class Controller
 {
     private static Logger logger = LoggerFactory.getLogger(Controller.class);
@@ -153,6 +157,7 @@ public class Controller
     /**
      * Constructor.
      */
+    @Autowired
     protected Controller(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory)
     {
         this.configuration = configuration;

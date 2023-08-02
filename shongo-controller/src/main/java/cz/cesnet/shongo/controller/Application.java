@@ -6,7 +6,6 @@ import org.apache.commons.cli.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.AbstractEnvironment;
 
-import javax.persistence.EntityManagerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Comparator;
@@ -66,9 +65,8 @@ public class Application
         System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "production");
 
         final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-        final EntityManagerFactory entityManagerFactory = context.getBean(EntityManagerFactory.class);
-        final ControllerConfiguration configuration = context.getBean(ControllerConfiguration.class);
-        new Controller(configuration, entityManagerFactory).init();
+        final Controller controller = context.getBean(Controller.class);
+        controller.init();
     }
 
     private static CommandLine parseCommandLine(String[] args) throws ParseException
