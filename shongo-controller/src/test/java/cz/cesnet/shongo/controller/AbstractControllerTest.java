@@ -16,7 +16,6 @@ import cz.cesnet.shongo.controller.scheduler.Preprocessor;
 import cz.cesnet.shongo.controller.scheduler.Scheduler;
 import cz.cesnet.shongo.controller.util.DatabaseHelper;
 import cz.cesnet.shongo.controller.util.NativeQuery;
-import cz.cesnet.shongo.jade.Container;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.junit.Assert;
@@ -263,8 +262,6 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
     {
     }
 
-    private static Container jadeContainer;
-
     /**
      * Setup system properties for testing controller.
      */
@@ -290,42 +287,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
 
             // Create controller
             final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfig.class);
-            controller = new Controller(context.getBean(ControllerConfiguration.class), null)
-            {
-                @Override
-                public Container startJade()
-                {
-                    synchronized (AbstractControllerTest.class) {
-                        if (AbstractControllerTest.jadeContainer == null) {
-                            AbstractControllerTest.jadeContainer = super.startJade();
-                        }
-                        else {
-                            logger.info("Reusing JADE container...");
-                            this.jadeContainer = AbstractControllerTest.jadeContainer;
-
-                            // Add jade agent
-                            addJadeAgent(configuration.getString(ControllerConfiguration.JADE_AGENT_NAME), jadeAgent);
-                        }
-                        jadeContainer.waitForJadeAgentsToStart();
-                        return AbstractControllerTest.jadeContainer;
-                    }
-                }
-
-                @Override
-                public void stop()
-                {
-                    synchronized (AbstractControllerTest.class) {
-                        if (this.jadeContainer != null) {
-                            logger.info("Stopping JADE agents...");
-                            for (String agentName : new LinkedList<String>(this.jadeContainer.getAgentNames())) {
-                                this.jadeContainer.removeAgent(agentName);
-                            }
-                            this.jadeContainer = null;
-                        }
-                        super.stop();
-                    }
-                }
-            };
+            controller = new TestController(context.getBean(ControllerConfiguration.class), null);
             controller.setDomain("cz.cesnet", "CESNET, z.s.p.o.");
             controller.setEntityManagerFactory(getEntityManagerFactory());
 
