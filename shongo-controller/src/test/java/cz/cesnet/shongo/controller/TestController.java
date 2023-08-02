@@ -2,11 +2,18 @@ package cz.cesnet.shongo.controller;
 
 import cz.cesnet.shongo.jade.Container;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import jakarta.persistence.EntityManagerFactory;
 import java.util.LinkedList;
 
 @Slf4j
+@Component
+@Profile("test")
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class TestController extends Controller
 {
 
