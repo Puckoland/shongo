@@ -1,12 +1,18 @@
 package cz.cesnet.shongo.controller;
 
+import cz.cesnet.shongo.util.Logging;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.AbstractEnvironment;
 
 import jakarta.persistence.EntityManagerFactory;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Comparator;
+import java.util.Properties;
 
+@Slf4j
 public class Application
 {
 
@@ -50,6 +56,9 @@ public class Application
             .addOption(OPTION_DAEMON);
 
     public static void main(String[] args) throws Exception {
+        log.info("Controller {}", getVersion());
+        Logging.installBridge();
+
         final CommandLine commandLine = parseCommandLine(args);
         printHelp(commandLine);
         processArguments(commandLine);
@@ -58,7 +67,8 @@ public class Application
 
         final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
         final EntityManagerFactory entityManagerFactory = context.getBean(EntityManagerFactory.class);
-        Controller.init(entityManagerFactory);
+        final ControllerConfiguration configuration = context.getBean(ControllerConfiguration.class);
+        new Controller(configuration, entityManagerFactory).init();
     }
 
     private static CommandLine parseCommandLine(String[] args) throws ParseException
@@ -120,5 +130,25 @@ public class Application
             return opt1.getOpt().compareTo(opt2.getOpt());
         });
         return formatter;
+    }
+
+    /**
+     * @return version of the controller
+     */
+    private static String getVersion()
+    {
+        String filename = "version.properties";
+        Properties properties = new Properties();
+        InputStream inputStream = Controller.class.getClassLoader().getResourceAsStream(filename);
+        if (inputStream == null) {
+            throw new RuntimeException("Properties file '" + filename + "' was not found in the classpath.");
+        }
+        try (inputStream) {
+            properties.load(inputStream);
+        }
+        catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        return properties.getProperty("version");
     }
 }
