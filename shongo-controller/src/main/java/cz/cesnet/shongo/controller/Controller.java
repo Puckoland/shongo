@@ -42,7 +42,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.DispatcherType;
 import java.io.IOException;
 import java.io.InputStream;
@@ -950,7 +949,7 @@ public class Controller
     /**
      * Main controller method
      */
-    public static void init() throws Exception
+    public static void init(EntityManagerFactory entityManagerFactory) throws Exception
     {
         logger.info("Controller {}", getVersion());
 
@@ -965,22 +964,6 @@ public class Controller
 
         // Configure SSL
         ConfiguredSSLContext.getInstance().loadConfiguration(configuration);
-
-        logger.debug("Creating entity manager factory...");
-        Timer timer = new Timer();
-        Map<String, String> properties = new HashMap<String, String>();
-        properties.put("hibernate.connection.driver_class",
-                controller.getConfiguration().getString(ControllerConfiguration.DATABASE_DRIVER));
-        properties.put("hibernate.connection.url",
-                controller.getConfiguration().getString(ControllerConfiguration.DATABASE_URL));
-        properties.put("hibernate.connection.username",
-                controller.getConfiguration().getString(ControllerConfiguration.DATABASE_USERNAME));
-        properties.put("hibernate.connection.password",
-                controller.getConfiguration().getString(ControllerConfiguration.DATABASE_PASSWORD));
-        properties.put("hibernate.dialect",
-                "cz.cesnet.shongo.controller.util.CustomPostgres10Dialect");
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("controller", properties);
-        logger.debug("Entity manager factory created in {} ms.", timer.stop());
 
         Controller.initializeDatabase(entityManagerFactory);
 
