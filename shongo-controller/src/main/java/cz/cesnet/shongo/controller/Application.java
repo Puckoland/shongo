@@ -1,8 +1,10 @@
 package cz.cesnet.shongo.controller;
 
 import org.apache.commons.cli.*;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.AbstractEnvironment;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.Comparator;
 
 public class Application
@@ -53,7 +55,10 @@ public class Application
         processArguments(commandLine);
 
         System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "production");
-        Controller.init();
+
+        final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+        final EntityManagerFactory entityManagerFactory = context.getBean(EntityManagerFactory.class);
+        Controller.init(entityManagerFactory);
     }
 
     private static CommandLine parseCommandLine(String[] args) throws ParseException
