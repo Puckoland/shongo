@@ -286,8 +286,11 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
             configureSystemProperties();
 
             // Create controller
-            final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfig.class);
-            controller = new TestController(context.getBean(ControllerConfiguration.class), null);
+            final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+            context.getEnvironment().setActiveProfiles("test");
+            context.register(TestConfig.class);
+            context.refresh();
+            controller = context.getBean(Controller.class);
             controller.setDomain("cz.cesnet", "CESNET, z.s.p.o.");
             controller.setEntityManagerFactory(getEntityManagerFactory());
 

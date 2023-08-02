@@ -12,9 +12,13 @@ import cz.cesnet.shongo.controller.scheduler.Scheduler;
 import cz.cesnet.shongo.util.Timer;
 import org.apache.log4j.Level;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -27,9 +31,15 @@ import java.util.Map;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@ActiveProfiles("test")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestConfig.class)
 public class DatabasePerformanceTest
 {
     private static Logger logger = LoggerFactory.getLogger(DatabasePerformanceTest.class);
+
+    @Autowired
+    private Controller controller;
 
     public EntityManagerFactory createEntityManagerFactory(String driver, String url, String username, String password)
             throws Exception
@@ -79,8 +89,6 @@ public class DatabasePerformanceTest
         System.setProperty(ControllerConfiguration.RPC_PORT, String.valueOf(AbstractControllerTest.TEST_RPC_PORT));
         System.setProperty(ControllerConfiguration.JADE_PORT, String.valueOf(AbstractControllerTest.TEST_JADE_PORT));
 
-        final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfig.class);
-        Controller controller = new Controller(context.getBean(ControllerConfiguration.class), null);
         controller.setDomain("cz.cesnet", "CESNET, z.s.p.o.");
         controller.setEntityManagerFactory(entityManagerFactory);
         controller.setThrowInternalErrorsForTesting(true);
