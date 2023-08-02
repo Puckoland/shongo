@@ -262,14 +262,17 @@ public class ControllerConfiguration extends CombinedConfiguration
         addConfiguration(new SystemConfiguration());
 
         // Passed configuration has lower priority
-        try {
-            XMLConfiguration xmlConfiguration = new XMLConfiguration();
-            xmlConfiguration.setDelimiterParsingDisabled(true);
-            xmlConfiguration.load(getString(CONFIGURATION_FILE));
-            addConfiguration(xmlConfiguration);
-        }
-        catch (ConfigurationException e) {
-            log.warn(e.getMessage());
+        String configurationFileName = getString(CONFIGURATION_FILE);
+        if (configurationFileName != null) {
+            try {
+                XMLConfiguration xmlConfiguration = new XMLConfiguration();
+                xmlConfiguration.setDelimiterParsingDisabled(true);
+                xmlConfiguration.load(getString(CONFIGURATION_FILE));
+                addConfiguration(xmlConfiguration);
+            }
+            catch (ConfigurationException e) {
+                log.warn(e.getMessage());
+            }
         }
 
         // Default configuration has the lowest priority
