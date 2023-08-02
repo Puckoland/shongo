@@ -287,7 +287,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
 
             // Create controller
             final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfig.class);
-            controller = cz.cesnet.shongo.controller.Controller.create(new Controller(null)
+            controller = new Controller(context.getBean(ControllerConfiguration.class), null)
             {
                 @Override
                 public Container startJade()

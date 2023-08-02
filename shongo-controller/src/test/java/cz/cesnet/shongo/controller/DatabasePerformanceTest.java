@@ -14,6 +14,7 @@ import org.apache.log4j.Level;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -78,7 +79,8 @@ public class DatabasePerformanceTest
         System.setProperty(ControllerConfiguration.RPC_PORT, String.valueOf(AbstractControllerTest.TEST_RPC_PORT));
         System.setProperty(ControllerConfiguration.JADE_PORT, String.valueOf(AbstractControllerTest.TEST_JADE_PORT));
 
-        cz.cesnet.shongo.controller.Controller controller = cz.cesnet.shongo.controller.Controller.create();
+        final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfig.class);
+        Controller controller = new Controller(context.getBean(ControllerConfiguration.class), null);
         controller.setDomain("cz.cesnet", "CESNET, z.s.p.o.");
         controller.setEntityManagerFactory(entityManagerFactory);
         controller.setThrowInternalErrorsForTesting(true);

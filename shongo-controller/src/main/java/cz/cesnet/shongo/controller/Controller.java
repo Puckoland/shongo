@@ -22,10 +22,7 @@ import cz.cesnet.shongo.controller.util.NativeQuery;
 import cz.cesnet.shongo.jade.Agent;
 import cz.cesnet.shongo.jade.Container;
 import cz.cesnet.shongo.ssl.ConfiguredSSLContext;
-import cz.cesnet.shongo.util.Logging;
 import cz.cesnet.shongo.util.Timer;
-import org.apache.commons.configuration.SystemConfiguration;
-import org.apache.commons.configuration.XMLConfiguration;
 import org.eclipse.jetty.http.HttpScheme;
 import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -38,7 +35,6 @@ import org.slf4j.LoggerFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -156,65 +152,11 @@ public class Controller
 
     /**
      * Constructor.
-     *
-     * @param configuration sets the {@link #configuration}
      */
-    protected Controller(org.apache.commons.configuration.AbstractConfiguration configuration)
+    protected Controller(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory)
     {
-        setConfiguration(configuration);
-    }
-
-    /**
-     * Destroy the controller.
-     */
-    public void destroy()
-    {
-        // Destroy reporter
-        reporter.destroy();
-
-        // Reset single instance of controller
-        instance = null;
-
-        // Local domain
-        LocalDomain.setLocalDomain(null);
-
-        // Default time zone
-        if (oldDefaultTimeZone != null) {
-            logger.info("Configuring default timezone back to {}.", oldDefaultTimeZone.getID());
-            DateTimeZone.setDefault(oldDefaultTimeZone);
-        }
-    }
-
-    /**
-     * @return {@link #configuration}
-     */
-    public ControllerConfiguration getConfiguration()
-    {
-        return configuration;
-    }
-
-    /**
-     * @param configuration configuration to be set to the controller
-     */
-    private void setConfiguration(org.apache.commons.configuration.AbstractConfiguration configuration)
-    {
-        this.configuration = new ControllerConfiguration();
-        // System properties has the highest priority
-        this.configuration.addConfiguration(new SystemConfiguration());
-        // Passed configuration has lower priority
-        if (configuration != null) {
-            this.configuration.addConfiguration(configuration);
-        }
-        // Default configuration has the lowest priority
-        try {
-            XMLConfiguration xmlConfiguration = new XMLConfiguration();
-            xmlConfiguration.setDelimiterParsingDisabled(true);
-            xmlConfiguration.load(getClass().getClassLoader().getResource("controller-default.cfg.xml"));
-            this.configuration.addConfiguration(xmlConfiguration);
-        }
-        catch (Exception exception) {
-            throw new RuntimeException("Failed to load default controller configuration!", exception);
-        }
+        this.configuration = configuration;
+        setEntityManagerFactory(entityManagerFactory);
 
         // Initialize default locale
         Locale defaultLocale = UserSettings.LOCALE_ENGLISH;
@@ -246,6 +188,37 @@ public class Controller
 
         // Create jade agent
         this.jadeAgent = new ControllerAgent(this.configuration);
+
+        setInstance(this);
+    }
+
+    /**
+     * Destroy the controller.
+     */
+    public void destroy()
+    {
+        // Destroy reporter
+        reporter.destroy();
+
+        // Reset single instance of controller
+        instance = null;
+
+        // Local domain
+        LocalDomain.setLocalDomain(null);
+
+        // Default time zone
+        if (oldDefaultTimeZone != null) {
+            logger.info("Configuring default timezone back to {}.", oldDefaultTimeZone.getID());
+            DateTimeZone.setDefault(oldDefaultTimeZone);
+        }
+    }
+
+    /**
+     * @return {@link #configuration}
+     */
+    public ControllerConfiguration getConfiguration()
+    {
+        return configuration;
     }
 
     /**
@@ -753,46 +726,16 @@ public class Controller
 
     /**
      * Constructor.
-     */
-    public static Controller create()
-    {
-        return create(new Controller(null));
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param configurationFileName
-     */
-    public static Controller create(String configurationFileName)
-    {
-        Controller controller;
-        try {
-            XMLConfiguration xmlConfiguration = new XMLConfiguration();
-            xmlConfiguration.setDelimiterParsingDisabled(true);
-            xmlConfiguration.load(configurationFileName);
-            controller = new Controller(xmlConfiguration);
-        }
-        catch (Exception exception) {
-            logger.warn(exception.getMessage());
-            controller = new Controller(null);
-        }
-        return create(controller);
-    }
-
-    /**
-     * Constructor.
      *
      * @param controller
      */
-    public static synchronized Controller create(Controller controller)
+    private static synchronized void setInstance(Controller controller)
     {
         if (instance != null) {
             throw new IllegalStateException("Another instance of controller already exists.");
         }
         controller.reporter = Reporter.create(controller);
         instance = controller;
-        return instance;
     }
 
     /**
@@ -828,31 +771,6 @@ public class Controller
     }
 
     /**
-     * @return version of the {@link Controller}
-     */
-    private static String getVersion()
-    {
-        String filename = "version.properties";
-        Properties properties = new Properties();
-        InputStream inputStream = Controller.class.getClassLoader().getResourceAsStream(filename);
-        if (inputStream == null) {
-            throw new RuntimeException("Properties file '" + filename + "' was not found in the classpath.");
-        }
-        try {
-            try {
-                properties.load(inputStream);
-            }
-            finally {
-                inputStream.close();
-            }
-        }
-        catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-        return properties.getProperty("version");
-    }
-
-    /**
      * Initialize database.
      *
      * @param entityManagerFactory
@@ -874,18 +792,10 @@ public class Controller
     /**
      * Main controller method
      */
-    public static void init(EntityManagerFactory entityManagerFactory) throws Exception
+    public void init() throws Exception
     {
-        logger.info("Controller {}", getVersion());
-
-        Logging.installBridge();
-
-        String configurationFileName = System.getProperty(ControllerConfiguration.CONFIGURATION_FILE);
-        // Create controller
-        final Controller controller = Controller.create(configurationFileName);
-        ControllerConfiguration configuration = controller.getConfiguration();
-        NotificationManager notificationManager = controller.getNotificationManager();
-        CalendarManager calendarManager = controller.getCalendarManager();
+        NotificationManager notificationManager = getNotificationManager();
+        CalendarManager calendarManager = getCalendarManager();
 
         // Configure SSL
         ConfiguredSSLContext.getInstance().loadConfiguration(configuration);
@@ -894,41 +804,40 @@ public class Controller
 
         // Setup controller
         ServerAuthorization authorization = ServerAuthorization.createInstance(configuration, entityManagerFactory);
-        controller.setAuthorization(authorization);
-        controller.setEntityManagerFactory(entityManagerFactory);
+        setAuthorization(authorization);
 
         // Add components
         Cache cache = new Cache();
-        controller.addComponent(cache);
+        addComponent(cache);
         Preprocessor preprocessor = new Preprocessor();
         preprocessor.setCache(cache);
-        controller.addComponent(preprocessor);
+        addComponent(preprocessor);
         Scheduler scheduler = new Scheduler(cache, notificationManager, calendarManager);
-        controller.addComponent(scheduler);
+        addComponent(scheduler);
         Executor executor = new Executor(notificationManager);
-        controller.addComponent(executor);
+        addComponent(executor);
 
         // Add mail notification executor
-        controller.addNotificationExecutor(new EmailNotificationExecutor(controller.getEmailSender(), configuration));
+        addNotificationExecutor(new EmailNotificationExecutor(getEmailSender(), configuration));
 
-        controller.addCalendarConnector(controller.getCalendarConnector());
+        addCalendarConnector(getCalendarConnector());
 
         // Initialize Inter Domain agent
         if (configuration.isInterDomainConfigured()) {
-            InterDomainAgent.create(entityManagerFactory, configuration, authorization, controller.getEmailSender(), cache);
+            InterDomainAgent.create(entityManagerFactory, configuration, authorization, getEmailSender(), cache);
         }
 
         // Add XML-RPC services
         RecordingsCache recordingsCache = new RecordingsCache();
-        controller.addRpcService(new CommonServiceImpl());
-        controller.addRpcService(new AuthorizationServiceImpl());
-        controller.addRpcService(new ResourceServiceImpl(cache));
-        controller.addRpcService(new ResourceControlServiceImpl(recordingsCache));
-        controller.addRpcService(new ReservationServiceImpl(cache));
-        controller.addRpcService(new ExecutableServiceImpl(executor, recordingsCache));
+        addRpcService(new CommonServiceImpl());
+        addRpcService(new AuthorizationServiceImpl());
+        addRpcService(new ResourceServiceImpl(cache));
+        addRpcService(new ResourceControlServiceImpl(recordingsCache));
+        addRpcService(new ReservationServiceImpl(cache));
+        addRpcService(new ExecutableServiceImpl(executor, recordingsCache));
 
         // Add JADE service
-        controller.setJadeService(new ServiceImpl(entityManagerFactory, notificationManager, executor, authorization));
+        setJadeService(new ServiceImpl(entityManagerFactory, notificationManager, executor, authorization));
 
         // Prepare shutdown runnable
         Runnable shutdown = new Runnable()
@@ -943,8 +852,8 @@ public class Controller
                     }
                     logger.info("Shutdown has been started...");
                     logger.info("Stopping controller...");
-                    controller.stop();
-                    controller.destroy();
+                    stop();
+                    destroy();
                     Container.killAllJadeThreads();
                     logger.info("Shutdown successfully completed.");
                 }
@@ -961,7 +870,7 @@ public class Controller
         boolean shell = System.getProperty(ControllerConfiguration.DAEMON) == null;
         try {
             // Start
-            controller.startAll();
+            startAll();
             authorization.initRootAccessToken();
             logger.info("Controller successfully started.");
 
@@ -970,7 +879,7 @@ public class Controller
 
             if (shell) {
                 // Run shell
-                controller.runShell();
+                runShell();
                 // Shutdown
                 shutdown.run();
             }
