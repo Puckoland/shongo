@@ -21,6 +21,7 @@ import org.joda.time.Interval;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.persistence.EntityManager;
 import java.util.*;
@@ -285,6 +286,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
             configureSystemProperties();
 
             // Create controller
+            final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfig.class);
             controller = cz.cesnet.shongo.controller.Controller.create(new Controller(null)
             {
                 @Override
@@ -320,7 +322,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
                         super.stop();
                     }
                 }
-            });
+            };
             controller.setDomain("cz.cesnet", "CESNET, z.s.p.o.");
             controller.setEntityManagerFactory(getEntityManagerFactory());
 
