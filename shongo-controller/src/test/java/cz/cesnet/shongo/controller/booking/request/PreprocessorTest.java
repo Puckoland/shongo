@@ -18,6 +18,11 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -31,8 +36,15 @@ import static org.hamcrest.CoreMatchers.not;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestConfig.class)
 public class PreprocessorTest extends AbstractDatabaseTest
 {
+
+    @Autowired
+    @Qualifier("authorizationPrototype")
+    private Authorization authorization;
+
     @Override
     public void before() throws Exception
     {
@@ -45,6 +57,7 @@ public class PreprocessorTest extends AbstractDatabaseTest
     public void after() throws Exception
     {
         LocalDomain.setLocalDomain(null);
+        authorization.destroy();
 
         super.after();
     }
@@ -56,7 +69,7 @@ public class PreprocessorTest extends AbstractDatabaseTest
 
         Preprocessor preprocessor = new Preprocessor();
         preprocessor.setCache(new Cache());
-        preprocessor.setAuthorization(new DummyAuthorization(getEntityManagerFactory()));
+        preprocessor.setAuthorization(authorization);
         preprocessor.init();
 
         ReservationRequestManager reservationRequestManager = new ReservationRequestManager(entityManager);
@@ -125,7 +138,7 @@ public class PreprocessorTest extends AbstractDatabaseTest
     {
         Preprocessor preprocessor = new Preprocessor();
         preprocessor.setCache(new Cache());
-        preprocessor.setAuthorization(new DummyAuthorization(getEntityManagerFactory()));
+        preprocessor.setAuthorization(authorization);
         preprocessor.init();
 
         EntityManager entityManager = createEntityManager();
@@ -178,7 +191,7 @@ public class PreprocessorTest extends AbstractDatabaseTest
     {
         Preprocessor preprocessor = new Preprocessor();
         preprocessor.setCache(new Cache());
-        preprocessor.setAuthorization(new DummyAuthorization(getEntityManagerFactory()));
+        preprocessor.setAuthorization(authorization);
         preprocessor.init();
 
         EntityManager entityManager = createEntityManager();

@@ -3,7 +3,6 @@ package cz.cesnet.shongo.controller.booking.request;
 import cz.cesnet.shongo.AliasType;
 import cz.cesnet.shongo.Technology;
 import cz.cesnet.shongo.controller.AbstractSchedulerTest;
-import cz.cesnet.shongo.controller.DummyAuthorization;
 import cz.cesnet.shongo.controller.ReservationRequestPurpose;
 import cz.cesnet.shongo.controller.authorization.Authorization;
 import cz.cesnet.shongo.controller.authorization.AuthorizationManager;
@@ -29,6 +28,8 @@ import org.joda.time.Period;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -41,6 +42,8 @@ import java.util.List;
 public class ReservationRequestSetTest extends AbstractSchedulerTest
 {
     // Authorization
+    @Autowired
+    @Qualifier("authorizationPrototype")
     private Authorization authorization;
     // Preprocessor
     private Preprocessor preprocessor;
@@ -54,8 +57,6 @@ public class ReservationRequestSetTest extends AbstractSchedulerTest
         // Setup cache
         // ------------
         {
-            authorization = new DummyAuthorization(getEntityManagerFactory());
-
             preprocessor = new Preprocessor();
             preprocessor.setCache(getCache());
             preprocessor.setAuthorization(authorization);

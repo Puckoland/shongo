@@ -23,6 +23,9 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
@@ -40,6 +43,8 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Profile("production")
+@Component
 public class ServerAuthorization extends Authorization
 {
     private static Logger logger = LoggerFactory.getLogger(ServerAuthorization.class);
@@ -127,6 +132,7 @@ public class ServerAuthorization extends Authorization
      * @param configuration        to load authorization configuration from
      * @param entityManagerFactory
      */
+    @Autowired
     private ServerAuthorization(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory)
     {
         super(configuration, entityManagerFactory);
@@ -163,12 +169,14 @@ public class ServerAuthorization extends Authorization
         httpClient = ConfiguredSSLContext.getInstance().createHttpClient();
 
         initialize();
+        initRootAccessToken();
+        Authorization.setInstance(this);
     }
 
     /**
      * Initialize {@link #rootAccessToken}.
      */
-    public void initRootAccessToken()
+    private void initRootAccessToken()
     {
         // Root access token
         rootAccessToken = new BigInteger(160, new SecureRandom()).toString(16);
@@ -1258,18 +1266,6 @@ public class ServerAuthorization extends Authorization
                         return groupIds;
                     }
                 });
-    }
-
-    /**
-     * @return new instance of {@link ServerAuthorization}
-     * @throws IllegalStateException when other {@link Authorization} already exists
-     */
-    public static ServerAuthorization createInstance(ControllerConfiguration configuration,
-                                                     EntityManagerFactory entityManagerFactory) throws IllegalStateException
-    {
-        ServerAuthorization serverAuthorization = new ServerAuthorization(configuration, entityManagerFactory);
-        Authorization.setInstance(serverAuthorization);
-        return serverAuthorization;
     }
 
     /**

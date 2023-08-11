@@ -9,6 +9,9 @@ import cz.cesnet.shongo.controller.authorization.UserAuthorizationData;
 import cz.cesnet.shongo.controller.authorization.UserData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.*;
@@ -18,6 +21,8 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Profile("test")
+@Component
 public class DummyAuthorization extends Authorization
 {
     private static Logger logger = LoggerFactory.getLogger(DummyAuthorization.class);
@@ -105,6 +110,7 @@ public class DummyAuthorization extends Authorization
      *
      * @param configuration to be used
      */
+    @Autowired
     public DummyAuthorization(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory)
     {
         super(configuration, entityManagerFactory);
@@ -118,14 +124,9 @@ public class DummyAuthorization extends Authorization
         initialize();
     }
 
-    /**
-     * Constructor.
-     *
-     * @param entityManagerFactory sets the {@link #entityManagerFactory}
-     */
-    public DummyAuthorization(EntityManagerFactory entityManagerFactory)
+    public void setInstance()
     {
-        this(new ControllerConfiguration(), entityManagerFactory);
+        Authorization.setInstance(this);
     }
 
     /**
@@ -318,19 +319,5 @@ public class DummyAuthorization extends Authorization
             throw new ControllerReportSet.UserNotInGroupException(groupId, userId);
         }
         userIds.remove(userId);
-    }
-
-    /**
-     * @param configuration        to be used for initialization
-     * @param entityManagerFactory
-     * @return new instance of {@link DummyAuthorization}
-     * @throws IllegalStateException when other {@link Authorization} already exists
-     */
-    public static DummyAuthorization createInstance(ControllerConfiguration configuration,
-            EntityManagerFactory entityManagerFactory) throws IllegalStateException
-    {
-        DummyAuthorization authorization = new DummyAuthorization(configuration, entityManagerFactory);
-        Authorization.setInstance(authorization);
-        return authorization;
     }
 }

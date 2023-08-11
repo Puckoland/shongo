@@ -1,11 +1,15 @@
 package cz.cesnet.shongo.controller;
 
+import cz.cesnet.shongo.controller.authorization.Authorization;
 import cz.cesnet.shongo.util.Timer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.persistence.EntityManagerFactory;
@@ -44,5 +48,21 @@ public class TestConfig
         Controller.initializeDatabase(entityManagerFactory);
 
         return entityManagerFactory;
+    }
+
+    @Bean
+    @Autowired
+    public Authorization authorization(DummyAuthorization authorization)
+    {
+        authorization.setInstance();
+        return authorization;
+    }
+
+    @Bean("authorizationPrototype")
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    @Autowired
+    public Authorization authorizationPrototype(EntityManagerFactory entityManagerFactory)
+    {
+        return new DummyAuthorization(configuration, entityManagerFactory);
     }
 }

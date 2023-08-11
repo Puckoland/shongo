@@ -1,5 +1,6 @@
 package cz.cesnet.shongo.controller;
 
+import cz.cesnet.shongo.controller.authorization.Authorization;
 import cz.cesnet.shongo.jade.Container;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -19,9 +20,9 @@ public class TestController extends Controller
 
     private static Container jadeContainerInstance;
 
-    protected TestController(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory)
+    protected TestController(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory, Authorization authorization)
     {
-        super(configuration, entityManagerFactory);
+        super(configuration, entityManagerFactory, authorization);
     }
 
     @Override

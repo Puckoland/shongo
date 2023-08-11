@@ -6,7 +6,6 @@ import cz.cesnet.shongo.controller.api.UserSettings;
 import cz.cesnet.shongo.controller.api.jade.ServiceImpl;
 import cz.cesnet.shongo.controller.api.rpc.*;
 import cz.cesnet.shongo.controller.authorization.Authorization;
-import cz.cesnet.shongo.controller.authorization.ServerAuthorization;
 import cz.cesnet.shongo.controller.cache.Cache;
 import cz.cesnet.shongo.controller.calendar.CalendarManager;
 import cz.cesnet.shongo.controller.calendar.connector.CalDAVConnector;
@@ -102,7 +101,7 @@ public class Controller
     /**
      * @see cz.cesnet.shongo.controller.authorization.Authorization
      */
-    private Authorization authorization;
+    private final Authorization authorization;
 
     /**
      * List of components of the domain controller.
@@ -167,10 +166,11 @@ public class Controller
      * Constructor.
      */
     @Autowired
-    protected Controller(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory)
+    protected Controller(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory, Authorization authorization)
     {
         this.configuration = configuration;
         this.entityManagerFactory = entityManagerFactory;
+        this.authorization = authorization;
 
         // Initialize default locale
         Locale defaultLocale = UserSettings.LOCALE_ENGLISH;
@@ -254,14 +254,6 @@ public class Controller
         LocalDomain localDomain = LocalDomain.getLocalDomain();
         localDomain.setName(name);
         localDomain.setOrganization(organization);
-    }
-
-    /**
-     * @param authorization sets the {@link #authorization}
-     */
-    public void setAuthorization(Authorization authorization)
-    {
-        this.authorization = authorization;
     }
 
     /**
@@ -882,10 +874,6 @@ public class Controller
 
         Controller.initializeDatabase(entityManagerFactory);
 
-        // Setup controller
-        ServerAuthorization authorization = ServerAuthorization.createInstance(configuration, entityManagerFactory);
-        setAuthorization(authorization);
-
         // Add components
         Cache cache = new Cache();
         addComponent(cache);
@@ -951,7 +939,6 @@ public class Controller
         try {
             // Start
             startAll();
-            authorization.initRootAccessToken();
             logger.info("Controller successfully started.");
 
             // Configure shutdown hook

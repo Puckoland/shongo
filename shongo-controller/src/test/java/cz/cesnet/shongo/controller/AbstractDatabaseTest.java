@@ -5,6 +5,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ActiveProfiles;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,6 +18,7 @@ import java.util.Map;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@ActiveProfiles("test")
 public abstract class AbstractDatabaseTest
 {
     private static Logger logger = LoggerFactory.getLogger(AbstractDatabaseTest.class);
