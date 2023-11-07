@@ -5,11 +5,13 @@ import cz.cesnet.shongo.api.UserInformation;
 import cz.cesnet.shongo.controller.ObjectPermission;
 import cz.cesnet.shongo.controller.api.ReservationRequestSummary;
 import cz.cesnet.shongo.controller.api.ResourceSummary;
+import cz.cesnet.shongo.controller.booking.request.auxdata.AuxData;
 import cz.cesnet.shongo.controller.rest.models.TimeInterval;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,6 +45,7 @@ public class ReservationRequestModel
     private RoomCapacityModel roomCapacityData;
     private String lastReservationId;
     private Integer futureSlotCount;
+    private String auxData;
 
     public ReservationRequestModel(
             ReservationRequestSummary summary,
@@ -65,6 +68,7 @@ public class ReservationRequestModel
         this.roomCapacityData = new RoomCapacityModel(summary);
         this.lastReservationId = summary.getLastReservationId();
         this.futureSlotCount = summary.getFutureSlotCount();
+        this.auxData = summary.getAuxData();
 
         Set<ObjectPermission> objectPermissions = permissionsByReservationRequestId.get(id);
         this.isWritable = objectPermissions.contains(ObjectPermission.WRITE);

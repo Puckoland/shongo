@@ -2048,17 +2048,10 @@ public class ReservationServiceImpl extends AbstractServiceImpl
         }
         if (record[26] != null) {
             String resourceTags = (String) record[26];
-            Arrays.stream(resourceTags.split("\\|")).map(String::trim).map(resourceTag -> {
-                String[] parts = resourceTag.split(",");
-                Tag tag = new Tag();
-                tag.setId(parts[0]);
-                tag.setName(parts[1]);
-                tag.setType(TagType.valueOf(parts[2]));
-                if (parts.length > 3) {
-                    tag.setData(parts[3]);
-                }
-                return tag;
-            }).forEach(reservationRequestSummary::addResourceTag);
+            Arrays.stream(resourceTags.split("\\|"))
+                    .map(String::trim)
+                    .map(Tag::fromConcat)
+                    .forEach(reservationRequestSummary::addResourceTag);
         }
         if (record[27] != null) {
             reservationRequestSummary.setAuxData((String) record[27]);
