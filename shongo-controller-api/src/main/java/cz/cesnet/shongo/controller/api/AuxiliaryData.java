@@ -1,7 +1,6 @@
 package cz.cesnet.shongo.controller.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.cesnet.shongo.api.AbstractComplexType;
@@ -48,11 +47,7 @@ public class AuxiliaryData extends AbstractComplexType
         DataMap dataMap = super.toData();
         dataMap.set("tagName", tagName);
         dataMap.set("enabled", enabled);
-        try {
-            dataMap.set("data", objectMapper.writeValueAsString(data));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        dataMap.set("data", data);
         return dataMap;
     }
 
@@ -62,10 +57,6 @@ public class AuxiliaryData extends AbstractComplexType
         super.fromData(dataMap);
         tagName = dataMap.getString("tagName");
         enabled = dataMap.getBoolean("enabled");
-        try {
-            data = objectMapper.readTree(dataMap.getString("data"));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        data = dataMap.getJsonNode("data");
     }
 }

@@ -82,15 +82,7 @@ public class Tag extends IdentifiedComplexType
         DataMap dataMap = super.toData();
         dataMap.set(NAME,name);
         dataMap.set(TYPE, type);
-        if (data == null) {
-            dataMap.set(DATA, "");
-        } else {
-            try {
-                dataMap.set(DATA, objectMapper.writeValueAsString(data));
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        dataMap.set(DATA, data);
         return dataMap;
     }
 
@@ -100,13 +92,9 @@ public class Tag extends IdentifiedComplexType
         super.fromData(dataMap);
         name = dataMap.getString(NAME);
         type = dataMap.getEnumRequired(TYPE, TagType.class);
-        if (dataMap.getString(DATA).isEmpty()) {
-            return;
-        }
-        try {
-            data = objectMapper.readTree(dataMap.getString(DATA));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        JsonNode jsonNode = dataMap.getJsonNode(DATA);
+        if (jsonNode != null) {
+            data = jsonNode;
         }
     }
 
