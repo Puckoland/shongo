@@ -3,6 +3,8 @@ package cz.cesnet.shongo.controller.api.rpc;
 import cz.cesnet.shongo.api.rpc.Service;
 import cz.cesnet.shongo.controller.api.*;
 import cz.cesnet.shongo.controller.api.request.*;
+import cz.cesnet.shongo.controller.api.AuxDataFilter;
+import cz.cesnet.shongo.controller.api.TagData;
 
 import java.util.Collection;
 import java.util.List;
@@ -192,4 +194,7 @@ public interface ReservationService extends Service
      */
     @API
     public String getCachedResourceReservationsICalendar(ReservationListRequest request);
+
+    @API
+    public List<TagData<?>> getReservationRequestTagData(SecurityToken token, String reservationRequestId, AuxDataFilter filter);
 }
