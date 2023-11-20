@@ -36,6 +36,8 @@ import cz.cesnet.shongo.controller.booking.resource.ResourceManager;
 import cz.cesnet.shongo.controller.domains.DomainsConnector;
 import cz.cesnet.shongo.controller.domains.InterDomainAgent;
 import cz.cesnet.shongo.jade.SendLocalCommand;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -46,6 +48,7 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Service
 public class ResourceControlServiceImpl extends AbstractServiceImpl
         implements ResourceControlService, Component.ControllerAgentAware,
                    Component.EntityManagerFactoryAware, Component.AuthorizationAware
@@ -75,6 +78,7 @@ public class ResourceControlServiceImpl extends AbstractServiceImpl
      *
      * @param recordingsCache sets the {@link #recordingsCache}
      */
+    @Autowired
     public ResourceControlServiceImpl(RecordingsCache recordingsCache)
     {
         this.recordingsCache = recordingsCache;

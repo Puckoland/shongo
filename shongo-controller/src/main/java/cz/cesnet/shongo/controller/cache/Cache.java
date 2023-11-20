@@ -22,6 +22,7 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@org.springframework.stereotype.Component
 public class Cache extends Component implements Component.EntityManagerFactoryAware
 {
     private static Logger logger = LoggerFactory.getLogger(Cache.class);

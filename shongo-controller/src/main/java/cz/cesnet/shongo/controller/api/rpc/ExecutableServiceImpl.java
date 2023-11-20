@@ -48,6 +48,8 @@ import cz.cesnet.shongo.jade.SendLocalCommand;
 import cz.cesnet.shongo.report.Report;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -58,6 +60,7 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Service
 public class ExecutableServiceImpl extends AbstractServiceImpl
         implements ExecutableService, Component.EntityManagerFactoryAware,
                    Component.AuthorizationAware, Component.ControllerAgentAware
@@ -90,6 +93,7 @@ public class ExecutableServiceImpl extends AbstractServiceImpl
     /**
      * Constructor.
      */
+    @Autowired
     public ExecutableServiceImpl(Executor executor, RecordingsCache recordingsCache)
     {
         this.executor = executor;

@@ -38,6 +38,8 @@ import cz.cesnet.shongo.controller.util.QueryFilter;
 import cz.cesnet.shongo.controller.util.iCalendar;
 import cz.cesnet.shongo.report.Report;
 import org.joda.time.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -49,6 +51,7 @@ import java.util.stream.Collectors;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Service
 public class ReservationServiceImpl extends AbstractServiceImpl
         implements ReservationService, Component.EntityManagerFactoryAware,
                    Component.AuthorizationAware, Component.NotificationManagerAware
@@ -76,6 +79,7 @@ public class ReservationServiceImpl extends AbstractServiceImpl
     /**
      * Constructor.
      */
+    @Autowired
     public ReservationServiceImpl(Cache cache)
     {
         this.cache = cache;
