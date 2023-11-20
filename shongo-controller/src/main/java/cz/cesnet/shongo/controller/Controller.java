@@ -5,6 +5,7 @@ import cz.cesnet.shongo.api.rpc.Service;
 import cz.cesnet.shongo.controller.api.UserSettings;
 import cz.cesnet.shongo.controller.api.jade.ServiceImpl;
 import cz.cesnet.shongo.controller.api.rpc.*;
+import cz.cesnet.shongo.controller.api.rpc.ResourceService;
 import cz.cesnet.shongo.controller.authorization.Authorization;
 import cz.cesnet.shongo.controller.authorization.ServerAuthorization;
 import cz.cesnet.shongo.controller.cache.Cache;
@@ -157,11 +158,28 @@ public class Controller
     /**
      * @see NotificationManager
      */
-    private NotificationManager notificationManager = new NotificationManager();
+    @Autowired
+    private NotificationManager notificationManager;
 
     private CalDAVConnector calendarConnector;
 
-    private CalendarManager calendarManager = new CalendarManager();
+    @Autowired
+    private CalendarManager calendarManager;
+
+    @Autowired
+    private Cache cache;
+    @Autowired
+    private Executor executor;
+    @Autowired
+    private AuthorizationService authorizationService;
+    @Autowired
+    private ResourceService resourceService;
+    @Autowired
+    private ResourceControlService resourceControlService;
+    @Autowired
+    private ReservationService reservationService;
+    @Autowired
+    private ReservationService executableService;
 
     /**
      * Constructor.
@@ -874,9 +892,6 @@ public class Controller
      */
     public void init() throws Exception
     {
-        NotificationManager notificationManager = getNotificationManager();
-        CalendarManager calendarManager = getCalendarManager();
-
         // Configure SSL
         ConfiguredSSLContext.getInstance().loadConfiguration(configuration);
 
@@ -887,14 +902,12 @@ public class Controller
         setAuthorization(authorization);
 
         // Add components
-        Cache cache = new Cache();
         addComponent(cache);
         Preprocessor preprocessor = new Preprocessor();
         preprocessor.setCache(cache);
         addComponent(preprocessor);
         Scheduler scheduler = new Scheduler(cache, notificationManager, calendarManager);
         addComponent(scheduler);
-        Executor executor = new Executor(notificationManager);
         addComponent(executor);
 
         // Add mail notification executor
@@ -908,13 +921,12 @@ public class Controller
         }
 
         // Add XML-RPC services
-        RecordingsCache recordingsCache = new RecordingsCache();
         addRpcService(new CommonServiceImpl());
-        addRpcService(new AuthorizationServiceImpl());
-        addRpcService(new ResourceServiceImpl(cache));
-        addRpcService(new ResourceControlServiceImpl(recordingsCache));
-        addRpcService(new ReservationServiceImpl(cache));
-        addRpcService(new ExecutableServiceImpl(executor, recordingsCache));
+        addRpcService(authorizationService);
+        addRpcService(resourceService);
+        addRpcService(resourceControlService);
+        addRpcService(reservationService);
+        addRpcService(executableService);
 
         // Add JADE service
         setJadeService(new ServiceImpl(entityManagerFactory, notificationManager, executor, authorization));

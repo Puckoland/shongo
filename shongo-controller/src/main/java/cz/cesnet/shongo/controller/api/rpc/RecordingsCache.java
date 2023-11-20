@@ -4,6 +4,7 @@ import cz.cesnet.shongo.ExpirationMap;
 import cz.cesnet.shongo.controller.api.ResourceRecording;
 import cz.cesnet.shongo.controller.booking.executable.Executable;
 import org.joda.time.Duration;
+import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Component
 public class RecordingsCache
 {
     /**

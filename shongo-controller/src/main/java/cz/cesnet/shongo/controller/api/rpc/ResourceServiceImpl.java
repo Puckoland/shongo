@@ -35,6 +35,8 @@ import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import jakarta.persistence.*;
 import java.util.*;
@@ -44,6 +46,7 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Service
 public class ResourceServiceImpl extends AbstractServiceImpl
         implements ResourceService, Component.EntityManagerFactoryAware,
                    Component.AuthorizationAware
@@ -70,6 +73,7 @@ public class ResourceServiceImpl extends AbstractServiceImpl
      *
      * @param cache sets the {@link #cache}
      */
+    @Autowired
     public ResourceServiceImpl(Cache cache)
     {
         this.cache = cache;
