@@ -26,6 +26,7 @@ import cz.cesnet.shongo.controller.util.QueryFilter;
 import cz.cesnet.shongo.util.StringHelper;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTimeZone;
+import org.springframework.stereotype.Service;
 
 import jakarta.persistence.*;
 import java.util.*;
@@ -35,6 +36,7 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Service
 public class AuthorizationServiceImpl extends AbstractServiceImpl
         implements AuthorizationService, Component.EntityManagerFactoryAware, Component.AuthorizationAware
 {

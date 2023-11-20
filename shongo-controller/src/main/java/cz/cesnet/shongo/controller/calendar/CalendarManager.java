@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Marek Perichta <mperichta@cesnet.cz>
  */
-
+@org.springframework.stereotype.Component
 public class CalendarManager extends Component {
 
     private static Logger logger = LoggerFactory.getLogger(CalendarManager.class);

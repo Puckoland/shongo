@@ -20,6 +20,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -31,6 +32,7 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@org.springframework.stereotype.Component
 public class Executor extends SwitchableComponent
         implements Component.WithThread, Component.EntityManagerFactoryAware, Component.ControllerAgentAware,
                    Component.AuthorizationAware, Runnable
@@ -109,6 +111,7 @@ public class Executor extends SwitchableComponent
      * Constructor.
      * @param notificationManager
      */
+    @Autowired
     public Executor(NotificationManager notificationManager)
     {
         this.notificationManager = notificationManager;

@@ -20,6 +20,7 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@org.springframework.stereotype.Component
 public class NotificationManager extends Component implements Component.AuthorizationAware
 {
     private static Logger logger = LoggerFactory.getLogger(NotificationManager.class);
