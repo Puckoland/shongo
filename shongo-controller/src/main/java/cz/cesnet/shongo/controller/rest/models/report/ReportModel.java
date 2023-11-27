@@ -1,5 +1,6 @@
 package cz.cesnet.shongo.controller.rest.models.report;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +25,9 @@ public class ReportModel
      * Meta information about the report.
      */
     private MetaModel meta;
+
+    @JsonProperty("g-recaptcha-response")
+    private String recaptchaResponse;
 
     public String getEmailContent()
     {

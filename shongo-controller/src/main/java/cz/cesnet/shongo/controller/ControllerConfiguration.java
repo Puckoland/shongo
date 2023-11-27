@@ -244,6 +244,16 @@ public class ControllerConfiguration extends CombinedConfiguration
     public static final String FREEPBX_PDF_GUIDE_FILEPATH = "notification.freepbx-guide-filepath";
 
     /**
+     * Recaptcha public key.
+     */
+    public static final String RECAPTCHA_PUBLIC_KEY = "recaptcha.public-key";
+
+    /**
+     * Recaptcha private key.
+     */
+    public static final String RECAPTCHA_PRIVATE_KEY = "recaptcha.private-key";
+
+    /**
      * Constructor.
      */
     public ControllerConfiguration()
@@ -652,5 +662,19 @@ public class ControllerConfiguration extends CombinedConfiguration
     public String getParkingPlaceTagName()
     {
         return getString(PARKING_PLACE_TAG);
+    }
+
+    /**
+     * @return public key for reCaptcha
+     */
+    public String getReCaptchaPublicKey() {
+        return getString(RECAPTCHA_PUBLIC_KEY);
+    }
+
+    /**
+     * @return private key for reCaptcha
+     */
+    public String getReCaptchaPrivateKey() {
+        return getString(RECAPTCHA_PRIVATE_KEY);
     }
 }

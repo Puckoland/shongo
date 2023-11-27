@@ -1,5 +1,6 @@
 package cz.cesnet.shongo.controller.rest.controllers;
 
+import cz.cesnet.shongo.controller.rest.CaptchaService;
 import cz.cesnet.shongo.controller.rest.ErrorHandler;
 import cz.cesnet.shongo.controller.rest.RestApiPath;
 import cz.cesnet.shongo.controller.rest.models.report.ReportModel;
@@ -28,6 +29,7 @@ public class ReportController
 {
 
     private final ErrorHandler errorHandler;
+    private final CaptchaService captchaService;
 
     /**
      * Handle problem report.
@@ -37,6 +39,8 @@ public class ReportController
     public void reportProblem(
             @RequestBody ReportModel reportModel) throws MessagingException
     {
+        captchaService.processResponse(reportModel.getRecaptchaResponse());
+
         String emailReplyTo = reportModel.getEmail();
         String emailSubject = reportModel.getEmailSubject();
         String emailContent = reportModel.getEmailContent();
