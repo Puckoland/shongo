@@ -31,7 +31,8 @@ our $Type = ordered_hash(
     'ValueSpecification' => 'Value',
     'AliasSpecification' => 'Alias',
     'AliasSetSpecification' => 'Alias Set',
-    'RoomSpecification' => 'Room'
+    'RoomSpecification' => 'Room',
+    'CapacitySpecification' => 'Capacity',
 );
 
 #
@@ -229,6 +230,12 @@ sub on_init()
                     'class' => 'Participant',
                 },
                 'complex' => 1
+            });
+        }
+        case 'CapacitySpecification' {
+            $self->add_attribute('resourceId', {
+                'title' => 'Resource Identifier',
+                'string-pattern' => $Shongo::Common::IdPattern
             });
         }
     }

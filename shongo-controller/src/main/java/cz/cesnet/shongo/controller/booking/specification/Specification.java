@@ -11,6 +11,7 @@ import cz.cesnet.shongo.controller.booking.compartment.CompartmentSpecification;
 import cz.cesnet.shongo.controller.booking.compartment.MultiCompartmentSpecification;
 import cz.cesnet.shongo.controller.booking.recording.RecordingServiceSpecification;
 import cz.cesnet.shongo.controller.booking.request.ReservationRequestManager;
+import cz.cesnet.shongo.controller.booking.resource.CapacitySpecification;
 import cz.cesnet.shongo.controller.booking.resource.ResourceSpecification;
 import cz.cesnet.shongo.controller.booking.room.RoomSpecification;
 import cz.cesnet.shongo.controller.booking.value.ValueSpecification;
@@ -253,6 +254,8 @@ public abstract class Specification extends SimplePersistentObject implements Re
                 ResourceSpecification.class);
         CLASS_BY_API.put(cz.cesnet.shongo.controller.api.RoomSpecification.class,
                 RoomSpecification.class);
+        CLASS_BY_API.put(cz.cesnet.shongo.controller.api.CapacitySpecification.class,
+                CapacitySpecification.class);
         CLASS_BY_API.put(cz.cesnet.shongo.controller.api.RecordingServiceSpecification.class,
                 RecordingServiceSpecification.class);
         CLASS_BY_API.put(cz.cesnet.shongo.controller.api.CompartmentSpecification.class,
