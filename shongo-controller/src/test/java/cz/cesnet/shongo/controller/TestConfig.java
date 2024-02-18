@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ActiveProfiles;
 
 import jakarta.persistence.EntityManagerFactory;
@@ -22,7 +23,7 @@ public class TestConfig
 {
 
     private static final String CONNECTION_DRIVER = "org.hsqldb.jdbcDriver";
-    private static final String CONNECTION_URL = "jdbc:hsqldb:mem:test; shutdown=true;";
+    private static final String CONNECTION_URL = "jdbc:hsqldb:mem:test; shutdown=true; sql.syntax_pgs=true;";
 
     private final ControllerConfiguration configuration;
 
