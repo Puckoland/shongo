@@ -88,7 +88,7 @@ public class Controller
     /**
      * Configuration of the controller.
      */
-    protected ControllerConfiguration configuration;
+    protected final ControllerConfiguration configuration;
 
     /**
      * {@link org.joda.time.DateTimeZone} old default timezone.
@@ -158,37 +158,48 @@ public class Controller
     /**
      * @see NotificationManager
      */
-    @Autowired
-    private NotificationManager notificationManager;
+    private final NotificationManager notificationManager;
 
     private CalDAVConnector calendarConnector;
 
-    @Autowired
-    private CalendarManager calendarManager;
+    private final CalendarManager calendarManager;
 
-    @Autowired
-    private Cache cache;
-    @Autowired
-    private Executor executor;
-    @Autowired
-    private AuthorizationService authorizationService;
-    @Autowired
-    private ResourceService resourceService;
-    @Autowired
-    private ResourceControlService resourceControlService;
-    @Autowired
-    private ReservationService reservationService;
-    @Autowired
-    private ReservationService executableService;
+    private final Cache cache;
+    private final Executor executor;
+    private final AuthorizationService authorizationService;
+    private final ResourceService resourceService;
+    private final ResourceControlService resourceControlService;
+    private final ReservationService reservationService;
+    private final ReservationService executableService;
 
     /**
      * Constructor.
      */
     @Autowired
-    protected Controller(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory)
-    {
+    protected Controller(
+            ControllerConfiguration configuration,
+            EntityManagerFactory entityManagerFactory,
+            NotificationManager notificationManager,
+            CalendarManager calendarManager,
+            Cache cache,
+            Executor executor,
+            AuthorizationService authorizationService,
+            ResourceService resourceService,
+            ResourceControlService resourceControlService,
+            ReservationService reservationService,
+            ReservationService executableService
+    ) throws Exception {
         this.configuration = configuration;
         this.entityManagerFactory = entityManagerFactory;
+        this.notificationManager = notificationManager;
+        this.calendarManager = calendarManager;
+        this.cache = cache;
+        this.executor = executor;
+        this.authorizationService = authorizationService;
+        this.resourceService = resourceService;
+        this.resourceControlService = resourceControlService;
+        this.reservationService = reservationService;
+        this.executableService = executableService;
 
         // Initialize default locale
         Locale defaultLocale = UserSettings.LOCALE_ENGLISH;
