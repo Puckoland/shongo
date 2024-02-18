@@ -1,5 +1,13 @@
 package cz.cesnet.shongo.controller;
 
+import cz.cesnet.shongo.controller.api.rpc.AuthorizationService;
+import cz.cesnet.shongo.controller.api.rpc.ReservationService;
+import cz.cesnet.shongo.controller.api.rpc.ResourceControlService;
+import cz.cesnet.shongo.controller.api.rpc.ResourceService;
+import cz.cesnet.shongo.controller.cache.Cache;
+import cz.cesnet.shongo.controller.calendar.CalendarManager;
+import cz.cesnet.shongo.controller.executor.Executor;
+import cz.cesnet.shongo.controller.notification.NotificationManager;
 import cz.cesnet.shongo.jade.Container;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -19,9 +27,24 @@ public class TestController extends Controller
 
     private static Container jadeContainerInstance;
 
-    protected TestController(ControllerConfiguration configuration, EntityManagerFactory entityManagerFactory)
+    protected TestController(
+            ControllerConfiguration configuration,
+            EntityManagerFactory entityManagerFactory,
+            NotificationManager notificationManager,
+            CalendarManager calendarManager,
+            Cache cache,
+            Executor executor,
+            AuthorizationService authorizationService,
+            ResourceService resourceService,
+            ResourceControlService resourceControlService,
+            ReservationService reservationService,
+            ReservationService executableService
+    ) throws Exception
     {
-        super(configuration, entityManagerFactory);
+        super(
+                configuration, entityManagerFactory, notificationManager, calendarManager, cache, executor,
+                authorizationService, resourceService, resourceControlService, reservationService, executableService
+        );
     }
 
     @Override
