@@ -6,6 +6,7 @@ import cz.cesnet.shongo.controller.booking.specification.Specification;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Immutable;
+import org.hibernate.annotations.Subselect;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Immutable
-@Table(name = "arr_aux_data")
+@Subselect("SELECT * FROM arr_aux_data")
 public class AbstractReservationRequestAuxData
 {
 
