@@ -390,10 +390,14 @@ public class ExecutableServiceImpl extends AbstractServiceImpl
                     + "    OR executableService.executable IN("
                     + "     SELECT usedRoomEndpoint FROM UsedRoomEndpoint usedRoomEndpoint"
                     + "     WHERE usedRoomEndpoint.reusedRoomEndpoint = :executable"
-                    + "    ) OR executableService.executable IN("
-                    + "     SELECT usedRoomEndpoint.reusedRoomEndpoint FROM UsedRoomEndpoint usedRoomEndpoint"
-                    + "     WHERE usedRoomEndpoint = :executable"
-                    + " ))"
+                    + "    )";
+            if (executable instanceof UsedRoomEndpoint) {
+                query += " OR executableService.executable IN("
+                        + "     SELECT usedRoomEndpoint.reusedRoomEndpoint FROM UsedRoomEndpoint usedRoomEndpoint"
+                        + "     WHERE usedRoomEndpoint = :executable"
+                        + " )";
+            }
+            query += ")"
                     + " AND " + queryFilter.toQueryWhere();
 
             ListResponse<cz.cesnet.shongo.controller.api.ExecutableService> response =
