@@ -1254,7 +1254,8 @@ public class SchedulerReportSet extends AbstractReportSet
             setExecutable(executable);
         }
 
-        @OneToOne(fetch = FetchType.LAZY)
+        // TODO: check whether @ManyToOne makes sense, that multiple reports can reference the same executable
+        @ManyToOne(fetch = FetchType.LAZY)
         @Access(AccessType.FIELD)
         @JoinColumn(name = "executable_id")
         public cz.cesnet.shongo.controller.booking.executable.Executable getExecutable()
@@ -1877,7 +1878,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setEndpointTo(endpointTo);
         }
 
-        @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+        @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
         @Access(AccessType.FIELD)
         @JoinColumn(name = "endpoint_from_id")
         public cz.cesnet.shongo.controller.booking.executable.Endpoint getEndpointFrom()
@@ -1890,7 +1891,7 @@ public class SchedulerReportSet extends AbstractReportSet
             this.endpointFrom = endpointFrom;
         }
 
-        @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+        @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
         @Access(AccessType.FIELD)
         @JoinColumn(name = "endpoint_to_id")
         public cz.cesnet.shongo.controller.booking.executable.Endpoint getEndpointTo()
@@ -2583,7 +2584,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setReservation(reservation);
         }
 
-        @OneToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.LAZY)
         @Access(AccessType.FIELD)
         @JoinColumn(name = "reservation_id")
         public cz.cesnet.shongo.controller.booking.reservation.Reservation getReservation()
@@ -2629,7 +2630,7 @@ public class SchedulerReportSet extends AbstractReportSet
             setUsageInterval(usageInterval);
         }
 
-        @OneToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.LAZY)
         @Access(AccessType.FIELD)
         @JoinColumn(name = "reservation_request_id")
         public cz.cesnet.shongo.controller.booking.request.AbstractReservationRequest getReservationRequest()

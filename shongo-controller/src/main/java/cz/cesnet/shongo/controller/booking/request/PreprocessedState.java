@@ -2,6 +2,7 @@ package cz.cesnet.shongo.controller.booking.request;
 
 import cz.cesnet.shongo.SimplePersistentObject;
 import cz.cesnet.shongo.hibernate.PersistentDateTime;
+import jakarta.persistence.ManyToOne;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.usertype.UserTypeLegacyBridge;
@@ -40,7 +41,8 @@ public class PreprocessedState extends SimplePersistentObject
     /**
      * @return {@link #reservationRequest}
      */
-    @OneToOne
+    // TODO: is this right? or just the test makes @OneToOne wrong?
+    @ManyToOne(optional = false)
     public AbstractReservationRequest getReservationRequest()
     {
         return reservationRequest;
