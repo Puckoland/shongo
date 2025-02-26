@@ -4,8 +4,6 @@ import cz.cesnet.shongo.api.AbstractComplexType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
 
 /**
  * Represents a device mode in which the device
@@ -14,7 +12,6 @@ import jakarta.persistence.Table;
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
 @Entity
-@Table(indexes = { @Index(name = "connector_agent_name", columnList = "connector_agent_name") })
 public class ManagedMode extends Mode
 {
     /**
