@@ -110,6 +110,11 @@
             <version>1.8.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+
         <!-- Jackson JSON Mapper for Spring MVC remapper -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
