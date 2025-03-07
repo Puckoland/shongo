@@ -16,7 +16,9 @@ import org.apache.commons.configuration.tree.UnionCombiner;
 import org.joda.time.Duration;
 import org.joda.time.Period;
 import org.postgresql.util.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
@@ -33,6 +35,9 @@ import java.util.regex.Pattern;
 @Configuration
 public class ControllerConfiguration extends CombinedConfiguration
 {
+
+    @Autowired
+    private Environment env;
 
     /**
      * Name of the controller XML configuration file.
@@ -640,5 +645,15 @@ public class ControllerConfiguration extends CombinedConfiguration
         String authString = username + ":" + password;
         String authStringEnc = Base64.encodeBytes(authString.getBytes(StandardCharsets.UTF_8));
         return authStringEnc;
+    }
+
+    @Override
+    public String getString(String key) {
+        return env.getProperty("configuration." + key);
+    }
+
+    @Override
+    public String getString(String key, String defaultValue) {
+        return env.getProperty("configuration." + key, defaultValue);
     }
 }

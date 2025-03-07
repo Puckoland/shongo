@@ -1,0 +1,44 @@
+configuration:
+  rest-api:
+    host: localhost
+    port: '8001'
+    origin: 'http://localhost'
+    ssl-key-store: keystore/server.keystore
+    ssl-key-store-password: shongo
+
+  worker:
+    lookahead: P1M
+
+  database:
+    driver: org.postgresql.Driver
+    url: 'jdbc:postgresql://127.0.0.1/shongo'
+    username: shongo
+    password: password
+
+  security:
+    root-access-token: /home/karnisf/workspace/bakalarka/shongo/shongo-deployment/root.access-token
+    server: 'https://login.cesnet.cz'
+    client-secret: 09a39978-90f2-438e-b5b4-60bae2df6675b69080be-807e-4e61-bc36-ad161967f946
+    ldap:
+      server: 'ldaps://perun.cesnet.cz:636/dc=perun,dc=cesnet,dc=cz'
+      binddn: 'perunUserId=93724,ou=People,dc=perun,dc=cesnet,dc=cz'
+      client-secret: ShoT42paIn25
+    authorization:
+      administrator: >-
+        group("admins").contains(id) ||
+        id.equals("1430cff140c2ce0a0c6751f130af3224b80306b9@einfra.cesnet.cz") ||
+        id.equals("f78faa8ed4a8a6e330691a26b02aba40c9ba2128@einfra.cesnet.cz")
+      reservation-devices:
+        device:
+          access-token: asdasd
+          device-id: 'shongo:reservation:device:1'
+          resource-id: 'shongo:unknown:res:3'
+
+  rpc:
+    host: localhost
+    port: '8181'
+
+  jade:
+    host: localhost
+    port: '8100'
+    command-timeout: PT2M
