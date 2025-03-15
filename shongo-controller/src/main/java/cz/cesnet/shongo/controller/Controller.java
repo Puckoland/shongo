@@ -91,6 +91,11 @@ public class Controller
     protected final ControllerConfiguration configuration;
 
     /**
+     * Configuration of SSL.
+     */
+    protected final SSLConfiguration sslConfiguration;
+
+    /**
      * {@link org.joda.time.DateTimeZone} old default timezone.
      */
     private DateTimeZone oldDefaultTimeZone;
@@ -178,6 +183,7 @@ public class Controller
     @Autowired
     protected Controller(
             ControllerConfiguration configuration,
+            SSLConfiguration sslConfiguration,
             EntityManagerFactory entityManagerFactory,
             NotificationManager notificationManager,
             CalendarManager calendarManager,
@@ -190,6 +196,7 @@ public class Controller
             ReservationService executableService
     ) throws Exception {
         this.configuration = configuration;
+        this.sslConfiguration = sslConfiguration;
         this.entityManagerFactory = entityManagerFactory;
         this.notificationManager = notificationManager;
         this.calendarManager = calendarManager;
@@ -205,16 +212,6 @@ public class Controller
         Locale defaultLocale = UserSettings.LOCALE_ENGLISH;
         logger.info("Configuring default locale to {}.", defaultLocale);
         Locale.setDefault(defaultLocale);
-
-        // Initialize default timezone
-        String timeZoneId = this.configuration.getString(ControllerConfiguration.TIMEZONE);
-        if (timeZoneId != null && !timeZoneId.isEmpty()) {
-            oldDefaultTimeZone = DateTimeZone.getDefault();
-            DateTimeZone dateTimeZone = DateTimeZone.forID(timeZoneId);
-            logger.info("Configuring default timezone to {}.", dateTimeZone.getID());
-            DateTimeZone.setDefault(dateTimeZone);
-            TimeZone.setDefault(dateTimeZone.toTimeZone());
-        }
 
         // Initialize domain
         LocalDomain localDomain = new LocalDomain();
@@ -507,6 +504,16 @@ public class Controller
 
         logger.info("Controller for domain '{}' is starting...", LocalDomain.getLocalDomain().getName());
 
+        // Initialize default timezone
+        String timeZoneId = this.configuration.getString(ControllerConfiguration.TIMEZONE);
+        if (timeZoneId != null && !timeZoneId.isEmpty()) {
+            oldDefaultTimeZone = DateTimeZone.getDefault();
+            DateTimeZone dateTimeZone = DateTimeZone.forID(timeZoneId);
+            logger.info("Configuring default timezone to {}.", dateTimeZone.getID());
+            DateTimeZone.setDefault(dateTimeZone);
+            TimeZone.setDefault(dateTimeZone.toTimeZone());
+        }
+
         // Add common components
         addComponent(notificationManager);
         addComponent(calendarManager);
@@ -641,7 +648,7 @@ public class Controller
 
             restServer = new Server();
             // Configure SSL
-            ConfiguredSSLContext.getInstance().loadConfiguration(configuration);
+            ConfiguredSSLContext.getInstance().loadConfiguration(sslConfiguration);
 
             // Create web app
             WebAppContext webAppContext = new WebAppContext();
@@ -904,7 +911,7 @@ public class Controller
     public void init() throws Exception
     {
         // Configure SSL
-        ConfiguredSSLContext.getInstance().loadConfiguration(configuration);
+        ConfiguredSSLContext.getInstance().loadConfiguration(sslConfiguration);
 
         Controller.initializeDatabase(entityManagerFactory);
 

@@ -7,12 +7,6 @@ import cz.cesnet.shongo.controller.settings.UserSessionSettings;
 import cz.cesnet.shongo.ssl.SSLCommunication;
 import cz.cesnet.shongo.util.PatternParser;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.configuration.CombinedConfiguration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.SystemConfiguration;
-import org.apache.commons.configuration.XMLConfiguration;
-import org.apache.commons.configuration.tree.NodeCombiner;
-import org.apache.commons.configuration.tree.UnionCombiner;
 import org.joda.time.Duration;
 import org.joda.time.Period;
 import org.postgresql.util.Base64;
@@ -20,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.MatchResult;
@@ -33,7 +26,7 @@ import java.util.regex.Pattern;
  */
 @Slf4j
 @Configuration
-public class ControllerConfiguration extends CombinedConfiguration
+public class ControllerConfiguration
 {
 
     @Autowired
@@ -52,41 +45,44 @@ public class ControllerConfiguration extends CombinedConfiguration
     /**
      * Time-zone in which the controller works and which is considered as default for date/times without specific zone.
      */
-    public static final String TIMEZONE = "timezone";
+    public static final String TIMEZONE = "configuration.timezone";
 
     /**
      * Domain configuration.
      */
-    public static final String DOMAIN_NAME = "domain.name";
-    public static final String DOMAIN_SHORT_NAME = "domain.shortName";
-    public static final String DOMAIN_ORGANIZATION = "domain.organization";
+    public static final String DOMAIN_NAME = "configuration.domain.name";
+    public static final String DOMAIN_SHORT_NAME = "configuration.domain.shortName";
+    public static final String DOMAIN_ORGANIZATION = "configuration.domain.organization";
 
     /**
      * Database configuration.
      */
-    public static final String DATABASE_DRIVER = "database.driver";
-    public static final String DATABASE_URL = "database.url";
-    public static final String DATABASE_USERNAME = "database.username";
-    public static final String DATABASE_PASSWORD = "database.password";
+    public static final String DATABASE_DRIVER = "configuration.database.driver";
+    public static final String DATABASE_URL = "configuration.database.url";
+    public static final String DATABASE_USERNAME = "configuration.database.username";
+    public static final String DATABASE_PASSWORD = "configuration.database.password";
 
     /**
      * XML-RPC configuration
      */
-    public static final String RPC_HOST = "rpc.host";
-    public static final String RPC_PORT = "rpc.port";
+    public static final String RPC_HOST = "configuration.rpc.host";
+    public static final String RPC_PORT = "configuration.rpc.port";
+    public static final String RPC_SSL_KEYSTORE = "configuration.rpc.ssl-key-store";
+    public static final String RPC_SSL_KEYSTORE_PASSWORD = "configuration.rpc.ssl-key-store-password";
 
     /**
      * Jade configuration.
      */
-    public static final String JADE_HOST = "jade.host";
-    public static final String JADE_PORT = "jade.port";
-    public static final String JADE_AGENT_NAME = "jade.agent-name";
-    public static final String JADE_PLATFORM_ID = "jade.platform-id";
+    public static final String JADE_HOST = "configuration.jade.host";
+    public static final String JADE_PORT = "configuration.jade.port";
+    public static final String JADE_AGENT_NAME = "configuration.jade.agent-name";
+    public static final String JADE_PLATFORM_ID = "configuration.jade.platform-id";
+    public static final String JADE_COMMAND_TIMEOUT = "configuration.jade.command-timeout";
 
     /**
      * Interdomains configuration
      */
-    public static final String INTERDOMAIN = "domain.inter-domain-connection";
+    public static final String INTERDOMAIN = "configuration.domain.inter-domain-connection";
     public static final String INTERDOMAIN_HOST = INTERDOMAIN + ".host";
     public static final String INTERDOMAIN_PORT = INTERDOMAIN + ".port";
     public static final String INTERDOMAIN_PKI_CLIENT_AUTH = INTERDOMAIN + ".pki-client-auth";
@@ -101,195 +97,163 @@ public class ControllerConfiguration extends CombinedConfiguration
     /**
      * Worker configuration (it runs scheduler and executor).
      */
-    public static final String WORKER_PERIOD = "worker.period";
-    public static final String WORKER_LOOKAHEAD = "worker.lookahead";
+    public static final String WORKER_PERIOD = "configuration.worker.period";
+    public static final String WORKER_LOOKAHEAD = "configuration.worker.lookahead";
 
     /**
      * Maximum duration of reservations.
      */
-    public static final String RESERVATION_ROOM_MAX_DURATION = "reservation.room.max-duration";
+    public static final String RESERVATION_ROOM_MAX_DURATION = "configuration.reservation.room.max-duration";
 
     /**
      * SMTP configuration.
      */
-    public static final String SMTP_SENDER = "smtp.sender";
-    public static final String SMTP_HOST = "smtp.host";
-    public static final String SMTP_PORT = "smtp.port";
-    public static final String SMTP_USERNAME = "smtp.username";
-    public static final String SMTP_PASSWORD = "smtp.password";
+    public static final String SMTP_SENDER = "configuration.smtp.sender";
+    public static final String SMTP_HOST = "configuration.smtp.host";
+    public static final String SMTP_PORT = "configuration.smtp.port";
+    public static final String SMTP_USERNAME = "configuration.smtp.username";
+    public static final String SMTP_PASSWORD = "configuration.smtp.password";
+    public static final String SMTP_SUBJECT_PREFIX = "configuration.smtp.subject-prefix";
 
     /**
      * CalDAV connector configuration.
      */
-    public static final String CALDAV_URL = "caldav-connector.url";
-    public static final String CALDAV_BASIC_AUTH_USERNAME = "caldav-connector.basic-auth.username";
-    public static final String CALDAV_BASIC_AUTH_PASSWORD = "caldav-connector.basic-auth.password";
+    public static final String CALDAV_URL = "configuration.caldav-connector.url";
+    public static final String CALDAV_BASIC_AUTH_USERNAME = "configuration.caldav-connector.basic-auth.username";
+    public static final String CALDAV_BASIC_AUTH_PASSWORD = "configuration.caldav-connector.basic-auth.password";
 
 
 
     /**
      * Period in which the executor works.
      */
-    public static final String EXECUTOR_PERIOD = "executor.period";
+    public static final String EXECUTOR_PERIOD = "configuration.executor.period";
 
     /**
      * Duration to modify {@link Executable} starting date/time.
      */
-    public static final String EXECUTOR_EXECUTABLE_START = "executor.executable.start";
+    public static final String EXECUTOR_EXECUTABLE_START = "configuration.executor.executable.start";
 
     /**
      * Duration to modify {@link Executable} ending date/time.
      */
-    public static final String EXECUTOR_EXECUTABLE_END = "executor.executable.end";
+    public static final String EXECUTOR_EXECUTABLE_END = "configuration.executor.executable.end";
 
     /**
      * Period in which {@link cz.cesnet.shongo.controller.executor.Executor} try to perform failed action again.
      */
-    public static final String EXECUTOR_EXECUTABLE_NEXT_ATTEMPT = "executor.executable.next-attempt";
+    public static final String EXECUTOR_EXECUTABLE_NEXT_ATTEMPT = "configuration.executor.executable.next-attempt";
 
     /**
      * Maximum count of attempts for {@link cz.cesnet.shongo.controller.executor.Executor} to try to perform action.
      */
-    public static final String EXECUTOR_EXECUTABLE_MAX_ATTEMPT_COUNT = "executor.executable.max-attempt-count";
+    public static final String EXECUTOR_EXECUTABLE_MAX_ATTEMPT_COUNT = "configuration.executor.executable.max-attempt-count";
 
     /**
      * Duration which {@link cz.cesnet.shongo.controller.executor.Executor} waits for virtual rooms to be created.
      */
-    public static final String EXECUTOR_STARTING_DURATION_ROOM = "executor.starting-duration.room";
+    public static final String EXECUTOR_STARTING_DURATION_ROOM = "configuration.executor.starting-duration.room";
 
     /**
      * URL to AA server.
      */
-    public static final String SECURITY_SERVER = "security.server";
+    public static final String SECURITY_SERVER = "configuration.security.server";
 
     /**
      * Client id for AA server.
      */
-    public static final String SECURITY_CLIENT_ID = "security.client-id";
+    public static final String SECURITY_CLIENT_ID = "configuration.security.client-id";
 
     /**
      * Client secret for AA server.
      */
-    public static final String SECURITY_CLIENT_SECRET = "security.client-secret";
+    public static final String SECURITY_CLIENT_SECRET = "configuration.security.client-secret";
 
     /**
      * URL to LDAP AA server.
      */
-    public static final String SECURITY_LDAP_SERVER = "security.ldap.server";
+    public static final String SECURITY_LDAP_SERVER = "configuration.security.ldap.server";
 
     /**
      * Client secret for LDAP AA server.
      */
-    public static final String SECURITY_LDAP_CLIENT_SECRET = "security.ldap.client-secret";
+    public static final String SECURITY_LDAP_CLIENT_SECRET = "configuration.security.ldap.client-secret";
 
     /**
      * Client secret for LDAP AA server.
      */
-    public static final String SECURITY_LDAP_BINDDN = "security.ldap.binddn";
+    public static final String SECURITY_LDAP_BINDDN = "configuration.security.ldap.binddn";
 
     /**
      * Specifies expiration of cache for user-id by access-token.
      */
-    public static final String SECURITY_EXPIRATION_USER_ID = "security.expiration.user-id";
+    public static final String SECURITY_EXPIRATION_USER_ID = "configuration.security.expiration.user-id";
 
     /**
      * Specifies expiration of cache for user information by user-id.
      */
-    public static final String SECURITY_EXPIRATION_USER_INFORMATION = "security.expiration.user-information";
+    public static final String SECURITY_EXPIRATION_USER_INFORMATION = "configuration.security.expiration.user-information";
 
     /**
      * Specifies expiration of cache for user ACL by user-id.
      */
-    public static final String SECURITY_EXPIRATION_ACL = "security.expiration.acl";
+    public static final String SECURITY_EXPIRATION_ACL = "configuration.security.expiration.acl";
 
     /**
      * Specifies expiration of cache for user groups.
      */
-    public static final String SECURITY_EXPIRATION_GROUP = "security.expiration.group";
+    public static final String SECURITY_EXPIRATION_GROUP = "configuration.security.expiration.group";
 
     /**
      * Specifies filename where the root access token will be written when controller starts.
      */
-    public static final String SECURITY_ROOT_ACCESS_TOKEN_FILE = "security.root-access-token";
+    public static final String SECURITY_ROOT_ACCESS_TOKEN_FILE = "configuration.security.root-access-token";
 
     /**
      * Specifies expression which decides whether user is a system administrator
      * (they can use the {@link UserSessionSettings#administrationMode}).
      */
-    public static final String SECURITY_AUTHORIZATION_ADMINISTRATOR = "security.authorization.administrator";
+    public static final String SECURITY_AUTHORIZATION_ADMINISTRATOR = "configuration.security.authorization.administrator";
 
     /**
      * Specifies expression which decides whether user is a system operator
      * (they can use the {@link UserSessionSettings#administrationMode}).
      */
-    public static final String SECURITY_AUTHORIZATION_OPERATOR = "security.authorization.operator";
+    public static final String SECURITY_AUTHORIZATION_OPERATOR = "configuration.security.authorization.operator";
 
     /**
      * Specifies expression which decides whether user can create a reservation request.
      */
-    public static final String SECURITY_AUTHORIZATION_RESERVATION = "security.authorization.reservation";
+    public static final String SECURITY_AUTHORIZATION_RESERVATION = "configuration.security.authorization.reservation";
+
+    public static final String ADMINISTRATOR = "configuration.administrator";
 
     /**
      * Url where user can change his settings.
      */
-    public static final String NOTIFICATION_USER_SETTINGS_URL = "notification.user-settings-url";
+    public static final String NOTIFICATION_USER_SETTINGS_URL = "configuration.notification.user-settings-url";
 
     /**
      * Primary url of a reservation requests with "${reservationRequestId}" variable which can be used in notifications.
      */
-    public static final String NOTIFICATION_RESERVATION_REQUEST_URL = "notification.reservation-request-url";
+    public static final String NOTIFICATION_RESERVATION_REQUEST_URL = "configuration.notification.reservation-request-url";
 
 
     /**
      * Primary url of a reservation requests with "${reservationRequestId}" variable which can be used in notifications.
      */
-    public static final String NOTIFICATION_RESERVATION_REQUEST_CONFIRMATION_URL = "notification.reservation-request-confirmation-url";
+    public static final String NOTIFICATION_RESERVATION_REQUEST_CONFIRMATION_URL = "configuration.notification.reservation-request-confirmation-url";
 
     /**
      * Filepath for FreePBX PDF guide.
      */
-    public static final String FREEPBX_PDF_GUIDE_FILEPATH = "notification.freepbx-guide-filepath";
+    public static final String FREEPBX_PDF_GUIDE_FILEPATH = "configuration.notification.freepbx-guide-filepath";
 
     /**
      * Constructor.
      */
     public ControllerConfiguration()
     {
-        NodeCombiner nodeCombiner = new UnionCombiner();
-        nodeCombiner.addListNode("email");
-        setNodeCombiner(nodeCombiner);
-    }
-
-    @PostConstruct
-    public void addConfigurations()
-    {
-        // System properties has the highest priority
-        addConfiguration(new SystemConfiguration());
-
-        // Passed configuration has lower priority
-        String configurationFileName = getString(CONFIGURATION_FILE);
-        if (configurationFileName != null) {
-            try {
-                XMLConfiguration xmlConfiguration = new XMLConfiguration();
-                xmlConfiguration.setDelimiterParsingDisabled(true);
-                xmlConfiguration.load(configurationFileName);
-                addConfiguration(xmlConfiguration);
-            }
-            catch (ConfigurationException e) {
-                log.warn(e.getMessage());
-            }
-        }
-
-        // Default configuration has the lowest priority
-        try {
-            XMLConfiguration defaultConfiguration = new XMLConfiguration();
-            defaultConfiguration.setDelimiterParsingDisabled(true);
-            defaultConfiguration.load(getClass().getClassLoader().getResource("controller-default.cfg.xml"));
-            addConfiguration(defaultConfiguration);
-        }
-        catch (ConfigurationException e) {
-            throw new RuntimeException("Failed to load default controller configuration!", e);
-        }
     }
 
     /**
@@ -322,7 +286,7 @@ public class ControllerConfiguration extends CombinedConfiguration
      */
     public Duration getJadeCommandTimeout()
     {
-        return getDuration("jade.command-timeout");
+        return getDuration(JADE_COMMAND_TIMEOUT);
     }
 
     /**
@@ -355,7 +319,7 @@ public class ControllerConfiguration extends CombinedConfiguration
      */
     public String getRpcSslKeyStore()
     {
-        String sslKeyStore = getString("rpc.ssl-key-store");
+        String sslKeyStore = getString(RPC_SSL_KEYSTORE);
         if (sslKeyStore == null || sslKeyStore.trim().isEmpty()) {
             return null;
         }
@@ -367,7 +331,7 @@ public class ControllerConfiguration extends CombinedConfiguration
      */
     public String getRpcSslKeyStorePassword()
     {
-        return getString("rpc.ssl-key-store-password");
+        return getString(RPC_SSL_KEYSTORE_PASSWORD);
     }
 
     /**
@@ -375,7 +339,7 @@ public class ControllerConfiguration extends CombinedConfiguration
      */
     public String getSmtpSubjectPrefix()
     {
-        return evaluate(getString("smtp.subject-prefix"));
+        return evaluate(getString(SMTP_SUBJECT_PREFIX));
     }
 
     /**
@@ -438,8 +402,7 @@ public class ControllerConfiguration extends CombinedConfiguration
     {
         if (administrators == null) {
             administrators = new LinkedList<PersonInformation>();
-            for (Object item : getList("administrator")) {
-                final String administratorEmail = (String) item;
+            for (String administratorEmail : getList(ADMINISTRATOR)) {
                 administrators.add(new PersonInformation()
                 {
                     @Override
@@ -612,11 +575,7 @@ public class ControllerConfiguration extends CombinedConfiguration
     }
 
     public List<String> getForeignDomainsCaCertFiles() {
-        List<String> caCertFiles = new ArrayList<String>();
-        for (Object o : getList(ControllerConfiguration.INTERDOMAIN_TRUSTED_CA_CERT_FILES)) {
-            caCertFiles.add((String) o);
-        }
-        return caCertFiles;
+        return new ArrayList<>(getList(ControllerConfiguration.INTERDOMAIN_TRUSTED_CA_CERT_FILES));
     }
 
     public int getInterDomainCommandTimeout() {
@@ -647,13 +606,47 @@ public class ControllerConfiguration extends CombinedConfiguration
         return authStringEnc;
     }
 
-    @Override
-    public String getString(String key) {
-        return env.getProperty("configuration." + key);
+    public boolean containsKey(String key)
+    {
+        return env.containsProperty(key);
     }
 
-    @Override
+    public List<String> getList(String key)
+    {
+        String[] objects = env.getProperty(key, String[].class);
+        return objects != null ? Arrays.asList(objects) : List.of();
+    }
+
+    public boolean getBoolean(String key)
+    {
+        return env.getProperty(key, Boolean.class);
+    }
+
+    public boolean getBoolean(String key, boolean defaultValue)
+    {
+        return env.getProperty(key, Boolean.class, defaultValue);
+    }
+
+    public Integer getInteger(String key, Integer defaultValue)
+    {
+        return env.getProperty(key, Integer.class, defaultValue);
+    }
+
+    public int getInt(String key)
+    {
+        return env.getProperty(key, Integer.class);
+    }
+
+    public int getInt(String key, int defaultValue)
+    {
+        return env.getProperty(key, Integer.class, defaultValue);
+    }
+
+    public String getString(String key) {
+        return env.getProperty(key);
+    }
+
     public String getString(String key, String defaultValue) {
-        return env.getProperty("configuration." + key, defaultValue);
+        return env.getProperty(key, defaultValue);
     }
 }

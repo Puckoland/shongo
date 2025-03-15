@@ -29,6 +29,7 @@ public class TestController extends Controller
 
     protected TestController(
             ControllerConfiguration configuration,
+            SSLConfiguration sslConfiguration,
             EntityManagerFactory entityManagerFactory,
             NotificationManager notificationManager,
             CalendarManager calendarManager,
@@ -42,7 +43,7 @@ public class TestController extends Controller
     ) throws Exception
     {
         super(
-                configuration, entityManagerFactory, notificationManager, calendarManager, cache, executor,
+                configuration, sslConfiguration, entityManagerFactory, notificationManager, calendarManager, cache, executor,
                 authorizationService, resourceService, resourceControlService, reservationService, executableService
         );
     }
