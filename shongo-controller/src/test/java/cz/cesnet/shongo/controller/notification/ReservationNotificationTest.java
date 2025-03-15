@@ -38,9 +38,9 @@ public class ReservationNotificationTest extends AbstractExecutorTest
         System.setProperty(ControllerConfiguration.NOTIFICATION_USER_SETTINGS_URL,
                 "https://127.0.0.1:8182/user/settings");
         System.setProperty(ControllerConfiguration.NOTIFICATION_RESERVATION_REQUEST_URL,
-                "https://127.0.0.1:8182/detail/${reservationRequestId}");
+                "https://127.0.0.1:8182/detail/\\${reservationRequestId}");
         System.setProperty(ControllerConfiguration.NOTIFICATION_RESERVATION_REQUEST_CONFIRMATION_URL,
-                "https://127.0.0.1:8182/resource/reservation-request/confirmation/?resource-id=${resourceId}&date=${date}");
+                "https://127.0.0.1:8182/resource/reservation-request/confirmation/?resource-id=\\${resourceId}&date=\\${date}");
         System.setProperty(ControllerConfiguration.TIMEZONE, "UTC");
         super.before();
     }
@@ -52,9 +52,9 @@ public class ReservationNotificationTest extends AbstractExecutorTest
         System.setProperty(ControllerConfiguration.NOTIFICATION_USER_SETTINGS_URL,
                 "https://127.0.0.1:8182/user/settings");
         System.setProperty(ControllerConfiguration.NOTIFICATION_RESERVATION_REQUEST_URL,
-                "https://127.0.0.1:8182/detail/${reservationRequestId}");
+                "https://127.0.0.1:8182/detail/\\${reservationRequestId}");
         System.setProperty(ControllerConfiguration.NOTIFICATION_RESERVATION_REQUEST_CONFIRMATION_URL,
-                "https://127.0.0.1:8182/resource/reservation-request/confirmation/?resource-id=${resourceId}&date=${date}");
+                "https://127.0.0.1:8182/resource/reservation-request/confirmation/?resource-id=\\${resourceId}&date=\\${date}");
         System.setProperty(ControllerConfiguration.TIMEZONE, "UTC");
     }
 

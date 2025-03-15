@@ -127,7 +127,7 @@ configuration:
 #    username: ''
 #    password: ''
     # TODO: test this
-    subject-prefix: "[${domain.shortName}] "
+    subject-prefix: "[#{'$'}{domain.shortName}] "
 
   # Configuration of notifications
   notification:
