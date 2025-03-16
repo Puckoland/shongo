@@ -27,14 +27,6 @@ public abstract class Component
 
     /**
      * Initialize domain controller component.
-     */
-    public final void init()
-    {
-        init(new ControllerConfiguration());
-    }
-
-    /**
-     * Initialize domain controller component.
      *
      * @param configuration
      */

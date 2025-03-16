@@ -54,16 +54,16 @@ public class ReservationRequestSetTest extends AbstractSchedulerTest
         // Setup cache
         // ------------
         {
-            authorization = new DummyAuthorization(getEntityManagerFactory());
+            authorization = new DummyAuthorization(getEntityManagerFactory(), configuration);
 
             preprocessor = new Preprocessor();
             preprocessor.setCache(getCache());
             preprocessor.setAuthorization(authorization);
-            preprocessor.init();
+            preprocessor.init(configuration);
 
             scheduler = new Scheduler(getCache(), null, null);
             scheduler.setAuthorization(authorization);
-            scheduler.init();
+            scheduler.init(configuration);
 
             DeviceResource deviceResource = new DeviceResource();
             deviceResource.addTechnology(Technology.H323);
