@@ -1,0 +1,7 @@
+configuration:
+  database:
+    driver: org.hsqldb.jdbcDriver
+    url: jdbc:hsqldb:mem:test; shutdown=true; sql.syntax_pgs=true;
+    # Debug driver
+#    driver: net.sf.log4jdbc.DriverSpy
+#    url: jdbc:log4jdbc:hsqldb:mem:test; shutdown=true; sql.syntax_pgs=true;

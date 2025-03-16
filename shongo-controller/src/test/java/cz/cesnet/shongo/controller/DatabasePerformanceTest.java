@@ -12,13 +12,8 @@ import cz.cesnet.shongo.controller.scheduler.Scheduler;
 import cz.cesnet.shongo.util.Timer;
 import org.apache.log4j.Level;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -31,14 +26,10 @@ import java.util.Map;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
-@ActiveProfiles("test")
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfig.class)
 public class DatabasePerformanceTest
 {
     private static Logger logger = LoggerFactory.getLogger(DatabasePerformanceTest.class);
 
-    @Autowired
     private Controller controller;
 
     public EntityManagerFactory createEntityManagerFactory(String driver, String url, String username, String password)
@@ -104,11 +95,11 @@ public class DatabasePerformanceTest
         Preprocessor preprocessor = new Preprocessor();
         preprocessor.setCache(cache);
         preprocessor.setAuthorization(authorization);
-        preprocessor.init();
+        preprocessor.init(controller.configuration);
 
         Scheduler scheduler = new Scheduler(cache, controller.getNotificationManager(), controller.getCalendarManager());
         scheduler.setAuthorization(authorization);
-        scheduler.init();
+        scheduler.init(controller.configuration);
 
         controller.addRpcService(new AuthorizationServiceImpl());
         controller.addRpcService(new ResourceServiceImpl(cache));
