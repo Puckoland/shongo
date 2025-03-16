@@ -1,6 +1,7 @@
 package cz.cesnet.shongo.controller;
 
 import cz.cesnet.shongo.Temporal;
+import cz.cesnet.shongo.api.ClassHelper;
 import cz.cesnet.shongo.api.UserInformation;
 import cz.cesnet.shongo.controller.api.*;
 import cz.cesnet.shongo.controller.api.request.AclEntryListRequest;
@@ -293,6 +294,8 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
             // Create authorization
             authorization = DummyAuthorization.createInstance(controller.getConfiguration(), getEntityManagerFactory());
             controller.setAuthorization(authorization);
+
+            ClassHelper.clear();
 
             onInit();
 
