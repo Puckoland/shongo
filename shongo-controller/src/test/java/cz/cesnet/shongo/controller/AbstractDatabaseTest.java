@@ -1,44 +1,39 @@
 package cz.cesnet.shongo.controller;
 
-import cz.cesnet.shongo.util.Timer;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Abstract database test provides the entity manager to extending classes as protected member variable.
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@SpringBootTest
+@ActiveProfiles("test")
+@ContextConfiguration(classes = TestConfig.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public abstract class AbstractDatabaseTest
 {
     private static Logger logger = LoggerFactory.getLogger(AbstractDatabaseTest.class);
 
     /**
-     * Connection.
-     */
-    protected static String connectionDriver = "org.hsqldb.jdbcDriver";
-    protected static String connectionUrl = "jdbc:hsqldb:mem:test; shutdown=true;";
-
-    /**
-     * Enable driver for debugging SQL.
-     */
-    protected static synchronized void enableDebugDriver()
-    {
-        connectionDriver = "net.sf.log4jdbc.DriverSpy";
-        connectionUrl = connectionUrl.replace("jdbc:", "jdbc:log4jdbc:");
-    }
-
-    /**
      * Single instance of entity manager factory.
      */
-    private static EntityManagerFactory entityManagerFactory;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
+
+    @Autowired
+    protected ControllerConfiguration configuration;
 
     /**
      * @return entity manager factory
@@ -69,25 +64,8 @@ public abstract class AbstractDatabaseTest
     public void before() throws Exception
     {
         synchronized (AbstractControllerTest.class) {
-            if (entityManagerFactory == null) {
-                // For testing purposes use only in-memory database
-                Map<String, String> properties = new HashMap<String, String>();
-                properties.put("hibernate.connection.driver_class", connectionDriver);
-                properties.put("hibernate.connection.url", connectionUrl);
-                properties.put("hibernate.connection.username", "sa");
-                properties.put("hibernate.connection.password", "");
-
-                logger.info("Creating entity manager factory...");
-                Timer timer = new Timer();
-                entityManagerFactory = Persistence.createEntityManagerFactory("controller", properties);
-                logger.info("Entity manager factory created in {} ms.", timer.stop());
-
-                Controller.initializeDatabase(entityManagerFactory);
-            }
-            else {
-                logger.info("Reusing existing entity manager factory.");
-                clearData();
-            }
+            logger.info("Reusing existing entity manager factory.");
+            clearData();
         }
     }
 

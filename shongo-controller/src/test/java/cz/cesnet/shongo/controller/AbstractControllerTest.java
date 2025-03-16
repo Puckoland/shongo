@@ -14,18 +14,15 @@ import cz.cesnet.shongo.controller.domains.InterDomainAgent;
 import cz.cesnet.shongo.controller.notification.NotificationManager;
 import cz.cesnet.shongo.controller.scheduler.Preprocessor;
 import cz.cesnet.shongo.controller.scheduler.Scheduler;
-import cz.cesnet.shongo.controller.util.DatabaseHelper;
 import cz.cesnet.shongo.controller.util.NativeQuery;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Query;
 import java.util.*;
 
 /**
@@ -75,6 +72,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
     /**
      * @see Controller
      */
+    @Autowired
     private cz.cesnet.shongo.controller.Controller controller;
 
     /**
@@ -286,11 +284,6 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
             configureSystemProperties();
 
             // Create controller
-            final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-            context.getEnvironment().setActiveProfiles("test");
-            context.register(TestConfig.class);
-            context.refresh();
-            controller = context.getBean(Controller.class);
             controller.setDomain("cz.cesnet", "CESNET, z.s.p.o.");
             controller.setEntityManagerFactory(getEntityManagerFactory());
 
