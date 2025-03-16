@@ -123,9 +123,9 @@ public class DummyAuthorization extends Authorization
      *
      * @param entityManagerFactory sets the {@link #entityManagerFactory}
      */
-    public DummyAuthorization(EntityManagerFactory entityManagerFactory)
+    public DummyAuthorization(EntityManagerFactory entityManagerFactory, ControllerConfiguration configuration)
     {
-        this(new ControllerConfiguration(), entityManagerFactory);
+        this(configuration, entityManagerFactory);
     }
 
     /**

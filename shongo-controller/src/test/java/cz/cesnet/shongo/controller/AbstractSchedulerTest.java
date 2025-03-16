@@ -33,7 +33,7 @@ public abstract class AbstractSchedulerTest extends AbstractDatabaseTest
 
         // Init cache
         cache =  new Cache();
-        cache.init();
+        cache.init(configuration);
 
         // Create entity manager
         entityManager = super.createEntityManager();
@@ -67,7 +67,7 @@ public abstract class AbstractSchedulerTest extends AbstractDatabaseTest
     public SchedulerContext createSchedulerContext(Interval interval)
     {
         return new SchedulerContext(interval.getStart(), cache, entityManager,
-                new AuthorizationManager(entityManager, new DummyAuthorization(getEntityManagerFactory())));
+                new AuthorizationManager(entityManager, new DummyAuthorization(getEntityManagerFactory(), configuration)));
     }
 
     public SchedulerContext createSchedulerContext()
