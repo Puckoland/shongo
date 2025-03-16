@@ -193,4 +193,10 @@ public class ClassHelper
             throw new TodoImplementException(collection.getClass());
         }
     }
+
+    public static void clear()
+    {
+        packages = null;
+        classByShortNameCache.clear();
+    }
 }
