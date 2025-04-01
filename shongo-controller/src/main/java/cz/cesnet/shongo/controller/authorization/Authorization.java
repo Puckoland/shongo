@@ -171,11 +171,11 @@ public abstract class Authorization
     }
 
     /**
-     * Destroy this {@link Authorization} (and you be able to create another {@link Authorization} instance again)
+     * Clear the {@link AclProvider}.
      */
-    public void destroy()
+    protected void clearAclProvider()
     {
-        authorization = null;
+        this.aclProvider.clear();
     }
 
     /**

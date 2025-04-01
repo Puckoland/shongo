@@ -84,9 +84,7 @@ public class DatabasePerformanceTest
         controller.setEntityManagerFactory(entityManagerFactory);
         controller.setThrowInternalErrorsForTesting(true);
 
-        Authorization authorization = DummyAuthorization.createInstance(
-                controller.getConfiguration(), entityManagerFactory);
-        controller.setAuthorization(authorization);
+        Authorization authorization = controller.getAuthorization();
 
         Cache cache = new Cache();
         cache.setEntityManagerFactory(entityManagerFactory);

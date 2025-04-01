@@ -79,6 +79,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
     /**
      * @see Authorization
      */
+    @Autowired
     private DummyAuthorization authorization;
 
     /**
@@ -291,10 +292,6 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
             // Enable throwing internal errors
             controller.setThrowInternalErrorsForTesting(true);
 
-            // Create authorization
-            authorization = DummyAuthorization.createInstance(controller.getConfiguration(), getEntityManagerFactory());
-            controller.setAuthorization(authorization);
-
             ClassHelper.clear();
 
             onInit();
@@ -323,6 +320,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
             controller.destroy();
             preprocessor.destroy();
             scheduler.destroy();
+            authorization.destroy();
             InterDomainAgent.destroy();
         }
 

@@ -108,6 +108,7 @@ public class Controller
     /**
      * @see cz.cesnet.shongo.controller.authorization.Authorization
      */
+    @Autowired
     private Authorization authorization;
 
     /**
@@ -229,7 +230,8 @@ public class Controller
         // Create jade agent
         this.jadeAgent = new ControllerAgent(this.configuration);
 
-        setInstance(this);
+        this.reporter = Reporter.create(this);
+        instance = this;
     }
 
     /**
@@ -280,14 +282,6 @@ public class Controller
         LocalDomain localDomain = LocalDomain.getLocalDomain();
         localDomain.setName(name);
         localDomain.setOrganization(organization);
-    }
-
-    /**
-     * @param authorization sets the {@link #authorization}
-     */
-    public void setAuthorization(Authorization authorization)
-    {
-        this.authorization = authorization;
     }
 
     /**
@@ -827,10 +821,6 @@ public class Controller
         for (Component component : components) {
             component.destroy();
         }
-        // Destroy authorization
-        if (authorization != null) {
-            authorization.destroy();
-        }
 
         logger.info("Controller exiting...");
     }
@@ -839,20 +829,6 @@ public class Controller
      * Single instance of controller that is created by spring context.
      */
     private static Controller instance;
-
-    /**
-     * Constructor.
-     *
-     * @param controller
-     */
-    private static synchronized void setInstance(Controller controller)
-    {
-        if (instance != null) {
-            throw new IllegalStateException("Another instance of controller already exists.");
-        }
-        controller.reporter = Reporter.create(controller);
-        instance = controller;
-    }
 
     /**
      * @return {@link #instance}
@@ -914,10 +890,6 @@ public class Controller
         ConfiguredSSLContext.getInstance().loadConfiguration(sslConfiguration);
 
         Controller.initializeDatabase(entityManagerFactory);
-
-        // Setup controller
-        ServerAuthorization authorization = ServerAuthorization.createInstance(configuration, entityManagerFactory);
-        setAuthorization(authorization);
 
         // Add components
         addComponent(cache);
@@ -981,7 +953,7 @@ public class Controller
         try {
             // Start
             startAll();
-            authorization.initRootAccessToken();
+            ((ServerAuthorization) authorization).initRootAccessToken();
             logger.info("Controller successfully started.");
 
             // Configure shutdown hook

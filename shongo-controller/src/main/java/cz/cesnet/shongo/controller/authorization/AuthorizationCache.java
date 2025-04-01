@@ -122,6 +122,7 @@ public class AuthorizationCache
         aclObjectStateCache.clear();
         groupByGroupId.clear();
         groupIdByName.clear();
+        userIdsByGroupId.clear();
     }
 
     /**

@@ -31,6 +31,13 @@ public abstract class AclProvider
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    public synchronized void clear()
+    {
+        identities.clear();
+        objectClasses.clear();
+        objectIdentities.clear();
+    }
+
     public synchronized AclIdentity getIdentity(AclIdentityType type, String principalId)
     {
         Map<String, AclIdentity> identitiesByPrincipalId = identities.get(type);
