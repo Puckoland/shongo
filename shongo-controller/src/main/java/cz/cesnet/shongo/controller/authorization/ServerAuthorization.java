@@ -29,6 +29,9 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.*;
 import jakarta.persistence.EntityManagerFactory;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
@@ -40,6 +43,8 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Component
+@Profile("production")
 public class ServerAuthorization extends Authorization
 {
     private static Logger logger = LoggerFactory.getLogger(ServerAuthorization.class);
@@ -163,6 +168,8 @@ public class ServerAuthorization extends Authorization
         httpClient = ConfiguredSSLContext.getInstance().createHttpClient();
 
         initialize();
+
+        Authorization.setInstance(this);
     }
 
     /**
@@ -1258,18 +1265,6 @@ public class ServerAuthorization extends Authorization
                         return groupIds;
                     }
                 });
-    }
-
-    /**
-     * @return new instance of {@link ServerAuthorization}
-     * @throws IllegalStateException when other {@link Authorization} already exists
-     */
-    public static ServerAuthorization createInstance(ControllerConfiguration configuration,
-                                                     EntityManagerFactory entityManagerFactory) throws IllegalStateException
-    {
-        ServerAuthorization serverAuthorization = new ServerAuthorization(configuration, entityManagerFactory);
-        Authorization.setInstance(serverAuthorization);
-        return serverAuthorization;
     }
 
     /**

@@ -3,7 +3,6 @@ package cz.cesnet.shongo.controller.booking.request;
 import cz.cesnet.shongo.AliasType;
 import cz.cesnet.shongo.Technology;
 import cz.cesnet.shongo.controller.AbstractSchedulerTest;
-import cz.cesnet.shongo.controller.DummyAuthorization;
 import cz.cesnet.shongo.controller.ReservationRequestPurpose;
 import cz.cesnet.shongo.controller.authorization.Authorization;
 import cz.cesnet.shongo.controller.authorization.AuthorizationManager;
@@ -40,8 +39,7 @@ import java.util.List;
  */
 public class ReservationRequestSetTest extends AbstractSchedulerTest
 {
-    // Authorization
-    private Authorization authorization;
+
     // Preprocessor
     private Preprocessor preprocessor;
     // Scheduler
@@ -54,8 +52,6 @@ public class ReservationRequestSetTest extends AbstractSchedulerTest
         // Setup cache
         // ------------
         {
-            authorization = new DummyAuthorization(getEntityManagerFactory(), configuration);
-
             preprocessor = new Preprocessor();
             preprocessor.setCache(getCache());
             preprocessor.setAuthorization(authorization);

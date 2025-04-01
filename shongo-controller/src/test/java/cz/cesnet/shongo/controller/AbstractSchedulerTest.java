@@ -12,6 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 
 import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Tests for {@link cz.cesnet.shongo.controller.booking.compartment.CompartmentReservationTask}.
@@ -22,6 +23,9 @@ public abstract class AbstractSchedulerTest extends AbstractDatabaseTest
 {
     private Cache cache;
     private EntityManager entityManager;
+
+    @Autowired
+    protected DummyAuthorization authorization;
 
     @Before
     public void before() throws Exception
@@ -49,6 +53,7 @@ public abstract class AbstractSchedulerTest extends AbstractDatabaseTest
         }
 
         cache.destroy();
+        authorization.destroy();
 
         Reporter.getInstance().destroy();
         LocalDomain.setLocalDomain(null);
@@ -67,7 +72,7 @@ public abstract class AbstractSchedulerTest extends AbstractDatabaseTest
     public SchedulerContext createSchedulerContext(Interval interval)
     {
         return new SchedulerContext(interval.getStart(), cache, entityManager,
-                new AuthorizationManager(entityManager, new DummyAuthorization(getEntityManagerFactory(), configuration)));
+                new AuthorizationManager(entityManager, authorization));
     }
 
     public SchedulerContext createSchedulerContext()

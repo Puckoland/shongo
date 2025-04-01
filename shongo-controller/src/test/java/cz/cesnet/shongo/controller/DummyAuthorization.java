@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.persistence.EntityManagerFactory;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
 /**
@@ -18,6 +21,8 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@Component
+@Profile("test")
 public class DummyAuthorization extends Authorization
 {
     private static Logger logger = LoggerFactory.getLogger(DummyAuthorization.class);
@@ -116,16 +121,8 @@ public class DummyAuthorization extends Authorization
         createGroup(new Group(RESERVATION_GROUP_NAME, Group.Type.SYSTEM));
 
         initialize();
-    }
 
-    /**
-     * Constructor.
-     *
-     * @param entityManagerFactory sets the {@link #entityManagerFactory}
-     */
-    public DummyAuthorization(EntityManagerFactory entityManagerFactory, ControllerConfiguration configuration)
-    {
-        this(configuration, entityManagerFactory);
+        Authorization.setInstance(this);
     }
 
     /**
@@ -320,17 +317,15 @@ public class DummyAuthorization extends Authorization
         userIds.remove(userId);
     }
 
-    /**
-     * @param configuration        to be used for initialization
-     * @param entityManagerFactory
-     * @return new instance of {@link DummyAuthorization}
-     * @throws IllegalStateException when other {@link Authorization} already exists
-     */
-    public static DummyAuthorization createInstance(ControllerConfiguration configuration,
-            EntityManagerFactory entityManagerFactory) throws IllegalStateException
-    {
-        DummyAuthorization authorization = new DummyAuthorization(configuration, entityManagerFactory);
-        Authorization.setInstance(authorization);
-        return authorization;
+    public void destroy() {
+        clearAclProvider();
+        clearCache();
+
+        userIdsInGroup.clear();
+        groups.clear();
+
+        createGroup(new Group(ADMINISTRATOR_GROUP_NAME, Group.Type.SYSTEM));
+        createGroup(new Group(OPERATOR_GROUP_NAME, Group.Type.SYSTEM));
+        createGroup(new Group(RESERVATION_GROUP_NAME, Group.Type.SYSTEM));
     }
 }
