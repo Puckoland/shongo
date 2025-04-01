@@ -90,6 +90,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
     /**
      * @see cz.cesnet.shongo.controller.scheduler.Preprocessor
      */
+    @Autowired
     private Preprocessor preprocessor;
 
     /**
@@ -236,7 +237,6 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
         cache.setEntityManagerFactory(getEntityManagerFactory());
         cache.init(controller.getConfiguration());
 
-        preprocessor = new Preprocessor();
         preprocessor.setCache(cache);
         preprocessor.setAuthorization(authorization);
         preprocessor.init(controller.getConfiguration());

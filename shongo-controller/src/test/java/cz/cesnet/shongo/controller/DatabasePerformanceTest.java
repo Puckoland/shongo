@@ -90,11 +90,6 @@ public class DatabasePerformanceTest
         cache.setEntityManagerFactory(entityManagerFactory);
         cache.init(controller.getConfiguration());
 
-        Preprocessor preprocessor = new Preprocessor();
-        preprocessor.setCache(cache);
-        preprocessor.setAuthorization(authorization);
-        preprocessor.init(controller.configuration);
-
         Scheduler scheduler = new Scheduler(cache, controller.getNotificationManager(), controller.getCalendarManager());
         scheduler.setAuthorization(authorization);
         scheduler.init(controller.configuration);
@@ -140,7 +135,6 @@ public class DatabasePerformanceTest
         controller.setThrowInternalErrorsForTesting(false);
         controller.stop();
         controller.destroy();
-        preprocessor.destroy();
         scheduler.destroy();
     }
 

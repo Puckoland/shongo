@@ -30,6 +30,7 @@ import java.util.List;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@org.springframework.stereotype.Component
 public class Preprocessor extends SwitchableComponent implements Component.AuthorizationAware, Component.NotificationManagerAware
 {
     private static Logger logger = LoggerFactory.getLogger(Preprocessor.class);

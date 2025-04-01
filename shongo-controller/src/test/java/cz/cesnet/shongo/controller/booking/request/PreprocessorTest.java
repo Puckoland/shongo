@@ -37,6 +37,9 @@ public class PreprocessorTest extends AbstractDatabaseTest
     @Autowired
     private DummyAuthorization authorization;
 
+    @Autowired
+    private Preprocessor preprocessor;
+
     @Override
     public void before() throws Exception
     {
@@ -59,7 +62,6 @@ public class PreprocessorTest extends AbstractDatabaseTest
     {
         EntityManager entityManager = createEntityManager();
 
-        Preprocessor preprocessor = new Preprocessor();
         preprocessor.setCache(new Cache());
         preprocessor.setAuthorization(authorization);
         preprocessor.init(configuration);
@@ -128,7 +130,6 @@ public class PreprocessorTest extends AbstractDatabaseTest
     @Test
     public void testClonedSpecifications() throws Exception
     {
-        Preprocessor preprocessor = new Preprocessor();
         preprocessor.setCache(new Cache());
         preprocessor.setAuthorization(authorization);
         preprocessor.init(configuration);
@@ -181,7 +182,6 @@ public class PreprocessorTest extends AbstractDatabaseTest
     @Test
     public void testModification() throws Exception
     {
-        Preprocessor preprocessor = new Preprocessor();
         preprocessor.setCache(new Cache());
         preprocessor.setAuthorization(authorization);
         preprocessor.init(configuration);

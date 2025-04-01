@@ -30,6 +30,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ import java.util.List;
 public class ReservationRequestSetTest extends AbstractSchedulerTest
 {
 
-    // Preprocessor
+    @Autowired
     private Preprocessor preprocessor;
     // Scheduler
     private Scheduler scheduler;
@@ -52,7 +54,6 @@ public class ReservationRequestSetTest extends AbstractSchedulerTest
         // Setup cache
         // ------------
         {
-            preprocessor = new Preprocessor();
             preprocessor.setCache(getCache());
             preprocessor.setAuthorization(authorization);
             preprocessor.init(configuration);
