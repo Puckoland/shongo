@@ -114,6 +114,9 @@ public class Controller
     @Autowired
     private Preprocessor preprocessor;
 
+    @Autowired
+    private Scheduler scheduler;
+
     /**
      * List of components of the domain controller.
      */
@@ -898,7 +901,6 @@ public class Controller
         addComponent(cache);
         preprocessor.setCache(cache);
         addComponent(preprocessor);
-        Scheduler scheduler = new Scheduler(cache, notificationManager, calendarManager);
         addComponent(scheduler);
         addComponent(executor);
 

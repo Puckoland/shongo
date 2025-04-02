@@ -26,12 +26,15 @@ import cz.cesnet.shongo.controller.calendar.ReservationCalendar;
 import cz.cesnet.shongo.controller.domains.InterDomainAgent;
 import cz.cesnet.shongo.controller.notification.*;
 import cz.cesnet.shongo.util.DateTimeFormatter;
+import lombok.Setter;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.*;
 
 /**
@@ -40,6 +43,7 @@ import java.util.*;
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
+@org.springframework.stereotype.Component
 public class Scheduler extends SwitchableComponent implements Component.AuthorizationAware
 {
     private static Logger logger = LoggerFactory.getLogger(Scheduler.class);
@@ -47,6 +51,7 @@ public class Scheduler extends SwitchableComponent implements Component.Authoriz
     /**
      * @see Cache
      */
+    @Setter
     private Cache cache;
 
     /**
@@ -72,6 +77,7 @@ public class Scheduler extends SwitchableComponent implements Component.Authoriz
      * @param cache               sets the {@link #cache}
      * @param notificationManager sets the {@link #notificationManager}
      */
+    @Autowired
     public Scheduler(Cache cache, NotificationManager notificationManager, CalendarManager calendarManager)
     {
         this.cache = cache;
