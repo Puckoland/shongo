@@ -90,10 +90,6 @@ public class DatabasePerformanceTest
         cache.setEntityManagerFactory(entityManagerFactory);
         cache.init(controller.getConfiguration());
 
-        Scheduler scheduler = new Scheduler(cache, controller.getNotificationManager(), controller.getCalendarManager());
-        scheduler.setAuthorization(authorization);
-        scheduler.init(controller.configuration);
-
         controller.addRpcService(new AuthorizationServiceImpl());
         controller.addRpcService(new ResourceServiceImpl(cache));
         controller.addRpcService(new ReservationServiceImpl(cache));
@@ -135,7 +131,6 @@ public class DatabasePerformanceTest
         controller.setThrowInternalErrorsForTesting(false);
         controller.stop();
         controller.destroy();
-        scheduler.destroy();
     }
 
     private void enableSqlLogger(boolean enable)

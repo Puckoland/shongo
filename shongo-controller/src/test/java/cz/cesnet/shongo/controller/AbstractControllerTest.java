@@ -96,6 +96,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
     /**
      * @see cz.cesnet.shongo.controller.scheduler.Scheduler
      */
+    @Autowired
     private Scheduler scheduler;
 
     /**
@@ -241,7 +242,7 @@ public abstract class AbstractControllerTest extends AbstractDatabaseTest
         preprocessor.setAuthorization(authorization);
         preprocessor.init(controller.getConfiguration());
 
-        scheduler = new Scheduler(cache, controller.getNotificationManager(), controller.getCalendarManager());
+        scheduler.setCache(cache);
         scheduler.setAuthorization(authorization);
         scheduler.init(controller.getConfiguration());
 
