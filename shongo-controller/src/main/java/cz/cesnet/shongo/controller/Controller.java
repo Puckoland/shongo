@@ -550,7 +550,6 @@ public class Controller
         startRpc();
         startJade();
         startInterDomainRESTApi();
-        startWorkerThread();
         startComponents();
     }
 
@@ -742,18 +741,6 @@ public class Controller
     public void waitForJadeAgentsToStart()
     {
         jadeContainer.waitForJadeAgentsToStart();
-    }
-
-    /**
-     * Start worker thread which periodically runs preprocessor and scheduler
-     */
-    public void startWorkerThread()
-    {
-        WorkerThread workerThread = new WorkerThread(getComponent(Preprocessor.class), getComponent(Scheduler.class),
-                notificationManager, calendarManager, entityManagerFactory);
-        workerThread.setPeriod(configuration.getDuration(ControllerConfiguration.WORKER_PERIOD));
-        workerThread.setLookahead(configuration.getPeriod(ControllerConfiguration.WORKER_LOOKAHEAD));
-        addThread(workerThread);
     }
 
     /**
