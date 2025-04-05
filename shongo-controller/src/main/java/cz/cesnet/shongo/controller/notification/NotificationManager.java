@@ -267,4 +267,17 @@ public class NotificationManager extends Component implements Component.Authoriz
         }
         return reservationRequestNotification;
     }
+
+    public synchronized void clear()
+    {
+        notificationExecutors.clear();
+        notifications.clear();
+        reservationRequestNotificationsById.clear();
+        roomGroupNotificationByRoomEndpointId.clear();
+        roomNotificationsByRoomEndpointId.clear();
+        redirectTo = null;
+        enabled = true;
+
+        logger.debug("Cleared all notifications.");
+    }
 }

@@ -17,6 +17,7 @@ import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
@@ -31,6 +32,9 @@ public class ReservationNotificationTest extends AbstractExecutorTest
      * @see TestingNotificationExecutor
      */
     private TestingNotificationExecutor notificationExecutor = new TestingNotificationExecutor();
+
+    @Autowired
+    private NotificationManager notificationManager;
 
     @Override
     public void before() throws Exception
@@ -63,9 +67,9 @@ public class ReservationNotificationTest extends AbstractExecutorTest
     {
         super.onInit();
 
-        getController().addNotificationExecutor(notificationExecutor);
+        notificationManager.addNotificationExecutor(notificationExecutor);
 
-        getController().getConfiguration().setAdministrators(new LinkedList<PersonInformation>()
+        configuration.setAdministrators(new LinkedList<PersonInformation>()
         {{
                 add(new PersonInformation()
                 {
@@ -94,6 +98,15 @@ public class ReservationNotificationTest extends AbstractExecutorTest
                     }
                 });
             }});
+    }
+
+    @Override
+    public void after() throws Exception {
+        synchronized (ReservationNotificationTest.class) {
+            notificationManager.clear();
+        }
+
+        super.after();
     }
 
     /**
