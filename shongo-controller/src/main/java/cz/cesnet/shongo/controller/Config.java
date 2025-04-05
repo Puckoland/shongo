@@ -1,5 +1,6 @@
 package cz.cesnet.shongo.controller;
 
+import cz.cesnet.shongo.controller.util.converter.StringToPeriodConverter;
 import cz.cesnet.shongo.util.Timer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +10,11 @@ import org.springframework.context.annotation.Profile;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import org.springframework.context.support.ConversionServiceFactoryBean;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 @Profile("production")
@@ -40,5 +44,13 @@ public class Config
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("controller", properties);
         log.debug("Entity manager factory created in {} ms.", timer.stop());
         return entityManagerFactory;
+    }
+
+    @Bean
+    public ConversionServiceFactoryBean conversionService(StringToPeriodConverter stringToPeriodConverter)
+    {
+        final ConversionServiceFactoryBean factoryBean = new ConversionServiceFactoryBean();
+        factoryBean.setConverters(Set.of(stringToPeriodConverter));
+        return factoryBean;
     }
 }
