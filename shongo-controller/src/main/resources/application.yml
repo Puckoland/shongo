@@ -7,4 +7,4 @@ spring:
   config:
     import:
       - classpath:controller-default.yml
-      - optional:classpath:controller.yml
+      - optional:file:controller.yml
