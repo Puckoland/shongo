@@ -65,8 +65,6 @@ public class Application
         printHelp(commandLine);
         processArguments(commandLine);
 
-        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "production");
-
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
         context.getBean(Controller.class).init();
     }
