@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ActiveProfiles;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -16,7 +15,6 @@ import java.util.Map;
 @Slf4j
 @Configuration
 @ComponentScan
-@ActiveProfiles("test")
 @RequiredArgsConstructor
 public class TestConfig
 {
