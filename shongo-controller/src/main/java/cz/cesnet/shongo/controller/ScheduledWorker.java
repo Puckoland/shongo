@@ -6,7 +6,6 @@ import cz.cesnet.shongo.controller.notification.NotificationManager;
 import cz.cesnet.shongo.controller.scheduler.Preprocessor;
 import cz.cesnet.shongo.controller.scheduler.Scheduler;
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.slf4j.Logger;
@@ -14,24 +13,30 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
- * Thread which periodically runs {@link Preprocessor} and {@link Scheduler}.
+ * Class which periodically runs {@link Preprocessor} and {@link Scheduler}.
  *
  * @author Martin Srom <martin.srom@cesnet.cz>
  */
-public class WorkerThread extends Thread
+@Component
+@Profile("production")
+public class ScheduledWorker
 {
-    private static Logger logger = LoggerFactory.getLogger(WorkerThread.class);
 
-    /**
-     * Period in which the worker works.
-     */
-    private Duration period;
+    private static Logger logger = LoggerFactory.getLogger(ScheduledWorker.class);
 
     /**
      * Length of working interval which stars at "now()".
      */
+    @Value("${configuration.worker.lookahead}")
     private Period lookahead;
 
     /**
@@ -69,10 +74,9 @@ public class WorkerThread extends Thread
      * @param notificationManager  sets the {@link #notificationManager}
      * @param entityManagerFactory sets the {@link #entityManagerFactory}
      */
-    public WorkerThread(Preprocessor preprocessor, Scheduler scheduler, NotificationManager notificationManager, CalendarManager calendarManager,
-            EntityManagerFactory entityManagerFactory)
+    public ScheduledWorker(Preprocessor preprocessor, Scheduler scheduler, NotificationManager notificationManager,
+                           CalendarManager calendarManager, EntityManagerFactory entityManagerFactory)
     {
-        setName("worker");
         if (preprocessor == null || scheduler == null) {
             throw new IllegalArgumentException("Preprocessor, Scheduler and EntityManagerFactory must be not-empty!");
         }
@@ -83,66 +87,24 @@ public class WorkerThread extends Thread
         this.entityManagerFactory = entityManagerFactory;
     }
 
-    /**
-     * @param period sets the {@link #period}
-     */
-    public void setPeriod(Duration period)
-    {
-        this.period = period;
-    }
-
-    /**
-     * @param lookahead sets the {@link #lookahead}
-     */
-    public void setLookahead(Period lookahead)
-    {
-        this.lookahead = lookahead;
-    }
-
-    @Override
-    public void run()
+    @PostConstruct
+    public void init()
     {
         logger.debug("Worker started!");
+    }
 
-        if (period == null) {
-            throw new IllegalStateException("Worker must have period set!");
-        }
-        if (lookahead == null) {
-            throw new IllegalStateException("Worker must have lookahead length set!");
-        }
-
-        try {
-            Thread.sleep(period.getMillis());
-        }
-        catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        while (!Thread.interrupted()) {
-            work();
-            try {
-                Thread.sleep(period.getMillis());
-            }
-            catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-
-        if (notificationManager.hasNotifications()) {
-            logger.info("Executing remaining notifications...");
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            try {
-                notificationManager.executeNotifications(entityManager);
-            }
-            catch (Exception exception) {
-                Reporter.getInstance().reportInternalError(Reporter.WORKER, exception);
-            }
-            finally {
-                entityManager.close();
-            }
-        }
+    @PreDestroy
+    public void destroy()
+    {
+        executeRemainingNotifications();
 
         logger.debug("Worker stopped!");
+    }
+
+    @Scheduled(fixedRateString = "${configuration.worker.period}", initialDelayString = "${configuration.worker.period}")
+    public void runScheduled()
+    {
+        work();
     }
 
     /**
@@ -186,5 +148,17 @@ public class WorkerThread extends Thread
             //logger.debug("Worker releasing lock...  ]]]]]");
         }
         //logger.debug("Worker lock released...");
+    }
+
+    private void executeRemainingNotifications()
+    {
+        if (notificationManager.hasNotifications()) {
+            logger.info("Executing remaining notifications...");
+            try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+                notificationManager.executeNotifications(entityManager);
+            } catch (Exception exception) {
+                Reporter.getInstance().reportInternalError(Reporter.WORKER, exception);
+            }
+        }
     }
 }

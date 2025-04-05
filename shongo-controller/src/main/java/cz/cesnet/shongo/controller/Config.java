@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.springframework.context.support.ConversionServiceFactoryBean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.Set;
 @Slf4j
 @Profile("production")
 @Configuration
+@EnableScheduling
 @RequiredArgsConstructor
 public class Config
 {
