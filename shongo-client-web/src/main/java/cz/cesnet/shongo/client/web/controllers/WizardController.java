@@ -68,17 +68,14 @@ public class WizardController
         ReservationRequestSummary reservationRequest =
                 cache.getReservationRequestSummary(securityToken, reservationRequestId);
         SpecificationType specificationType = SpecificationType.fromReservationRequestSummary(reservationRequest);
-        switch (specificationType) {
-            case ADHOC_ROOM:
-            case PERMANENT_ROOM:
-                return "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
-                        ClientWebUrl.WIZARD_ROOM_DUPLICATE, reservationRequestId));
-            case PERMANENT_ROOM_CAPACITY:
-                return "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
-                        ClientWebUrl.WIZARD_PERMANENT_ROOM_CAPACITY_DUPLICATE, reservationRequestId));
-            default:
-                throw new TodoImplementException(specificationType);
-        }
+        return switch (specificationType) {
+            case ADHOC_ROOM, PERMANENT_ROOM ->
+                    "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
+                            ClientWebUrl.WIZARD_ROOM_DUPLICATE, reservationRequestId));
+            case PERMANENT_ROOM_CAPACITY -> "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
+                    ClientWebUrl.WIZARD_PERMANENT_ROOM_CAPACITY_DUPLICATE, reservationRequestId));
+            default -> throw new TodoImplementException(specificationType);
+        };
     }
 
     /**
@@ -93,22 +90,17 @@ public class WizardController
         ReservationRequestSummary reservationRequest =
                 cache.getReservationRequestSummary(securityToken, reservationRequestId);
         SpecificationType specificationType = SpecificationType.fromReservationRequestSummary(reservationRequest);
-        switch (specificationType) {
-            case ADHOC_ROOM:
-            case PERMANENT_ROOM:
-                return "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
-                        ClientWebUrl.WIZARD_ROOM_MODIFY, reservationRequestId));
-            case PERMANENT_ROOM_CAPACITY:
-                return "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
-                        ClientWebUrl.WIZARD_PERMANENT_ROOM_CAPACITY_MODIFY, reservationRequestId));
-            case VEHICLE:
-            case PARKING_PLACE:
-            case MEETING_ROOM:
-                return "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
-                        ClientWebUrl.WIZARD_MEETING_ROOM_MODIFY, reservationRequestId));
-            default:
-                throw new TodoImplementException(specificationType);
-        }
+        return switch (specificationType) {
+            case ADHOC_ROOM, PERMANENT_ROOM ->
+                    "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
+                            ClientWebUrl.WIZARD_ROOM_MODIFY, reservationRequestId));
+            case PERMANENT_ROOM_CAPACITY -> "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
+                    ClientWebUrl.WIZARD_PERMANENT_ROOM_CAPACITY_MODIFY, reservationRequestId));
+            case VEHICLE, PARKING_PLACE, MEETING_ROOM ->
+                    "redirect:" + BackUrl.getInstance(request).applyToUrl(ClientWebUrl.format(
+                            ClientWebUrl.WIZARD_MEETING_ROOM_MODIFY, reservationRequestId));
+            default -> throw new TodoImplementException(specificationType);
+        };
     }
 
     /**

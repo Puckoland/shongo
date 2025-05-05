@@ -1229,38 +1229,28 @@ public class ReservationRequestModel implements ReportModel.ContextSerializable
      */
     public Period getDuration()
     {
-        switch (specificationType) {
-            case PERMANENT_ROOM:
+        return switch (specificationType) {
+            case PERMANENT_ROOM -> {
                 if (end == null) {
                     throw new IllegalStateException("Slot end must be not empty for alias.");
                 }
-                return new Period(startDate.toDateTimeAtStartOfDay(timeZone), end.withZone(timeZone).withTime(23, 59, 59, 0));
-            case MEETING_ROOM:
-            case PARKING_PLACE:
-            case VEHICLE:
-            case ADHOC_ROOM:
-            case PERMANENT_ROOM_CAPACITY:
+                yield new Period(startDate.toDateTimeAtStartOfDay(timeZone), end.withZone(timeZone).withTime(23, 59, 59, 0));
+            }
+            case MEETING_ROOM, PARKING_PLACE, VEHICLE, ADHOC_ROOM, PERMANENT_ROOM_CAPACITY -> {
                 if (durationCount == null || durationType == null) {
                     if (end != null) {
-                        return new Period(startDate.toDateTime(start,timeZone), end);
-                    }
-                    else {
+                        yield new Period(startDate.toDateTime(start, timeZone), end);
+                    } else {
                         throw new IllegalStateException("Slot duration should be not empty.");
                     }
                 }
-                switch (durationType) {
-                    case MINUTE:
-                        return Period.minutes(durationCount);
-                    case HOUR:
-                        return Period.hours(durationCount);
-                    case DAY:
-                        return Period.days(durationCount);
-                    default:
-                        throw new TodoImplementException(durationType);
-                }
-            default:
-                throw new TodoImplementException("Reservation request duration.");
-        }
+                yield switch (durationType) {
+                    case MINUTE -> Period.minutes(durationCount);
+                    case HOUR -> Period.hours(durationCount);
+                    case DAY -> Period.days(durationCount);
+                };
+            }
+        };
     }
 
     /**
@@ -1322,18 +1312,12 @@ public class ReservationRequestModel implements ReportModel.ContextSerializable
 
     public Period getPeriod()
     {
-        Period period = null;
-        switch (periodicityType) {
-            case DAILY:
-                period = Period.days(1);
-                break;
-            case WEEKLY:
-                period = Period.weeks(periodicityCycle);
-                break;
-            case MONTHLY:
-                period = Period.months(periodicityCycle);
-                break;
-        }
+        Period period = switch (periodicityType) {
+            case DAILY -> Period.days(1);
+            case WEEKLY -> Period.weeks(periodicityCycle);
+            case MONTHLY -> Period.months(periodicityCycle);
+            default -> null;
+        };
         return period;
     }
 

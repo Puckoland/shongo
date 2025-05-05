@@ -95,24 +95,16 @@ public class ObjectTypeResolver
      */
     public static Class<? extends PersistentObject> getObjectTypeClass(ObjectType objectType)
     {
-        switch (objectType) {
-            case RESOURCE:
-                return Resource.class;
-            case RESERVATION_REQUEST:
-                return AbstractReservationRequest.class;
-            case RESERVATION:
-                return Reservation.class;
-            case EXECUTABLE:
-                return Executable.class;
-            case TAG:
-                return Tag.class;
-            case DOMAIN:
-                return Domain.class;
-            case FOREIGN_RESOURCES:
-                return ForeignResources.class;
-            default:
-                throw new TodoImplementException(objectType);
-        }
+        return switch (objectType) {
+            case RESOURCE -> Resource.class;
+            case RESERVATION_REQUEST -> AbstractReservationRequest.class;
+            case RESERVATION -> Reservation.class;
+            case EXECUTABLE -> Executable.class;
+            case TAG -> Tag.class;
+            case DOMAIN -> Domain.class;
+            case FOREIGN_RESOURCES -> ForeignResources.class;
+            default -> throw new TodoImplementException(objectType);
+        };
     }
 
     /**

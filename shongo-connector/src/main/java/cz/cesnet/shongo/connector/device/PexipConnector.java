@@ -639,20 +639,14 @@ public class PexipConnector extends AbstractMultipointConnector {
 
 
     private HttpRequestBase getRequest(String url, HttpMethod method){
-        switch(method){
-            case DELETE:
-                return new HttpDelete(url);
-            case GET:
-                return new HttpGet(url);
-            case PATCH:
-                return new HttpPatch(url);
-            case POST:
-                return new HttpPost(url);
-            case PUT:
-                return new HttpPut(url);
-            default:
-                throw new IllegalArgumentException("Invalid or null HttpMethod: " + method);
-        }
+        return switch (method) {
+            case DELETE -> new HttpDelete(url);
+            case GET -> new HttpGet(url);
+            case PATCH -> new HttpPatch(url);
+            case POST -> new HttpPost(url);
+            case PUT -> new HttpPut(url);
+            default -> throw new IllegalArgumentException("Invalid or null HttpMethod: " + method);
+        };
     }
 
     private String printPrettyJson (String jsonString) {

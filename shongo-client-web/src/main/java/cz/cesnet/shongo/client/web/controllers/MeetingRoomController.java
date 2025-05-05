@@ -190,16 +190,10 @@ public class MeetingRoomController {
             if (futureSlotCount != null) {
                 item.put("futureSlotCount", futureSlotCount);
             }
-            boolean isDeprecated;
-            switch (state != null ? state : ReservationRequestState.ALLOCATED) {
-                case ALLOCATED_STARTED:
-                case ALLOCATED_STARTED_AVAILABLE:
-                    isDeprecated = false;
-                    break;
-                default:
-                    isDeprecated = earliestSlot != null && earliestSlot.getEnd().isBeforeNow();
-                    break;
-            }
+            boolean isDeprecated = switch (state != null ? state : ReservationRequestState.ALLOCATED) {
+                case ALLOCATED_STARTED, ALLOCATED_STARTED_AVAILABLE -> false;
+                default -> earliestSlot != null && earliestSlot.getEnd().isBeforeNow();
+            };
             item.put("isDeprecated", isDeprecated);
 
             Set<Technology> technologies = reservationRequest.getSpecificationTechnologies();

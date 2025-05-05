@@ -312,14 +312,9 @@ public abstract class ReportSetMessages
             @Override
             public Object getValue(Map<String, Object> parameters)
             {
-                switch (type) {
-                    case IF_EMPTY:
-                    case FORMAT:
-                    case JADE_REPORT:
-                        return params.get(0).getValue(parameters);
-                    default:
-                        throw new TodoImplementException(type);
-                }
+                return switch (type) {
+                    case IF_EMPTY, FORMAT, JADE_REPORT -> params.get(0).getValue(parameters);
+                };
             }
 
             @Override

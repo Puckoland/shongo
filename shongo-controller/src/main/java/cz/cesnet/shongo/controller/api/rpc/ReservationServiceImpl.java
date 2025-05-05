@@ -1188,43 +1188,22 @@ public class ReservationServiceImpl extends AbstractServiceImpl
             String queryOrderBy;
             ReservationRequestListRequest.Sort sort = request.getSort();
             if (sort != null) {
-                switch (sort) {
-                    case ALIAS_ROOM_NAME:
-                        queryOrderBy = "specification_summary.alias_room_name";
-                        break;
-                    case RESOURCE_ROOM_NAME:
-                        queryOrderBy = "resource_summary.name";
-                        break;
-                    case DATETIME:
-                        queryOrderBy = "reservation_request_summary.created_at";
-                        break;
-                    case REUSED_RESERVATION_REQUEST:
-                        queryOrderBy = "reservation_request_summary.reused_reservation_request_id IS NOT NULL";
-                        break;
-                    case ROOM_PARTICIPANT_COUNT:
-                        queryOrderBy = "specification_summary.room_participant_count";
-                        break;
-                    case SLOT:
-                        queryOrderBy = "reservation_request_summary.slot_end";
-                        break;
-                    case SLOT_NEAREST:
-                        queryOrderBy = "reservation_request_summary.slot_nearness_priority, reservation_request_summary.slot_nearness_value";
-                        break;
-                    case STATE:
-                        queryOrderBy = "reservation_request_summary.allocation_state, reservation_request_summary.executable_state";
-                        break;
-                    case TECHNOLOGY:
-                        queryOrderBy = "specification_summary.technologies";
-                        break;
-                    case TYPE:
-                        queryOrderBy = "specification_summary.type";
-                        break;
-                    case USER:
-                        queryOrderBy = "reservation_request_summary.created_by";
-                        break;
-                    default:
-                        throw new TodoImplementException(sort);
-                }
+                queryOrderBy = switch (sort) {
+                    case ALIAS_ROOM_NAME -> "specification_summary.alias_room_name";
+                    case RESOURCE_ROOM_NAME -> "resource_summary.name";
+                    case DATETIME -> "reservation_request_summary.created_at";
+                    case REUSED_RESERVATION_REQUEST ->
+                            "reservation_request_summary.reused_reservation_request_id IS NOT NULL";
+                    case ROOM_PARTICIPANT_COUNT -> "specification_summary.room_participant_count";
+                    case SLOT -> "reservation_request_summary.slot_end";
+                    case SLOT_NEAREST ->
+                            "reservation_request_summary.slot_nearness_priority, reservation_request_summary.slot_nearness_value";
+                    case STATE ->
+                            "reservation_request_summary.allocation_state, reservation_request_summary.executable_state";
+                    case TECHNOLOGY -> "specification_summary.technologies";
+                    case TYPE -> "specification_summary.type";
+                    case USER -> "reservation_request_summary.created_by";
+                };
             }
             else {
                 queryOrderBy = "reservation_request_summary.id";
@@ -1311,43 +1290,22 @@ public class ReservationServiceImpl extends AbstractServiceImpl
             String queryOrderBy;
             ReservationRequestListRequest.Sort sort = request.getSort();
             if (sort != null) {
-                switch (sort) {
-                    case ALIAS_ROOM_NAME:
-                        queryOrderBy = "specification_summary.alias_room_name";
-                        break;
-                    case RESOURCE_ROOM_NAME:
-                        queryOrderBy = "resource_summary.name";
-                        break;
-                    case DATETIME:
-                        queryOrderBy = "reservation_request_summary.created_at";
-                        break;
-                    case REUSED_RESERVATION_REQUEST:
-                        queryOrderBy = "reservation_request_summary.reused_reservation_request_id IS NOT NULL";
-                        break;
-                    case ROOM_PARTICIPANT_COUNT:
-                        queryOrderBy = "specification_summary.room_participant_count";
-                        break;
-                    case SLOT:
-                        queryOrderBy = "reservation_request_summary.slot_end";
-                        break;
-                    case SLOT_NEAREST:
-                        queryOrderBy = "reservation_request_summary.slot_nearness_priority, reservation_request_summary.slot_nearness_value";
-                        break;
-                    case STATE:
-                        queryOrderBy = "reservation_request_summary.allocation_state, reservation_request_summary.executable_state";
-                        break;
-                    case TECHNOLOGY:
-                        queryOrderBy = "specification_summary.technologies";
-                        break;
-                    case TYPE:
-                        queryOrderBy = "specification_summary.type";
-                        break;
-                    case USER:
-                        queryOrderBy = "reservation_request_summary.created_by";
-                        break;
-                    default:
-                        throw new TodoImplementException(sort);
-                }
+                queryOrderBy = switch (sort) {
+                    case ALIAS_ROOM_NAME -> "specification_summary.alias_room_name";
+                    case RESOURCE_ROOM_NAME -> "resource_summary.name";
+                    case DATETIME -> "reservation_request_summary.created_at";
+                    case REUSED_RESERVATION_REQUEST ->
+                            "reservation_request_summary.reused_reservation_request_id IS NOT NULL";
+                    case ROOM_PARTICIPANT_COUNT -> "specification_summary.room_participant_count";
+                    case SLOT -> "reservation_request_summary.slot_end";
+                    case SLOT_NEAREST ->
+                            "reservation_request_summary.slot_nearness_priority, reservation_request_summary.slot_nearness_value";
+                    case STATE ->
+                            "reservation_request_summary.allocation_state, reservation_request_summary.executable_state";
+                    case TECHNOLOGY -> "specification_summary.technologies";
+                    case TYPE -> "specification_summary.type";
+                    case USER -> "reservation_request_summary.created_by";
+                };
             }
             else {
                 queryOrderBy = "reservation_request_summary.id";

@@ -100,14 +100,10 @@ public class UserRoleModel implements ReportModel.ContextSerializable
 
     public String getIdentityName()
     {
-        switch (identityType) {
-            case USER:
-                return getUser().getFullName();
-            case GROUP:
-                return getGroup().getName();
-            default:
-                throw new TodoImplementException(identityType);
-        }
+        return switch (identityType) {
+            case USER -> getUser().getFullName();
+            case GROUP -> getGroup().getName();
+        };
     }
 
     public UserInformation getUser()

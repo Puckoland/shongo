@@ -229,25 +229,14 @@ public class ExecutableServiceImpl extends AbstractServiceImpl
             String queryOrderBy;
             ExecutableListRequest.Sort sort = request.getSort();
             if (sort != null) {
-                switch (sort) {
-                    case ROOM_NAME:
-                        queryOrderBy = "executable_summary.room_name";
-                        break;
-                    case SLOT:
-                        queryOrderBy = "executable_summary.slot_end";
-                        break;
-                    case STATE:
-                        queryOrderBy = "executable_summary.state";
-                        break;
-                    case ROOM_TECHNOLOGY:
-                        queryOrderBy = "executable_summary.room_technologies";
-                        break;
-                    case ROOM_LICENSE_COUNT:
-                        queryOrderBy = "executable_summary.room_license_count";
-                        break;
-                    default:
-                        throw new TodoImplementException(sort);
-                }
+                queryOrderBy = switch (sort) {
+                    case ROOM_NAME -> "executable_summary.room_name";
+                    case SLOT -> "executable_summary.slot_end";
+                    case STATE -> "executable_summary.state";
+                    case ROOM_TECHNOLOGY -> "executable_summary.room_technologies";
+                    case ROOM_LICENSE_COUNT -> "executable_summary.room_license_count";
+                    default -> throw new TodoImplementException(sort);
+                };
             }
             else {
                 queryOrderBy = "executable_summary.id";

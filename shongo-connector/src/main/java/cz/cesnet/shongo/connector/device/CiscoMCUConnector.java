@@ -1855,22 +1855,12 @@ ParamsLoop:
      */
     private static RoomLayout getRoomLayoutByLayoutIndex(int layoutIndex)
     {
-        switch (layoutIndex) {
-            case 1:
-                return RoomLayout.SPEAKER;
-            case 2:
-            case 3:
-            case 4:
-            case 8:
-            case 9:
-                return RoomLayout.GRID;
-            case 5:
-            case 6:
-            case 7:
-                return RoomLayout.SPEAKER_CORNER;
-            default:
-                return RoomLayout.OTHER;
-        }
+        return switch (layoutIndex) {
+            case 1 -> RoomLayout.SPEAKER;
+            case 2, 3, 4, 8, 9 -> RoomLayout.GRID;
+            case 5, 6, 7 -> RoomLayout.SPEAKER_CORNER;
+            default -> RoomLayout.OTHER;
+        };
     }
 
     /**

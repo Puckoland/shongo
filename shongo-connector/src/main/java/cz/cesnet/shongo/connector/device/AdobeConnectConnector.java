@@ -304,17 +304,12 @@ public class AdobeConnectConnector extends AbstractMultipointConnector implement
 
         AdobeConnectPermissions adobeConnectAccessMode = AdobeConnectPermissions.PROTECTED;
 
-        switch (AdobeConnectPermissions.valueByCode(accessMode)) {
-            case PRIVATE:
-                adobeConnectAccessMode = AdobeConnectPermissions.PRIVATE;
-                break;
-            case PROTECTED:
-                adobeConnectAccessMode = AdobeConnectPermissions.PROTECTED;
-                break;
-            case PUBLIC:
-                adobeConnectAccessMode = AdobeConnectPermissions.PUBLIC;
-                break;
-        }
+        adobeConnectAccessMode = switch (AdobeConnectPermissions.valueByCode(accessMode)) {
+            case PRIVATE -> AdobeConnectPermissions.PRIVATE;
+            case PROTECTED -> AdobeConnectPermissions.PROTECTED;
+            case PUBLIC -> AdobeConnectPermissions.PUBLIC;
+            default -> adobeConnectAccessMode;
+        };
 
         return adobeConnectAccessMode;
     }

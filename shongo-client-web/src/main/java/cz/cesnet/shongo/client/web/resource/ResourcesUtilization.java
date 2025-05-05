@@ -355,13 +355,10 @@ public class ResourcesUtilization
      */
     private Class<? extends ResourceCapacity> getResourceCapacityClass(ReservationSummary.Type reservationType)
     {
-        switch (reservationType) {
-            case ROOM:
-                return ResourceCapacity.Room.class;
-            case RECORDING_SERVICE:
-                return ResourceCapacity.Recording.class;
-            default:
-                throw new TodoImplementException(reservationType);
-        }
+        return switch (reservationType) {
+            case ROOM -> ResourceCapacity.Room.class;
+            case RECORDING_SERVICE -> ResourceCapacity.Recording.class;
+            default -> throw new TodoImplementException(reservationType);
+        };
     }
 }
