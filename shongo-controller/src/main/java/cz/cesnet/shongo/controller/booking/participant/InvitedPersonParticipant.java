@@ -95,14 +95,11 @@ public class InvitedPersonParticipant extends PersonParticipant implements State
     @Transient
     public State getCurrentState()
     {
-        switch (invitationState) {
-            case ACCEPTED:
-                return State.READY;
-            case REJECTED:
-                return State.SKIP;
-            default:
-                return State.NOT_READY;
-        }
+        return switch (invitationState) {
+            case ACCEPTED -> State.READY;
+            case REJECTED -> State.SKIP;
+            default -> State.NOT_READY;
+        };
     }
 
     @Override

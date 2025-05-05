@@ -28,16 +28,11 @@ public class PeriodCzechAffix implements PeriodFormatterBuilder.PeriodFieldAffix
     @Override
     public int calculatePrintedLength(int value)
     {
-        switch (value) {
-            case 1:
-                return iSingularText.length();
-            case 2:
-            case 3:
-            case 4:
-                return iFewText.length();
-            default:
-                return iPluralText.length();
-        }
+        return switch (value) {
+            case 1 -> iSingularText.length();
+            case 2, 3, 4 -> iFewText.length();
+            default -> iPluralText.length();
+        };
     }
 
     @Override

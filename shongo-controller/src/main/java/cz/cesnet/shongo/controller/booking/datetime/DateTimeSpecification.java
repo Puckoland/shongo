@@ -107,17 +107,15 @@ public class DateTimeSpecification extends SimplePersistentObject
     @Transient
     public DateTime getEarliest(DateTime referenceDateTime)
     {
-        switch (type) {
-            case ABSOLUTE:
+        return switch (type) {
+            case ABSOLUTE -> {
                 if (referenceDateTime == null || absoluteDateTime.isAfter(referenceDateTime)) {
-                    return absoluteDateTime;
+                    yield absoluteDateTime;
                 }
-                return null;
-            case RELATIVE:
-                return referenceDateTime.plus(relativeDateTime);
-            default:
-                throw new TodoImplementException(type);
-        }
+                yield null;
+            }
+            case RELATIVE -> referenceDateTime.plus(relativeDateTime);
+        };
     }
 
     /**

@@ -307,16 +307,12 @@ public class Converter
     public static Locale convertStringToLocale(String value)
     {
         String[] parts = value.split("_");
-        switch (parts.length) {
-            case 1:
-                return new Locale(parts[0]);
-            case 2:
-                return new Locale(parts[0], parts[1]);
-            case 3:
-                return new Locale(parts[0], parts[1], parts[2]);
-            default:
-                throw new CommonReportSet.TypeIllegalValueException(Locale.class.getSimpleName(), value);
-        }
+        return switch (parts.length) {
+            case 1 -> new Locale(parts[0]);
+            case 2 -> new Locale(parts[0], parts[1]);
+            case 3 -> new Locale(parts[0], parts[1], parts[2]);
+            default -> throw new CommonReportSet.TypeIllegalValueException(Locale.class.getSimpleName(), value);
+        };
     }
 
     /**

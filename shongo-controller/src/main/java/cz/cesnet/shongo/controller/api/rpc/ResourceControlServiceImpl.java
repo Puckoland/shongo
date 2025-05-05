@@ -410,16 +410,13 @@ public class ResourceControlServiceImpl extends AbstractServiceImpl
         checkNotNull("recordingFolderId", recordingFolderId);
         checkNotNull("recordingObjectType", recordingObjectType);
         checkNotNull("recordingsPermission",permissions);
-        String recordingObjectId = null;
-        switch (recordingObjectType) {
-            case RECORDING:
-                checkNotNull("recordingId",recordingId);
-                recordingObjectId = recordingId;
-                break;
-            case FOLDER:
-                recordingObjectId = recordingFolderId;
-                break;
-        }
+        String recordingObjectId = switch (recordingObjectType) {
+            case RECORDING -> {
+                checkNotNull("recordingId", recordingId);
+                yield recordingId;
+            }
+            case FOLDER -> recordingFolderId;
+        };
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         ResourceManager resourceManager = new ResourceManager(entityManager);

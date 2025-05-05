@@ -526,51 +526,29 @@ public abstract class Executable extends ExecutionTarget
         State state = State.SKIPPED;
         for (Executable childExecutable : childExecutables) {
             State childExecutableState = childExecutable.getState();
-            switch (state) {
-                case SKIPPED:
-                    switch (childExecutableState) {
-                        case STARTED:
-                            state = State.STARTED;
-                            break;
-                        case STARTING_FAILED:
-                            state = State.STARTING_FAILED;
-                            break;
-                        case STOPPED:
-                            state = State.STOPPED;
-                            break;
-                        case STOPPING_FAILED:
-                            state = State.STOPPING_FAILED;
-                            break;
-                    }
-                    break;
-                case STARTED:
-                    switch (childExecutableState) {
-                        case STARTING_FAILED:
-                        case STOPPED:
-                            state = State.PARTIALLY_STARTED;
-                            break;
-                    }
-                    break;
-                case STARTING_FAILED:
-                    switch (childExecutableState) {
-                        case STARTED:
-                        case STOPPING_FAILED:
-                            state = State.PARTIALLY_STARTED;
-                            break;
-                        case STOPPED:
-                            state = State.STOPPED;
-                            break;
-                    }
-                    break;
-                case STOPPED:
-                    switch (childExecutableState) {
-                        case STARTED:
-                        case STOPPING_FAILED:
-                            state = State.PARTIALLY_STARTED;
-                            break;
-                    }
-                    break;
-            }
+            state = switch (state) {
+                case SKIPPED -> switch (childExecutableState) {
+                    case STARTED -> State.STARTED;
+                    case STARTING_FAILED -> State.STARTING_FAILED;
+                    case STOPPED -> State.STOPPED;
+                    case STOPPING_FAILED -> State.STOPPING_FAILED;
+                    default -> state;
+                };
+                case STARTED -> switch (childExecutableState) {
+                    case STARTING_FAILED, STOPPED -> State.PARTIALLY_STARTED;
+                    default -> state;
+                };
+                case STARTING_FAILED -> switch (childExecutableState) {
+                    case STARTED, STOPPING_FAILED -> State.PARTIALLY_STARTED;
+                    case STOPPED -> State.STOPPED;
+                    default -> state;
+                };
+                case STOPPED -> switch (childExecutableState) {
+                    case STARTED, STOPPING_FAILED -> State.PARTIALLY_STARTED;
+                    default -> state;
+                };
+                default -> state;
+            };
         }
         return state;
     }

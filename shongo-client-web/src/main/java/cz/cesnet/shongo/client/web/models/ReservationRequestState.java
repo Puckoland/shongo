@@ -153,30 +153,13 @@ public enum ReservationRequestState
                                 default:
                                     return ALLOCATED;
                             }
-                        case PERMANENT_ROOM_CAPACITY:
-                            switch (executableState) {
-                                case STARTED:
-                                    return ALLOCATED_STARTED;
-                                case STOPPED:
-                                case STOPPING_FAILED:
-                                    return ALLOCATED_FINISHED;
-                                case STARTING_FAILED:
-                                    return FAILED;
-                                default:
-                                    return ALLOCATED;
-                            }
-                        case ADHOC_ROOM:
-                            switch (executableState) {
-                                case STARTED:
-                                    return ALLOCATED_STARTED;
-                                case STOPPED:
-                                case STOPPING_FAILED:
-                                    return ALLOCATED_FINISHED;
-                                case STARTING_FAILED:
-                                    return FAILED;
-                                default:
-                                    return ALLOCATED;
-                            }
+                        case PERMANENT_ROOM_CAPACITY, ADHOC_ROOM:
+                            return switch (executableState) {
+                                case STARTED -> ALLOCATED_STARTED;
+                                case STOPPED, STOPPING_FAILED -> ALLOCATED_FINISHED;
+                                case STARTING_FAILED -> FAILED;
+                                default -> ALLOCATED;
+                            };
                     }
                 }
                 return ALLOCATED;
