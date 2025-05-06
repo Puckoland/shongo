@@ -3,6 +3,7 @@ package cz.cesnet.shongo.controller;
 import cz.cesnet.shongo.util.Timer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import java.util.Map;
 @Slf4j
 @Configuration
 @ComponentScan
+@EnableCaching
 @RequiredArgsConstructor
 public class TestConfig
 {

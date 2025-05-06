@@ -139,14 +139,8 @@ public abstract class Authorization
                 }
             }
         };
-        this.cache.setUserIdExpiration(configuration.getDuration(
-                ControllerConfiguration.SECURITY_EXPIRATION_USER_ID));
-        this.cache.setUserInformationExpiration(configuration.getDuration(
-                ControllerConfiguration.SECURITY_EXPIRATION_USER_INFORMATION));
         this.cache.setAclExpiration(configuration.getDuration(
                 ControllerConfiguration.SECURITY_EXPIRATION_ACL));
-        this.cache.setGroupExpiration(configuration.getDuration(
-                ControllerConfiguration.SECURITY_EXPIRATION_GROUP));
 
         // Authorization expressions
         this.administratorExpression = new AuthorizationExpression(
@@ -302,11 +296,8 @@ public abstract class Authorization
     public UserInformation getUserInformationByPrincipalName(String principalName)
             throws ControllerReportSet.UserNotExistsException
     {
-        String userId;
-        if (cache.hasUserIdByPrincipalName(principalName)) {
-            userId = cache.getUserIdByPrincipalName(principalName);
-        }
-        else {
+        String userId = cache.getUserIdByPrincipalName(principalName);
+        if (userId == null) {
             try {
                 userId = onGetUserIdByPrincipalName(principalName);
             }
@@ -335,11 +326,8 @@ public abstract class Authorization
         if (userId.equals(ROOT_USER_ID)) {
             return ROOT_USER_DATA;
         }
-        UserData userData;
-        if (cache.hasUserDataByUserId(userId)) {
-            userData = cache.getUserDataByUserId(userId);
-        }
-        else {
+        UserData userData = cache.getUserDataByUserId(userId);
+        if (userData == null) {
             try {
                 userData = onGetUserDataByUserId(userId);
             }
@@ -552,6 +540,7 @@ public abstract class Authorization
             // Administrator has all possible permissions
             return true;
         }
+        // TODO:
         AclUserState aclUserState = cache.getAclUserStateByUserId(userId);
         if (aclUserState == null) {
             aclUserState = fetchAclUserState(userId);
@@ -753,11 +742,8 @@ public abstract class Authorization
     public final Group getGroup(String groupId)
             throws ControllerReportSet.GroupNotExistsException
     {
-        Group group;
-        if (cache.hasGroupByGroupId(groupId)) {
-            group = cache.getGroupByGroupId(groupId);
-        }
-        else {
+        Group group = cache.getGroupByGroupId(groupId);
+        if (group == null) {
             if (EVERYONE_GROUP_ID.equals(groupId)) {
                 group = EVERYONE_GROUP;
             }
@@ -846,6 +832,7 @@ public abstract class Authorization
 
         // Update cache
         cache.removeGroup(groupId);
+        cache.removeGroupIdByName(cache.getGroupIdByName(groupId));
     }
 
     /**
@@ -1008,11 +995,8 @@ public abstract class Authorization
     public UserAuthorizationData getUserAuthorizationData(SecurityToken securityToken)
     {
         String accessToken = securityToken.getAccessToken();
-        UserAuthorizationData userAuthorizationData;
-        if (cache.hasUserAuthorizationDataByAccessToken(accessToken)) {
-            userAuthorizationData = cache.getUserAuthorizationDataByAccessToken(accessToken);
-        }
-        else {
+        UserAuthorizationData userAuthorizationData = cache.getUserAuthorizationDataByAccessToken(accessToken);
+        if (userAuthorizationData == null) {
             try {
                 UserData userData = onGetUserDataByAccessToken(accessToken);
                 userAuthorizationData = userData.getUserAuthorizationData();
