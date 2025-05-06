@@ -4,6 +4,7 @@ import cz.cesnet.shongo.controller.util.converter.StringToPeriodConverter;
 import cz.cesnet.shongo.util.Timer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -20,6 +21,7 @@ import java.util.Set;
 @Slf4j
 @Profile("production")
 @Configuration
+@EnableCaching
 @EnableScheduling
 @RequiredArgsConstructor
 public class Config

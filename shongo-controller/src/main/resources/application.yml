@@ -4,6 +4,21 @@ spring:
   profiles:
     active: production
 
+  cache:
+    cache-names:
+      - userIdByAccessToken
+      - userIdByPrincipalName
+      - userDataByUserId
+      - userAuthorizationDataByAccessToken
+      - aclEntry
+      - aclUserState
+      - aclObjectState
+      - groupByGroupId
+      - groupIdByName
+      - userIdsByGroupId
+    caffeine:
+      spec: maximumSize=1000,expireAfterAccess=10m,expireAfterWrite=10m
+
   config:
     import:
       - classpath:controller-default.yml
